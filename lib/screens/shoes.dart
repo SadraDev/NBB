@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:nbb/const.dart';
@@ -18,13 +16,13 @@ class _ShoeScreenState extends State<ShoeScreen> {
       children: <Widget>[
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 50).copyWith(bottom: 20),
             child: Row(
-              children: <Widget>[
+              children: const <Widget>[
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
                     '10 cm',
                     style: TextStyle(
@@ -35,7 +33,7 @@ class _ShoeScreenState extends State<ShoeScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
                     '12 cm',
                     style: TextStyle(
@@ -46,7 +44,7 @@ class _ShoeScreenState extends State<ShoeScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
                     'sport',
                     style: TextStyle(
@@ -57,7 +55,7 @@ class _ShoeScreenState extends State<ShoeScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
                     'high-heels',
                     style: TextStyle(
@@ -68,7 +66,7 @@ class _ShoeScreenState extends State<ShoeScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
                     'boots',
                     style: TextStyle(
@@ -88,10 +86,10 @@ class _ShoeScreenState extends State<ShoeScreen> {
             height: MediaQuery.of(context).size.height - 188,
             width: MediaQuery.of(context).size.width,
             child: StaggeredGridView.countBuilder(
-              staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+              staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
               crossAxisCount: 2,
               mainAxisSpacing: 20,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               itemCount: 20,
               itemBuilder: (context, index) {
                 return Container(
@@ -144,9 +142,9 @@ class _ShoeScreenState extends State<ShoeScreen> {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: const Text(
+                        const Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: Text(
                             '799 T',
                             style: TextStyle(
                               fontSize: 18,
