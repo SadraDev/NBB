@@ -12,9 +12,9 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: [SystemUiOverlay.top]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.top]);
     return MaterialApp(
+      theme: ThemeData(fontFamily: 'poppins'),
       debugShowCheckedModeBanner: false,
       initialRoute: HomeFlow.id,
       routes: {
