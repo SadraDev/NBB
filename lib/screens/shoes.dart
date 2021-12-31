@@ -83,7 +83,7 @@ class _ShoeScreenState extends State<ShoeScreen> {
         SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: SizedBox(
-            height: MediaQuery.of(context).size.height - 188,
+            height: MediaQuery.of(context).size.height - 196,
             width: MediaQuery.of(context).size.width,
             child: StaggeredGridView.countBuilder(
               staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
@@ -120,13 +120,13 @@ class _ShoeScreenState extends State<ShoeScreen> {
                         ),
                         Container(
                           margin: const EdgeInsets.symmetric(horizontal: 20),
-                          height: 100,
-                          width: 100,
+                          height: 120,
+                          width: 120,
                           decoration: const BoxDecoration(
                             image: DecorationImage(
                               fit: BoxFit.fill,
-                              image: NetworkImage(
-                                'https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/270105433_119179337099484_7430127682550644890_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=100&_nc_ohc=6_5nmVFff4EAX-Fiz_g&edm=AABBvjUBAAAA&ccb=7-4&oh=00_AT92tLi2f23jkkE8slb2RsRwctFcPzebiIL9i8i_VYJEHg&oe=61D4D521&_nc_sid=83d603',
+                              image: AssetImage(
+                                'assets/images/shoe2.jpg',
                               ),
                             ),
                             borderRadius: BorderRadius.all(Radius.circular(8)),

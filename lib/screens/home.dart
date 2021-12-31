@@ -2,6 +2,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:nbb/const.dart';
 import 'package:nbb/screens/clothing.dart';
+import 'package:nbb/screens/favorite.dart';
 import 'package:nbb/screens/shoes.dart';
 
 class HomeFlow extends StatefulWidget {
@@ -29,7 +30,7 @@ class _HomeFlowState extends State<HomeFlow> {
     } else if (index == 2) {
       return const ClothScreen();
     } else if (index == 3) {
-      return Container();
+      return const FavoriteScreen();
     } else if (index == 4) {
       return Container();
     }
@@ -37,86 +38,82 @@ class _HomeFlowState extends State<HomeFlow> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        bottomNavigationBar: SizedBox(
-          height: 90,
-          child: Card(
-            margin: const EdgeInsets.all(20).copyWith(top: 0),
-            elevation: 5,
-            shape:
-                const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            child: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              backgroundColor: blackColor,
-              selectedIconTheme: const IconThemeData(color: whiteColor),
-              unselectedIconTheme: const IconThemeData(color: greyColor),
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-              currentIndex: selectedIndex,
-              onTap: onItemTapped,
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage('assets/images/house.png')),
-                  label: 'home',
+    return Scaffold(
+      bottomNavigationBar: SizedBox(
+        height: 90,
+        child: Card(
+          margin: const EdgeInsets.all(20).copyWith(top: 0),
+          elevation: 5,
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: blackColor,
+            selectedIconTheme: const IconThemeData(color: whiteColor),
+            unselectedIconTheme: const IconThemeData(color: greyColor),
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            currentIndex: selectedIndex,
+            onTap: onItemTapped,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage('assets/images/house.png')),
+                label: 'home',
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(
+                  AssetImage('assets/images/ankle-boot.png'),
+                  size: 27,
                 ),
-                BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage('assets/images/ankle-boot.png'),
-                    size: 27,
-                  ),
-                  label: 'shoe',
+                label: 'shoe',
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(
+                  AssetImage('assets/images/dress.png'),
+                  size: 30,
                 ),
-                BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage('assets/images/dress.png'),
-                    size: 30,
-                  ),
-                  label: 'clothing',
+                label: 'clothing',
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage('assets/images/heart.png')),
+                label: 'favorite',
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(
+                  AssetImage('assets/images/account.png'),
+                  size: 27,
                 ),
-                BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage('assets/images/heart.png')),
-                  label: 'favorite',
-                ),
-                BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage('assets/images/account.png'),
-                    size: 27,
-                  ),
-                  label: 'profile',
-                ),
-              ],
-            ),
+                label: 'profile',
+              ),
+            ],
           ),
         ),
-        body: Stack(
-          alignment: Alignment.center,
-          children: [
-            Column(
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(40),
-                        bottomRight: Radius.circular(40),
-                      ),
-                      color: Color(0xff111015),
+      ),
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          Column(
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(40),
+                      bottomRight: Radius.circular(40),
                     ),
+                    color: Color(0xff111015),
                   ),
-                  flex: 2,
                 ),
-                Expanded(
-                  child: Container(),
-                  flex: 5,
-                ),
-              ],
-            ),
-            _screenOptions(selectedIndex),
-          ],
-        ),
+                flex: 2,
+              ),
+              Expanded(
+                child: Container(),
+                flex: 5,
+              ),
+            ],
+          ),
+          _screenOptions(selectedIndex),
+        ],
       ),
     );
   }
@@ -296,8 +293,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           decoration: const BoxDecoration(
                             image: DecorationImage(
                               fit: BoxFit.fill,
-                              image: NetworkImage(
-                                'https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/270105433_119179337099484_7430127682550644890_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=100&_nc_ohc=6_5nmVFff4EAX-Fiz_g&edm=AABBvjUBAAAA&ccb=7-4&oh=00_AT92tLi2f23jkkE8slb2RsRwctFcPzebiIL9i8i_VYJEHg&oe=61D4D521&_nc_sid=83d603',
+                              image: AssetImage(
+                                'assets/images/shoe1.jpg',
                               ),
                             ),
                             borderRadius: BorderRadius.all(Radius.circular(8)),
