@@ -1,6 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:nbb/const.dart';
+import 'package:nbb/screens/clothing.dart';
 import 'package:nbb/screens/shoes.dart';
 
 class HomeFlow extends StatefulWidget {
@@ -26,7 +27,7 @@ class _HomeFlowState extends State<HomeFlow> {
     } else if (index == 1) {
       return const ShoeScreen();
     } else if (index == 2) {
-      return Container();
+      return const ClothScreen();
     } else if (index == 3) {
       return Container();
     } else if (index == 4) {
