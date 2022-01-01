@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:nbb/const.dart';
 
@@ -14,11 +13,11 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   Widget build(BuildContext context) {
     return ListView(
       padding: EdgeInsets.zero,
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 70, horizontal: 35).copyWith(bottom: 20),
-          child: Text(
+          child: const Text(
             'Favorites',
             style: TextStyle(
               fontSize: 24,
@@ -30,7 +29,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(12)),
               color: Colors.white,
               boxShadow: [
@@ -49,7 +48,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 Container(
                   height: 70,
                   width: 70,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                     image: DecorationImage(
                       fit: BoxFit.fill,
@@ -64,7 +63,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           'HighHeals Shoes',
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -76,7 +75,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            const Text(
                               '799 T',
                               style: TextStyle(
                                 fontSize: 14,
@@ -86,11 +85,11 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             Card(
                               margin: EdgeInsets.zero,
                               color: blackColor,
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(Radius.circular(8))),
                               child: InkWell(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 24),
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 6, horizontal: 24),
                                   child: Text(
                                     'buy',
                                     style: TextStyle(
@@ -116,7 +115,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(12)),
               color: Colors.white,
               boxShadow: [
@@ -135,7 +134,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 Container(
                   height: 70,
                   width: 70,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                     image: DecorationImage(
                       fit: BoxFit.fill,
@@ -150,7 +149,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           'UltraBoost Shoes',
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -162,7 +161,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            const Text(
                               '799 T',
                               style: TextStyle(
                                 fontSize: 14,
@@ -172,11 +171,11 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             Card(
                               margin: EdgeInsets.zero,
                               color: blackColor,
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(Radius.circular(8))),
                               child: InkWell(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 24),
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 6, horizontal: 24),
                                   child: Text(
                                     'buy',
                                     style: TextStyle(
@@ -202,7 +201,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(12)),
               color: Colors.white,
               boxShadow: [
@@ -221,7 +220,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 Container(
                   height: 70,
                   width: 70,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                     image: DecorationImage(
                       fit: BoxFit.fill,
@@ -236,7 +235,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           'Red dress',
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -248,7 +247,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            const Text(
                               '1200 T',
                               style: TextStyle(
                                 fontSize: 14,
@@ -258,11 +257,11 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             Card(
                               margin: EdgeInsets.zero,
                               color: blackColor,
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(Radius.circular(8))),
                               child: InkWell(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 24),
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 6, horizontal: 24),
                                   child: Text(
                                     'buy',
                                     style: TextStyle(
