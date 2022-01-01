@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nbb/const.dart';
 import 'package:nbb/screens/clothing.dart';
 import 'package:nbb/screens/favorite.dart';
+import 'package:nbb/screens/profile.dart';
 import 'package:nbb/screens/shoes.dart';
 
 class HomeFlow extends StatefulWidget {
@@ -32,7 +33,7 @@ class _HomeFlowState extends State<HomeFlow> {
     } else if (index == 3) {
       return const FavoriteScreen();
     } else if (index == 4) {
-      return Container();
+      return const ProfileScreen();
     }
   }
 
@@ -149,444 +150,448 @@ class _HomeScreenState extends State<HomeScreen> {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
-            child: Row(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 20,
-                        spreadRadius: 4,
-                      ),
-                    ],
-                  ),
-                  margin: const EdgeInsets.only(bottom: 50, left: 30, top: 50),
-                  child: InkWell(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(15).copyWith(bottom: 0),
-                          child: const IconButton(
-                            onPressed: null,
-                            icon: Icon(Icons.favorite_border_rounded),
-                            alignment: Alignment.topRight,
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 20),
-                          height: 200,
-                          width: 200,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: NetworkImage(
-                                'https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/270105433_119179337099484_7430127682550644890_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=100&_nc_ohc=6_5nmVFff4EAX-Fiz_g&edm=AABBvjUBAAAA&ccb=7-4&oh=00_AT92tLi2f23jkkE8slb2RsRwctFcPzebiIL9i8i_VYJEHg&oe=61D4D521&_nc_sid=83d603',
-                              ),
-                            ),
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(20).copyWith(bottom: 0),
-                          child: const Text(
-                            'UltraBoost Shoes',
-                            style: TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 20, top: 5),
-                          child: Text(
-                            '10 cm',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                '799 T',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  const Text(
-                                    'colors : ',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 30,
-                                    width: 30,
-                                    child: Card(
-                                      shape: CircleBorder(),
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 30,
-                                    width: 30,
-                                    child: Card(
-                                      shape: const CircleBorder(),
-                                      color: Colors.pink[600],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+            child: Padding(
+              padding: const EdgeInsets.only(right: 30),
+              child: Row(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 20,
+                          spreadRadius: 4,
+                          offset: Offset(2, 15),
                         ),
                       ],
                     ),
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 20,
-                        spreadRadius: 4,
-                        //offset: Offset(0, 0),
-                      ),
-                    ],
-                  ),
-                  margin: const EdgeInsets.only(bottom: 50, left: 30, top: 50),
-                  child: InkWell(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(15).copyWith(bottom: 0),
-                          child: const IconButton(
-                            onPressed: null,
-                            icon: Icon(Icons.favorite_border_rounded),
-                            alignment: Alignment.topRight,
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 20),
-                          height: 200,
-                          width: 200,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: AssetImage(
-                                'assets/images/shoe1.jpg',
-                              ),
-                            ),
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(20).copyWith(bottom: 0),
-                          child: const Text(
-                            'UltraBoost Shoes',
-                            style: TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
+                    margin: const EdgeInsets.only(bottom: 50, left: 30, top: 50),
+                    child: InkWell(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(15).copyWith(bottom: 0),
+                            child: const IconButton(
+                              onPressed: null,
+                              icon: Icon(Icons.favorite_border_rounded),
+                              alignment: Alignment.topRight,
                             ),
                           ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 20, top: 5),
-                          child: Text(
-                            '10 cm',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                '799 T',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            height: 200,
+                            width: 200,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: AssetImage(
+                                  'assets/images/shoe1.jpg',
                                 ),
                               ),
-                              Row(
-                                children: <Widget>[
-                                  const Text(
-                                    'colors : ',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 30,
-                                    width: 30,
-                                    child: Card(
-                                      shape: CircleBorder(),
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 30,
-                                    width: 30,
-                                    child: Card(
-                                      shape: const CircleBorder(),
-                                      color: Colors.pink[600],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                            ),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.all(20).copyWith(bottom: 0),
+                            child: const Text(
+                              'UltraBoost Shoes',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 20, top: 5),
+                            child: Text(
+                              '10 cm',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  '799 T',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    const Text(
+                                      'colors : ',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 30,
+                                      width: 30,
+                                      child: Card(
+                                        shape: CircleBorder(),
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 30,
+                                      width: 30,
+                                      child: Card(
+                                        shape: const CircleBorder(),
+                                        color: Colors.pink[600],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 20,
+                          spreadRadius: 4,
+                          offset: Offset(2, 15),
                         ),
                       ],
                     ),
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 20,
-                        spreadRadius: 4,
-                        //offset: Offset(0, 0),
-                      ),
-                    ],
-                  ),
-                  margin: const EdgeInsets.only(bottom: 50, left: 30, top: 50),
-                  child: InkWell(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(15).copyWith(bottom: 0),
-                          child: const IconButton(
-                            onPressed: null,
-                            icon: Icon(Icons.favorite_border_rounded),
-                            alignment: Alignment.topRight,
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 20),
-                          height: 200,
-                          width: 200,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: NetworkImage(
-                                'https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/270105433_119179337099484_7430127682550644890_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=100&_nc_ohc=6_5nmVFff4EAX-Fiz_g&edm=AABBvjUBAAAA&ccb=7-4&oh=00_AT92tLi2f23jkkE8slb2RsRwctFcPzebiIL9i8i_VYJEHg&oe=61D4D521&_nc_sid=83d603',
-                              ),
-                            ),
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(20).copyWith(bottom: 0),
-                          child: const Text(
-                            'UltraBoost Shoes',
-                            style: TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
+                    margin: const EdgeInsets.only(bottom: 50, left: 30, top: 50),
+                    child: InkWell(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(15).copyWith(bottom: 0),
+                            child: const IconButton(
+                              onPressed: null,
+                              icon: Icon(Icons.favorite_border_rounded),
+                              alignment: Alignment.topRight,
                             ),
                           ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 20, top: 5),
-                          child: Text(
-                            '10 cm',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                '799 T',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            height: 200,
+                            width: 200,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: AssetImage(
+                                  'assets/images/shoe1.jpg',
                                 ),
                               ),
-                              Row(
-                                children: <Widget>[
-                                  const Text(
-                                    'colors : ',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 30,
-                                    width: 30,
-                                    child: Card(
-                                      shape: CircleBorder(),
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 30,
-                                    width: 30,
-                                    child: Card(
-                                      shape: const CircleBorder(),
-                                      color: Colors.pink[600],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                            ),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.all(20).copyWith(bottom: 0),
+                            child: const Text(
+                              'UltraBoost Shoes',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 20, top: 5),
+                            child: Text(
+                              '10 cm',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  '799 T',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    const Text(
+                                      'colors : ',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 30,
+                                      width: 30,
+                                      child: Card(
+                                        shape: CircleBorder(),
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 30,
+                                      width: 30,
+                                      child: Card(
+                                        shape: const CircleBorder(),
+                                        color: Colors.pink[600],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 20,
+                          spreadRadius: 4,
+                          offset: Offset(2, 15),
                         ),
                       ],
                     ),
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 20,
-                        spreadRadius: 4,
-                        //offset: Offset(0, 0),
-                      ),
-                    ],
-                  ),
-                  margin: const EdgeInsets.only(bottom: 50, left: 30, top: 50),
-                  child: InkWell(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(15).copyWith(bottom: 0),
-                          child: const IconButton(
-                            onPressed: null,
-                            icon: Icon(Icons.favorite_border_rounded),
-                            alignment: Alignment.topRight,
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 20),
-                          height: 200,
-                          width: 200,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: NetworkImage(
-                                'https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/270105433_119179337099484_7430127682550644890_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=100&_nc_ohc=6_5nmVFff4EAX-Fiz_g&edm=AABBvjUBAAAA&ccb=7-4&oh=00_AT92tLi2f23jkkE8slb2RsRwctFcPzebiIL9i8i_VYJEHg&oe=61D4D521&_nc_sid=83d603',
-                              ),
-                            ),
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(20).copyWith(bottom: 0),
-                          child: const Text(
-                            'UltraBoost Shoes',
-                            style: TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
+                    margin: const EdgeInsets.only(bottom: 50, left: 30, top: 50),
+                    child: InkWell(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(15).copyWith(bottom: 0),
+                            child: const IconButton(
+                              onPressed: null,
+                              icon: Icon(Icons.favorite_border_rounded),
+                              alignment: Alignment.topRight,
                             ),
                           ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 20, top: 5),
-                          child: Text(
-                            '10 cm',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                '799 T',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            height: 200,
+                            width: 200,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: AssetImage(
+                                  'assets/images/shoe1.jpg',
                                 ),
                               ),
-                              Row(
-                                children: <Widget>[
-                                  const Text(
-                                    'colors : ',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 30,
-                                    width: 30,
-                                    child: Card(
-                                      shape: CircleBorder(),
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 30,
-                                    width: 30,
-                                    child: Card(
-                                      shape: const CircleBorder(),
-                                      color: Colors.pink[600],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                            ),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.all(20).copyWith(bottom: 0),
+                            child: const Text(
+                              'UltraBoost Shoes',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 20, top: 5),
+                            child: Text(
+                              '10 cm',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  '799 T',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    const Text(
+                                      'colors : ',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 30,
+                                      width: 30,
+                                      child: Card(
+                                        shape: CircleBorder(),
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 30,
+                                      width: 30,
+                                      child: Card(
+                                        shape: const CircleBorder(),
+                                        color: Colors.pink[600],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 20,
+                          spreadRadius: 4,
+                          offset: Offset(2, 15),
                         ),
                       ],
                     ),
+                    margin: const EdgeInsets.only(bottom: 50, left: 30, top: 50),
+                    child: InkWell(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(15).copyWith(bottom: 0),
+                            child: const IconButton(
+                              onPressed: null,
+                              icon: Icon(Icons.favorite_border_rounded),
+                              alignment: Alignment.topRight,
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            height: 200,
+                            width: 200,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: AssetImage(
+                                  'assets/images/shoe1.jpg',
+                                ),
+                              ),
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(20).copyWith(bottom: 0),
+                            child: const Text(
+                              'UltraBoost Shoes',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 20, top: 5),
+                            child: Text(
+                              '10 cm',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  '799 T',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    const Text(
+                                      'colors : ',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 30,
+                                      width: 30,
+                                      child: Card(
+                                        shape: CircleBorder(),
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 30,
+                                      width: 30,
+                                      child: Card(
+                                        shape: const CircleBorder(),
+                                        color: Colors.pink[600],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Padding(
@@ -639,8 +644,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                       image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: NetworkImage(
-                          'https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/270105433_119179337099484_7430127682550644890_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=100&_nc_ohc=6_5nmVFff4EAX-Fiz_g&edm=AABBvjUBAAAA&ccb=7-4&oh=00_AT92tLi2f23jkkE8slb2RsRwctFcPzebiIL9i8i_VYJEHg&oe=61D4D521&_nc_sid=83d603',
+                        image: AssetImage(
+                          'assets/images/shoe1.jpg',
                         ),
                       ),
                     ),
@@ -662,8 +667,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                       image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: NetworkImage(
-                          'https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/270105433_119179337099484_7430127682550644890_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=100&_nc_ohc=6_5nmVFff4EAX-Fiz_g&edm=AABBvjUBAAAA&ccb=7-4&oh=00_AT92tLi2f23jkkE8slb2RsRwctFcPzebiIL9i8i_VYJEHg&oe=61D4D521&_nc_sid=83d603',
+                        image: AssetImage(
+                          'assets/images/shoe1.jpg',
                         ),
                       ),
                     ),
@@ -685,8 +690,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                       image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: NetworkImage(
-                          'https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/270105433_119179337099484_7430127682550644890_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=100&_nc_ohc=6_5nmVFff4EAX-Fiz_g&edm=AABBvjUBAAAA&ccb=7-4&oh=00_AT92tLi2f23jkkE8slb2RsRwctFcPzebiIL9i8i_VYJEHg&oe=61D4D521&_nc_sid=83d603',
+                        image: AssetImage(
+                          'assets/images/shoe1.jpg',
                         ),
                       ),
                     ),
@@ -708,8 +713,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                       image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: NetworkImage(
-                          'https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/270105433_119179337099484_7430127682550644890_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=100&_nc_ohc=6_5nmVFff4EAX-Fiz_g&edm=AABBvjUBAAAA&ccb=7-4&oh=00_AT92tLi2f23jkkE8slb2RsRwctFcPzebiIL9i8i_VYJEHg&oe=61D4D521&_nc_sid=83d603',
+                        image: AssetImage(
+                          'assets/images/shoe1.jpg',
                         ),
                       ),
                     ),
@@ -731,8 +736,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                       image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: NetworkImage(
-                          'https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/270105433_119179337099484_7430127682550644890_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=100&_nc_ohc=6_5nmVFff4EAX-Fiz_g&edm=AABBvjUBAAAA&ccb=7-4&oh=00_AT92tLi2f23jkkE8slb2RsRwctFcPzebiIL9i8i_VYJEHg&oe=61D4D521&_nc_sid=83d603',
+                        image: AssetImage(
+                          'assets/images/shoe1.jpg',
                         ),
                       ),
                     ),
