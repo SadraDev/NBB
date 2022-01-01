@@ -1,5 +1,7 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:nbb/const.dart';
 
 class ClothScreen extends StatefulWidget {
@@ -154,6 +156,241 @@ class _ClothScreenState extends State<ClothScreen> {
                         ),
                       ],
                     ),
+                    onTap: () {
+                      showMaterialModalBottomSheet(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(25),
+                          ),
+                        ),
+                        context: context,
+                        builder: (context) {
+                          double pageWidth = MediaQuery.of(context).size.width;
+                          return SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: <Widget>[
+                                Stack(
+                                  alignment: Alignment.topLeft,
+                                  children: [
+                                    Container(
+                                      width: pageWidth,
+                                      height: pageWidth,
+                                      decoration: const BoxDecoration(
+                                        borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(25),
+                                        ),
+                                        image: DecorationImage(
+                                          image: AssetImage('assets/images/shoe1.jpg'),
+                                        ),
+                                      ),
+                                    ),
+                                    Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                                  horizontal: 20, vertical: 50)
+                                              .copyWith(bottom: 0),
+                                          child: IconButton(
+                                            onPressed: () => Navigator.pop(context),
+                                            icon: const Icon(
+                                              EvaIcons.close,
+                                              size: 30,
+                                            ),
+                                          ),
+                                        ),
+                                        IconButton(
+                                          onPressed: () {},
+                                          icon: const Icon(Icons.favorite_border_rounded),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20)
+                                      .copyWith(bottom: 0),
+                                  child: const Text(
+                                    'HighHeels',
+                                    style: TextStyle(
+                                      fontSize: 32,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 30),
+                                  child: Text(
+                                    '12 cm',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(30),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      const Text(
+                                        '799 T',
+                                        style: TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          const Text(
+                                            'colors : ',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 30,
+                                            width: 30,
+                                            child: Card(
+                                              shape: CircleBorder(),
+                                              color: Colors.black87,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 30,
+                                            width: 30,
+                                            child: Card(
+                                              shape: const CircleBorder(),
+                                              color: Colors.pink[600],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 30)
+                                      .copyWith(bottom: 10),
+                                  child: const Text(
+                                    'Select a size',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 30)
+                                      .copyWith(bottom: 10),
+                                  child: Wrap(
+                                    children: const <Widget>[
+                                      SizedBox(
+                                        height: 55,
+                                        width: 55,
+                                        child: Card(
+                                          shape: CircleBorder(
+                                              side: BorderSide(color: blackColor, width: 1)),
+                                          child: Center(child: Text('37')),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 55,
+                                        width: 55,
+                                        child: Card(
+                                          color: blackColor,
+                                          shape: CircleBorder(
+                                              side: BorderSide(color: blackColor, width: 1)),
+                                          child: Center(
+                                            child:
+                                                Text('38', style: TextStyle(color: Colors.white)),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 55,
+                                        width: 55,
+                                        child: Card(
+                                          shape: CircleBorder(
+                                              side: BorderSide(color: blackColor, width: 1)),
+                                          child: Center(child: Text('39')),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 55,
+                                        width: 55,
+                                        child: Card(
+                                          shape: CircleBorder(
+                                              side: BorderSide(color: blackColor, width: 1)),
+                                          child: Center(child: Text('40')),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 55,
+                                        width: 55,
+                                        child: Card(
+                                          shape: CircleBorder(
+                                              side: BorderSide(color: blackColor, width: 1)),
+                                          child: Center(child: Text('41')),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 55,
+                                        width: 55,
+                                        child: Card(
+                                          shape: CircleBorder(
+                                              side: BorderSide(color: blackColor, width: 1)),
+                                          child: Center(child: Text('42')),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const Divider(indent: 20, endIndent: 20, color: greyColor),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  child: Text(
+                                    'Some Description about the product',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey[600],
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20)
+                                      .copyWith(top: 30),
+                                  child: Card(
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    margin: EdgeInsets.zero,
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(12))),
+                                    color: blackColor,
+                                    child: InkWell(
+                                      onTap: () {},
+                                      child: const Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 15),
+                                        child: Text(
+                                          'Buy Now',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
                 );
               },
