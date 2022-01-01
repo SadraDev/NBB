@@ -41,8 +41,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               ],
             ),
             padding: const EdgeInsets.all(20),
-            height: MediaQuery.of(context).size.height * 0.15,
-            width: MediaQuery.of(context).size.width,
             child: Row(
               children: <Widget>[
                 Container(
@@ -81,6 +79,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                 fontSize: 14,
                                 color: greyColor,
                               ),
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.favorite),
                             ),
                             Card(
                               margin: EdgeInsets.zero,
@@ -168,6 +170,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                 color: greyColor,
                               ),
                             ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.favorite),
+                            ),
                             Card(
                               margin: EdgeInsets.zero,
                               color: blackColor,
@@ -254,6 +260,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                 color: greyColor,
                               ),
                             ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.favorite),
+                            ),
                             Card(
                               margin: EdgeInsets.zero,
                               color: blackColor,
@@ -271,7 +281,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                     ),
                                   ),
                                 ),
-                                onTap: () {},
+                                onTap: () {}, //redirect to single product view
                               ),
                             ),
                           ],
