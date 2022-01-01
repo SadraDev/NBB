@@ -155,15 +155,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text(
+                          children: <Widget>[
+                            const Text(
                               '1/1/22',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: greyColor,
                               ),
                             ),
-                            Text(
+                            SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: Card(
+                                shape: const CircleBorder(),
+                                color: Colors.pink[600],
+                              ),
+                            ),
+                            const Text(
                               '799 T',
                               style: TextStyle(
                                 fontSize: 14,
@@ -230,14 +238,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: const [
                             Text(
-                              '1/1/22',
+                              '6/16/22',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: greyColor,
                               ),
                             ),
+                            SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: Card(
+                                shape: CircleBorder(),
+                                color: blackColor,
+                              ),
+                            ),
                             Text(
-                              '799 T',
+                              '1200 T',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: greyColor,
