@@ -80,18 +80,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             hintText: 'JohnDoe@example.io',
                             hintStyle: TextStyle(color: Colors.grey),
                             focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color(0xbb111015), width: 2),
+                              borderSide: BorderSide(color: Color(0xbb111015), width: 2),
                             ),
                             labelText: 'Email',
-                            labelStyle:
-                                TextStyle(fontSize: 16, color: Colors.grey),
-                            floatingLabelStyle:
-                                TextStyle(color: Color(0xbb111015)),
+                            labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
+                            floatingLabelStyle: TextStyle(color: Color(0xbb111015)),
                           ),
-                          validator: (email) => !isEmail(email!)
-                              ? 'لطفا ایمیل را صحیح وارد کنید '
-                              : null,
+                          validator: (email) =>
+                              !isEmail(email!) ? 'لطفا ایمیل را صحیح وارد کنید ' : null,
                           onChanged: (value) {
                             _email = value;
                           },
@@ -106,27 +102,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               obscureText: obscure,
                               decoration: InputDecoration(
                                 focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color(0xbb111015), width: 2),
+                                  borderSide: BorderSide(color: Color(0xbb111015), width: 2),
                                 ),
                                 suffixIcon: IconButton(
                                   onPressed: () {
                                     setState(() => obscure = !obscure);
                                   },
                                   icon: Icon(
-                                    obscure
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                    color: obscure
-                                        ? const Color(0xbb111015)
-                                        : Colors.grey,
+                                    obscure ? Icons.visibility : Icons.visibility_off,
+                                    color: obscure ? const Color(0xbb111015) : Colors.grey,
                                   ),
                                 ),
                                 labelText: 'Password',
-                                labelStyle: const TextStyle(
-                                    fontSize: 16, color: Colors.grey),
-                                floatingLabelStyle:
-                                    const TextStyle(color: Color(0xbb111015)),
+                                labelStyle: const TextStyle(fontSize: 16, color: Colors.grey),
+                                floatingLabelStyle: const TextStyle(color: Color(0xbb111015)),
                               ),
                               onChanged: (value) {
                                 _password = value;
@@ -135,31 +124,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ],
                       ),
-                      GestureDetector(
-                        child: Container(
-                          child: const Text(
-                            'REGISTER',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                      Card(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(30))),
+                        child: InkWell(
+                          child: Ink(
+                            child: const Text(
+                              'REGISTER',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 55, vertical: 20),
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color(0xff111015),
+                                  Color(0xbb111015),
+                                ],
+                              ),
                             ),
                           ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 55, vertical: 20),
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
-                            gradient: LinearGradient(
-                              colors: [
-                                Color(0xff111015),
-                                Color(0xbb111015),
-                              ],
-                            ),
-                          ),
+                          onTap: () {
+                            formKey.currentState!.validate();
+                          },
                         ),
-                        onTap: () {
-                          formKey.currentState!.validate();
-                        },
                       ),
                       GestureDetector(
                         child: const Text(
