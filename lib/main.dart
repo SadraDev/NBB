@@ -2,6 +2,7 @@ import 'package:nbb/login_screens/register.dart';
 import 'package:nbb/login_screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nbb/screens/admin.dart';
 import 'package:nbb/screens/home.dart';
 
 void main() {
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.id: (context) => const LoginScreen(),
         RegisterScreen.id: (context) => const RegisterScreen(),
         HomeFlow.id: (context) => const HomeFlow(),
+        AdminScreen.id: (context) => const AdminScreen(),
       },
     );
   }
