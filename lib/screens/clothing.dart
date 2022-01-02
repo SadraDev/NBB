@@ -182,7 +182,7 @@ class _ClothScreenState extends State<ClothScreen> {
                                           top: Radius.circular(25),
                                         ),
                                         image: DecorationImage(
-                                          image: AssetImage('assets/images/shoe1.jpg'),
+                                          image: AssetImage('assets/images/cloth.jpg'),
                                         ),
                                       ),
                                     ),
@@ -282,7 +282,7 @@ class _ClothScreenState extends State<ClothScreen> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 30)
+                                  padding: const EdgeInsets.symmetric(horizontal: 25)
                                       .copyWith(bottom: 10),
                                   child: Wrap(
                                     children: const <Widget>[
@@ -292,7 +292,7 @@ class _ClothScreenState extends State<ClothScreen> {
                                         child: Card(
                                           shape: CircleBorder(
                                               side: BorderSide(color: blackColor, width: 1)),
-                                          child: Center(child: Text('37')),
+                                          child: Center(child: Text('36')),
                                         ),
                                       ),
                                       SizedBox(
@@ -314,15 +314,6 @@ class _ClothScreenState extends State<ClothScreen> {
                                         child: Card(
                                           shape: CircleBorder(
                                               side: BorderSide(color: blackColor, width: 1)),
-                                          child: Center(child: Text('39')),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 55,
-                                        width: 55,
-                                        child: Card(
-                                          shape: CircleBorder(
-                                              side: BorderSide(color: blackColor, width: 1)),
                                           child: Center(child: Text('40')),
                                         ),
                                       ),
@@ -332,7 +323,7 @@ class _ClothScreenState extends State<ClothScreen> {
                                         child: Card(
                                           shape: CircleBorder(
                                               side: BorderSide(color: blackColor, width: 1)),
-                                          child: Center(child: Text('41')),
+                                          child: Center(child: Text('42')),
                                         ),
                                       ),
                                       SizedBox(
@@ -341,7 +332,16 @@ class _ClothScreenState extends State<ClothScreen> {
                                         child: Card(
                                           shape: CircleBorder(
                                               side: BorderSide(color: blackColor, width: 1)),
-                                          child: Center(child: Text('42')),
+                                          child: Center(child: Text('44')),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 55,
+                                        width: 55,
+                                        child: Card(
+                                          shape: CircleBorder(
+                                              side: BorderSide(color: blackColor, width: 1)),
+                                          child: Center(child: Text('46')),
                                         ),
                                       ),
                                     ],

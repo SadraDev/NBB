@@ -235,7 +235,7 @@ class _ShoeScreenState extends State<ShoeScreen> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 30)
+                                  padding: const EdgeInsets.symmetric(horizontal: 25)
                                       .copyWith(bottom: 10),
                                   child: Wrap(
                                     children: const <Widget>[
