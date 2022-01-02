@@ -84,17 +84,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             hintText: 'JohnDoe@example.io',
                             hintStyle: TextStyle(color: Colors.grey),
                             focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color(0xbb111015), width: 2),
+                              borderSide: BorderSide(color: Color(0xbb111015), width: 2),
                             ),
                             labelText: 'Email',
-                            labelStyle:
-                                TextStyle(fontSize: 16, color: Colors.grey),
-                            floatingLabelStyle:
-                                TextStyle(color: Color(0xbb111015)),
+                            labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
+                            floatingLabelStyle: TextStyle(color: Color(0xbb111015)),
                           ),
                           validator: (email) =>
-                              !isEmail(email!) ? 'ایمیل اشتباه است' : null,
+                              !isEmail(email!) ? 'please enter a valid email address' : null,
                           onChanged: (value) {
                             _email = value;
                           },
@@ -109,27 +106,20 @@ class _LoginScreenState extends State<LoginScreen> {
                               obscureText: obscure,
                               decoration: InputDecoration(
                                 focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color(0xbb111015), width: 2),
+                                  borderSide: BorderSide(color: Color(0xbb111015), width: 2),
                                 ),
                                 suffixIcon: IconButton(
                                   onPressed: () {
                                     setState(() => obscure = !obscure);
                                   },
                                   icon: Icon(
-                                    obscure
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                    color: obscure
-                                        ? const Color(0xbb111015)
-                                        : Colors.grey,
+                                    obscure ? Icons.visibility : Icons.visibility_off,
+                                    color: obscure ? const Color(0xbb111015) : Colors.grey,
                                   ),
                                 ),
                                 labelText: 'Password',
-                                labelStyle: const TextStyle(
-                                    fontSize: 16, color: Colors.grey),
-                                floatingLabelStyle:
-                                    const TextStyle(color: Color(0xbb111015)),
+                                labelStyle: const TextStyle(fontSize: 16, color: Colors.grey),
+                                floatingLabelStyle: const TextStyle(color: Color(0xbb111015)),
                               ),
                               onChanged: (value) {
                                 _password = value;
@@ -158,8 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Card(
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
+                            borderRadius: BorderRadius.all(Radius.circular(30))),
                         child: InkWell(
                           child: Ink(
                             child: const Text(
@@ -170,8 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fontSize: 18,
                               ),
                             ),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 55, vertical: 20),
+                            padding: const EdgeInsets.symmetric(horizontal: 55, vertical: 20),
                             decoration: const BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [

@@ -87,7 +87,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             floatingLabelStyle: TextStyle(color: Color(0xbb111015)),
                           ),
                           validator: (email) =>
-                              !isEmail(email!) ? 'لطفا ایمیل را صحیح وارد کنید ' : null,
+                              !isEmail(email!) ? 'please enter a valid email address' : null,
                           onChanged: (value) {
                             _email = value;
                           },
