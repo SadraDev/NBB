@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nbb/screens/admin.dart';
 import '../const.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -17,13 +18,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 70, horizontal: 35).copyWith(bottom: 20),
-          child: const Text(
-            'Profile',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              const Text(
+                'Profile',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              TextButton(
+                child: const Text(
+                  ' Admin\nSettings',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                onPressed: () => Navigator.pushNamed(context, AdminScreen.id),
+              ),
+            ],
           ),
         ),
         Padding(
