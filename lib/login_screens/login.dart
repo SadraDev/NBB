@@ -15,8 +15,31 @@ class _LoginScreenState extends State<LoginScreen> {
   final formKey = GlobalKey<FormState>();
 
   bool obscure = true;
-  String? _email;
+  bool emailOrPhoneChecker = false;
+  String? _emailOrPhone;
   String? _password;
+
+  String? validator(String? value) {
+    if (emailOrPhoneChecker == true) {
+      return !isEmail(value!) ? 'please enter a valid email address' : _emailOrPhone = value;
+    } else {
+      if (value!.length == 11 &&
+          RegExp(r'^[0-9]+$').hasMatch(value) &&
+          value.substring(0, 2) == '09') {
+        _emailOrPhone = '+98' + value.substring(1);
+      } else if (value.length == 13 &&
+          RegExp(r'^[+]{1}[0-9]{12}$').hasMatch(value) &&
+          value.substring(0, 4) == '+989') {
+        _emailOrPhone = value;
+      } else if (value.length == 10 &&
+          RegExp(r'^[0-9]+$').hasMatch(value) &&
+          value.substring(0, 1) == '9') {
+        _emailOrPhone = '+98' + value;
+      } else {
+        return 'please enter a valid phone number';
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,21 +103,28 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: TextFormField(
                           autofillHints: const [AutofillHints.email],
                           keyboardType: TextInputType.emailAddress,
-                          decoration: const InputDecoration(
-                            hintText: 'JohnDoe@example.io',
-                            hintStyle: TextStyle(color: Colors.grey),
-                            focusedBorder: UnderlineInputBorder(
+                          decoration: InputDecoration(
+                            hintText: emailOrPhoneChecker ? 'JohnDoe@example.io' : '09123456789',
+                            hintStyle: const TextStyle(color: Colors.grey),
+                            focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(color: Color(0xbb111015), width: 2),
                             ),
-                            labelText: 'Email',
-                            labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
-                            floatingLabelStyle: TextStyle(color: Color(0xbb111015)),
+                            labelText: emailOrPhoneChecker ? 'Email' : 'Phone',
+                            labelStyle: const TextStyle(fontSize: 16, color: Colors.grey),
+                            floatingLabelStyle: const TextStyle(color: Color(0xbb111015)),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() => emailOrPhoneChecker = !emailOrPhoneChecker);
+                              },
+                              icon: Icon(
+                                emailOrPhoneChecker ? Icons.phone : Icons.email,
+                                color: emailOrPhoneChecker
+                                    ? const Color(0xbb111015)
+                                    : const Color(0xbb111015),
+                              ),
+                            ),
                           ),
-                          validator: (email) =>
-                              !isEmail(email!) ? 'please enter a valid email address' : null,
-                          onChanged: (value) {
-                            _email = value;
-                          },
+                          validator: validator,
                         ),
                       ),
                       Column(
