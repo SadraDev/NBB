@@ -14,7 +14,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final formKey = GlobalKey<FormState>();
   bool obscure = true;
   String? _email;
+  String? _phone;
+  String? _username;
   String? _password;
+
+  String? phoneValidator(String? value) {
+    if (value!.length == 11 &&
+        RegExp(r'^[0-9]+$').hasMatch(value) &&
+        value.substring(0, 2) == '09') {
+      _phone = '+98' + value.substring(1);
+    } else if (value.length == 13 &&
+        RegExp(r'^[+]{1}[0-9]{12}$').hasMatch(value) &&
+        value.substring(0, 4) == '+989') {
+      _phone = value;
+    } else if (value.length == 10 &&
+        RegExp(r'^[0-9]+$').hasMatch(value) &&
+        value.substring(0, 1) == '9') {
+      _phone = '+98' + value;
+    } else {
+      return 'please enter a valid phone number';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +97,43 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 25),
                         child: TextFormField(
                           decoration: const InputDecoration(
+                            hintText: 'John Doe',
+                            hintStyle: TextStyle(color: Colors.grey),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xbb111015), width: 2),
+                            ),
+                            labelText: 'username',
+                            labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
+                            floatingLabelStyle: TextStyle(color: Color(0xbb111015)),
+                          ),
+                          onChanged: (value) {
+                            _username = value;
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            hintText: '09123456789',
+                            hintStyle: TextStyle(color: Colors.grey),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xbb111015), width: 2),
+                            ),
+                            labelText: 'phone number',
+                            labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
+                            floatingLabelStyle: TextStyle(color: Color(0xbb111015)),
+                          ),
+                          validator: phoneValidator,
+                          onChanged: (value) {
+                            _username = value;
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: TextFormField(
+                          decoration: const InputDecoration(
                             hintText: 'JohnDoe@example.io',
                             hintStyle: TextStyle(color: Colors.grey),
                             focusedBorder: UnderlineInputBorder(
@@ -86,43 +143,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
                             floatingLabelStyle: TextStyle(color: Color(0xbb111015)),
                           ),
-                          validator: (email) =>
-                              !isEmail(email!) ? 'please enter a valid email address' : null,
                           onChanged: (value) {
                             _email = value;
                           },
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 25),
-                            child: TextField(
-                              obscureText: obscure,
-                              decoration: InputDecoration(
-                                focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Color(0xbb111015), width: 2),
-                                ),
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    setState(() => obscure = !obscure);
-                                  },
-                                  icon: Icon(
-                                    obscure ? Icons.visibility : Icons.visibility_off,
-                                    color: obscure ? const Color(0xbb111015) : Colors.grey,
-                                  ),
-                                ),
-                                labelText: 'Password',
-                                labelStyle: const TextStyle(fontSize: 16, color: Colors.grey),
-                                floatingLabelStyle: const TextStyle(color: Color(0xbb111015)),
-                              ),
-                              onChanged: (value) {
-                                _password = value;
-                              },
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: TextField(
+                          obscureText: obscure,
+                          decoration: InputDecoration(
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xbb111015), width: 2),
                             ),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() => obscure = !obscure);
+                              },
+                              icon: Icon(
+                                obscure ? Icons.visibility : Icons.visibility_off,
+                                color: obscure ? const Color(0xbb111015) : Colors.grey,
+                              ),
+                            ),
+                            labelText: 'Password',
+                            labelStyle: const TextStyle(fontSize: 16, color: Colors.grey),
+                            floatingLabelStyle: const TextStyle(color: Color(0xbb111015)),
                           ),
-                        ],
+                          onChanged: (value) {
+                            _password = value;
+                          },
+                        ),
                       ),
                       Card(
                         clipBehavior: Clip.antiAliasWithSaveLayer,
