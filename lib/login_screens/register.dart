@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nbb/login_screens/login.dart';
-import 'package:validators/validators.dart';
+import 'package:nbb/screens/home.dart';
+import 'package:nbb/utils/api.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -13,10 +14,10 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final formKey = GlobalKey<FormState>();
   bool obscure = true;
-  String? _email;
-  String? _phone;
-  String? _username;
-  String? _password;
+  String? _username = '';
+  String? _email = '';
+  String? _phone = '';
+  String? _password = '';
 
   String? phoneValidator(String? value) {
     if (value!.length == 11 &&
@@ -125,9 +126,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             floatingLabelStyle: TextStyle(color: Color(0xbb111015)),
                           ),
                           validator: phoneValidator,
-                          onChanged: (value) {
-                            _username = value;
-                          },
                         ),
                       ),
                       Padding(
@@ -172,6 +170,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           onChanged: (value) {
                             _password = value;
                           },
+                          onSubmitted: (value) async {
+                            if (formKey.currentState!.validate()) {
+                              var isRegistered =
+                                  await Api.register(_username!, _password!, _email!, _phone!);
+                              if (isRegistered) Navigator.popAndPushNamed(context, HomeFlow.id);
+                              if (!isRegistered) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => const AlertDialog(
+                                    content:
+                                        Text('user already existed!', textAlign: TextAlign.center),
+                                  ),
+                                );
+                              }
+                            }
+                          },
                         ),
                       ),
                       Card(
@@ -198,8 +212,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                           ),
-                          onTap: () {
-                            formKey.currentState!.validate();
+                          onTap: () async {
+                            if (formKey.currentState!.validate()) {
+                              var isRegistered =
+                                  await Api.register(_username!, _password!, _email!, _phone!);
+                              if (isRegistered) Navigator.popAndPushNamed(context, HomeFlow.id);
+                              if (!isRegistered) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => const AlertDialog(
+                                    content:
+                                        Text('user already existed!', textAlign: TextAlign.center),
+                                  ),
+                                );
+                              }
+                            }
                           },
                         ),
                       ),
