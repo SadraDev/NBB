@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nbb/login_screens/register.dart';
 import 'package:nbb/screens/home.dart';
+import 'package:nbb/utils/api.dart';
 import 'package:validators/validators.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,8 +17,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool obscure = true;
   bool emailOrPhoneChecker = false;
-  String? _emailOrPhone;
-  String? _password;
+  String? _emailOrPhone = '';
+  String? _password = '';
 
   String? validator(String? value) {
     if (emailOrPhoneChecker == true) {
@@ -154,8 +155,20 @@ class _LoginScreenState extends State<LoginScreen> {
                               onChanged: (value) {
                                 _password = value;
                               },
-                              onSubmitted: (value) {
-                                Navigator.popAndPushNamed(context, HomeFlow.id);
+                              onSubmitted: (value) async {
+                                if (formKey.currentState!.validate()) {
+                                  bool loggedIN = await Api.login(_emailOrPhone!, _password!);
+                                  if (loggedIN) Navigator.popAndPushNamed(context, HomeFlow.id);
+                                  if (!loggedIN) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => const AlertDialog(
+                                        content:
+                                            Text('wrong password', textAlign: TextAlign.center),
+                                      ),
+                                    );
+                                  }
+                                }
                               },
                             ),
                           ),
@@ -199,8 +212,19 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ),
-                          onTap: () {
-                            formKey.currentState!.validate();
+                          onTap: () async {
+                            if (formKey.currentState!.validate()) {
+                              bool loggedIN = await Api.login(_emailOrPhone!, _password!);
+                              if (loggedIN) Navigator.popAndPushNamed(context, HomeFlow.id);
+                              if (!loggedIN) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => const AlertDialog(
+                                    content: Text('wrong password', textAlign: TextAlign.center),
+                                  ),
+                                );
+                              }
+                            }
                           },
                         ),
                       ),
