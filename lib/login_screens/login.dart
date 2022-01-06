@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nbb/login_screens/register.dart';
-import 'package:nbb/screens/home.dart';
+import 'package:nbb/screens/flow.dart';
 import 'package:nbb/utils/api.dart';
 import 'package:nbb/widgets/login_widgets/backGround.dart';
 import 'package:nbb/widgets/login_widgets/loginEmailAndPhoneTextField.dart';
@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onSubmitted: (value) async {
                           if (formKey.currentState!.validate()) {
                             bool loggedIN = await Api.login(_emailOrPhone!, _password!);
-                            if (loggedIN) Navigator.popAndPushNamed(context, HomeFlow.id);
+                            if (loggedIN) Navigator.popAndPushNamed(context, FlowScreen.id);
                             if (!loggedIN) {
                               showDialog(
                                 context: context,
@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onTap: () async {
                           if (formKey.currentState!.validate()) {
                             bool loggedIN = await Api.login(_emailOrPhone!, _password!);
-                            if (loggedIN) Navigator.popAndPushNamed(context, HomeFlow.id);
+                            if (loggedIN) Navigator.popAndPushNamed(context, FlowScreen.id);
                             if (!loggedIN) {
                               showDialog(
                                 context: context,

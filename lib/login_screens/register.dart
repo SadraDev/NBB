@@ -1,3 +1,4 @@
+import 'package:nbb/screens/flow.dart';
 import 'package:nbb/widgets/register_widgets/registerButton.dart';
 import 'package:nbb/widgets/register_widgets/registerEmailTextField.dart';
 import 'package:nbb/widgets/register_widgets/registerPasswordTextField.dart';
@@ -6,7 +7,6 @@ import 'package:nbb/widgets/register_widgets/registerUsernameTextFiled.dart';
 import 'package:nbb/widgets/login_widgets/backGround.dart';
 import 'package:nbb/login_screens/login.dart';
 import 'package:flutter/material.dart';
-import 'package:nbb/screens/home.dart';
 import 'package:nbb/utils/api.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -104,7 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           if (formKey.currentState!.validate()) {
                             var isRegistered =
                                 await Api.register(_username!, _password!, _email!, _phone!);
-                            if (isRegistered) Navigator.popAndPushNamed(context, HomeFlow.id);
+                            if (isRegistered) Navigator.popAndPushNamed(context, FlowScreen.id);
                             if (!isRegistered) {
                               showDialog(
                                 context: context,
@@ -122,7 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           if (formKey.currentState!.validate()) {
                             var isRegistered =
                                 await Api.register(_username!, _password!, _email!, _phone!);
-                            if (isRegistered) Navigator.popAndPushNamed(context, HomeFlow.id);
+                            if (isRegistered) Navigator.popAndPushNamed(context, FlowScreen.id);
                             if (!isRegistered) {
                               showDialog(
                                 context: context,
