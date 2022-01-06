@@ -48,6 +48,9 @@ class ProductsController
                 break;
             }
             case 'select_all' :{
+                break;
+            }
+            case 'select_by_type' :{
                 if (!isset($this->post['product_type'])) array_push($this->response, 'product_type required');
 
                 if (count($this->response) > 0) {
@@ -117,6 +120,15 @@ class ProductsController
     }
 
     public function selectAllProducts()
+    {
+        $stmt = "SELECT * FROM `tbl_product` ORDER BY `id` DESC";
+        $stmt = $this->conn->prepare($stmt);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        exit(json_encode($result->fetch_all()));
+    }
+
+    public function selectProductsByType()
     {
         $stmt = "SELECT * FROM `tbl_product` where `product_type` = ?";
         $stmt = $this->conn->prepare($stmt);
