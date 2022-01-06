@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:nbb/login_screens/register.dart';
 import 'package:nbb/screens/home.dart';
 import 'package:nbb/utils/api.dart';
+import 'package:nbb/widgets/login_widgets/backGround.dart';
+import 'package:nbb/widgets/login_widgets/loginEmailAndPhoneTextField.dart';
+import 'package:nbb/widgets/login_widgets/loginButton.dart';
+import 'package:nbb/widgets/login_widgets/loginPasswordTextField.dart';
 import 'package:validators/validators.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -42,50 +46,33 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  BoxDecoration decoration = const BoxDecoration(
+    borderRadius: BorderRadius.all(
+      Radius.circular(40),
+    ),
+    boxShadow: <BoxShadow>[
+      BoxShadow(
+        offset: Offset(0, 4),
+        blurRadius: 5,
+        color: Colors.black26,
+      ),
+    ],
+    color: Colors.white,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
-          Column(
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(40),
-                      bottomRight: Radius.circular(40),
-                    ),
-                    color: Color(0xff111015),
-                  ),
-                ),
-                flex: 1,
-              ),
-              Expanded(
-                child: Container(),
-                flex: 3,
-              ),
-            ],
-          ),
+          const BackGround(),
           Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
-                height: 550,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(40),
-                  ),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      offset: Offset(0, 4),
-                      blurRadius: 5,
-                      color: Colors.black26,
-                    ),
-                  ],
-                  color: Colors.white,
-                ),
+                height: MediaQuery.of(context).size.height * 0.7,
+                decoration: decoration,
                 child: Form(
                   key: formKey,
                   child: Column(
@@ -99,134 +86,51 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontSize: 36,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25),
-                        child: TextFormField(
-                          autofillHints: const [AutofillHints.email],
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            hintText: emailOrPhoneChecker ? 'JohnDoe@example.io' : '09123456789',
-                            hintStyle: const TextStyle(color: Colors.grey),
-                            focusedBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xbb111015), width: 2),
-                            ),
-                            labelText: emailOrPhoneChecker ? 'Email' : 'Phone',
-                            labelStyle: const TextStyle(fontSize: 16, color: Colors.grey),
-                            floatingLabelStyle: const TextStyle(color: Color(0xbb111015)),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() => emailOrPhoneChecker = !emailOrPhoneChecker);
-                              },
-                              icon: Icon(
-                                emailOrPhoneChecker ? Icons.phone : Icons.email,
-                                color: emailOrPhoneChecker
-                                    ? const Color(0xbb111015)
-                                    : const Color(0xbb111015),
-                              ),
-                            ),
-                          ),
-                          validator: validator,
-                        ),
+                      LoginEmailAndPhoneTextField(
+                        hintText: emailOrPhoneChecker ? 'JohnDoe@example.io' : '09123456789',
+                        labelText: emailOrPhoneChecker ? 'Email' : 'Phone',
+                        suffixIcon: emailOrPhoneChecker ? Icons.phone : Icons.email,
+                        iconOnPressed: () =>
+                            setState(() => emailOrPhoneChecker = !emailOrPhoneChecker),
+                        validator: validator,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 25),
-                            child: TextField(
-                              obscureText: obscure,
-                              decoration: InputDecoration(
-                                focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Color(0xbb111015), width: 2),
+                      LoginPasswordTextFiled(
+                        obscureText: obscure,
+                        suffixIcon: obscure ? Icons.visibility : Icons.visibility_off,
+                        iconColor: obscure ? const Color(0xbb111015) : Colors.grey,
+                        iconOnPressed: () => setState(() => obscure = !obscure),
+                        onDoneEditing: (value) => _password = value,
+                        onSubmitted: (value) async {
+                          if (formKey.currentState!.validate()) {
+                            bool loggedIN = await Api.login(_emailOrPhone!, _password!);
+                            if (loggedIN) Navigator.popAndPushNamed(context, HomeFlow.id);
+                            if (!loggedIN) {
+                              showDialog(
+                                context: context,
+                                builder: (context) => const AlertDialog(
+                                  content: Text('wrong password', textAlign: TextAlign.center),
                                 ),
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    setState(() => obscure = !obscure);
-                                  },
-                                  icon: Icon(
-                                    obscure ? Icons.visibility : Icons.visibility_off,
-                                    color: obscure ? const Color(0xbb111015) : Colors.grey,
-                                  ),
-                                ),
-                                labelText: 'Password',
-                                labelStyle: const TextStyle(fontSize: 16, color: Colors.grey),
-                                floatingLabelStyle: const TextStyle(color: Color(0xbb111015)),
-                              ),
-                              onChanged: (value) {
-                                _password = value;
-                              },
-                              onSubmitted: (value) async {
-                                if (formKey.currentState!.validate()) {
-                                  bool loggedIN = await Api.login(_emailOrPhone!, _password!);
-                                  if (loggedIN) Navigator.popAndPushNamed(context, HomeFlow.id);
-                                  if (!loggedIN) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => const AlertDialog(
-                                        content:
-                                            Text('wrong password', textAlign: TextAlign.center),
-                                      ),
-                                    );
-                                  }
-                                }
-                              },
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 25, top: 10),
-                            child: GestureDetector(
-                              child: const Text(
-                                'Forgot your password',
-                                style: TextStyle(
-                                  color: Color(0xbb111015),
-                                ),
-                              ),
-                              onTap: () {
-                                //TODO: implement forgot password
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      Card(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30))),
-                        child: InkWell(
-                          child: Ink(
-                            child: const Text(
-                              'LOGIN',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                            padding: const EdgeInsets.symmetric(horizontal: 55, vertical: 20),
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color(0xff111015),
-                                  Color(0xbb111015),
-                                ],
-                              ),
-                            ),
-                          ),
-                          onTap: () async {
-                            if (formKey.currentState!.validate()) {
-                              bool loggedIN = await Api.login(_emailOrPhone!, _password!);
-                              if (loggedIN) Navigator.popAndPushNamed(context, HomeFlow.id);
-                              if (!loggedIN) {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => const AlertDialog(
-                                    content: Text('wrong password', textAlign: TextAlign.center),
-                                  ),
-                                );
-                              }
+                              );
                             }
-                          },
-                        ),
+                          }
+                        },
+                        onTapForgotPassword: () {}, //todo implement forgot password
+                      ),
+                      LoginButton(
+                        onTap: () async {
+                          if (formKey.currentState!.validate()) {
+                            bool loggedIN = await Api.login(_emailOrPhone!, _password!);
+                            if (loggedIN) Navigator.popAndPushNamed(context, HomeFlow.id);
+                            if (!loggedIN) {
+                              showDialog(
+                                context: context,
+                                builder: (context) => const AlertDialog(
+                                  content: Text('wrong password', textAlign: TextAlign.center),
+                                ),
+                              );
+                            }
+                          }
+                        },
                       ),
                       GestureDetector(
                         child: const Text(
