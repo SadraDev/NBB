@@ -34,9 +34,9 @@ class UserConnection
 
     public function checkExist()
     {
-        $stmt = "SELECT * FROM `tbl_user` WHERE `phone` = ? or `email` = ?";
+        $stmt = "SELECT * FROM `tbl_user` WHERE `phone` = ?";
         $stmt = $this->conn->prepare($stmt);
-        $stmt->bind_param("ss", $this->post['phone'], $this->post['email']);
+        $stmt->bind_param("s", $this->post['phone']);
         $stmt->execute();
 
         $result = $stmt->get_result();
