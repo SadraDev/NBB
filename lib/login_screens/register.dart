@@ -1,5 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:nbb/widgets/register_widgets/registerButton.dart';
+import 'package:nbb/widgets/register_widgets/registerEmailTextField.dart';
+import 'package:nbb/widgets/register_widgets/registerPasswordTextField.dart';
+import 'package:nbb/widgets/register_widgets/registerPhoneTextField.dart';
+import 'package:nbb/widgets/register_widgets/registerUsernameTextFiled.dart';
+import 'package:nbb/widgets/login_widgets/backGround.dart';
 import 'package:nbb/login_screens/login.dart';
+import 'package:flutter/material.dart';
 import 'package:nbb/screens/home.dart';
 import 'package:nbb/utils/api.dart';
 
@@ -37,198 +43,97 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
+  BoxDecoration decoration = const BoxDecoration(
+    borderRadius: BorderRadius.all(
+      Radius.circular(40),
+    ),
+    boxShadow: <BoxShadow>[
+      BoxShadow(
+        offset: Offset(0, 4),
+        blurRadius: 5,
+        color: Colors.black26,
+      ),
+    ],
+    color: Colors.white,
+  );
+
+  TextStyle style = const TextStyle(
+    color: Color(0xff111015),
+    fontWeight: FontWeight.w900,
+    fontSize: 36,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
-          Column(
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(40),
-                      bottomRight: Radius.circular(40),
-                    ),
-                    color: Color(0xff111015),
-                  ),
-                ),
-                flex: 1,
-              ),
-              Expanded(
-                child: Container(),
-                flex: 3,
-              ),
-            ],
-          ),
+          const BackGround(),
           Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.7,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(40),
-                  ),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      offset: Offset(0, 4),
-                      blurRadius: 5,
-                      color: Colors.black26,
-                    ),
-                  ],
-                  color: Colors.white,
-                ),
+                decoration: decoration,
                 child: Form(
                   key: formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      const Text(
+                      Text(
                         'REGISTER',
-                        style: TextStyle(
-                          color: Color(0xff111015),
-                          fontWeight: FontWeight.w900,
-                          fontSize: 36,
-                        ),
+                        style: style,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25),
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            hintText: 'John Doe',
-                            hintStyle: TextStyle(color: Colors.grey),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xbb111015), width: 2),
-                            ),
-                            labelText: 'username',
-                            labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
-                            floatingLabelStyle: TextStyle(color: Color(0xbb111015)),
-                          ),
-                          onChanged: (value) {
-                            _username = value;
-                          },
-                        ),
+                      RegisterUsernameTextField(
+                        onDoneEditing: (value) => _username = value,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25),
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            hintText: '09123456789',
-                            hintStyle: TextStyle(color: Colors.grey),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xbb111015), width: 2),
-                            ),
-                            labelText: 'phone number',
-                            labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
-                            floatingLabelStyle: TextStyle(color: Color(0xbb111015)),
-                          ),
-                          validator: phoneValidator,
-                        ),
+                      RegisterPhoneTextField(
+                        validator: phoneValidator,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25),
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            hintText: 'JohnDoe@example.io',
-                            hintStyle: TextStyle(color: Colors.grey),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xbb111015), width: 2),
-                            ),
-                            labelText: 'Email',
-                            labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
-                            floatingLabelStyle: TextStyle(color: Color(0xbb111015)),
-                          ),
-                          onChanged: (value) {
-                            _email = value;
-                          },
-                        ),
+                      RegisterEmailTextField(
+                        onDoneEditing: (value) => _email = value,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25),
-                        child: TextField(
-                          obscureText: obscure,
-                          decoration: InputDecoration(
-                            focusedBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xbb111015), width: 2),
-                            ),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() => obscure = !obscure);
-                              },
-                              icon: Icon(
-                                obscure ? Icons.visibility : Icons.visibility_off,
-                                color: obscure ? const Color(0xbb111015) : Colors.grey,
-                              ),
-                            ),
-                            labelText: 'Password',
-                            labelStyle: const TextStyle(fontSize: 16, color: Colors.grey),
-                            floatingLabelStyle: const TextStyle(color: Color(0xbb111015)),
-                          ),
-                          onChanged: (value) {
-                            _password = value;
-                          },
-                          onSubmitted: (value) async {
-                            if (formKey.currentState!.validate()) {
-                              var isRegistered =
-                                  await Api.register(_username!, _password!, _email!, _phone!);
-                              if (isRegistered) Navigator.popAndPushNamed(context, HomeFlow.id);
-                              if (!isRegistered) {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => const AlertDialog(
-                                    content:
-                                        Text('user already existed!', textAlign: TextAlign.center),
-                                  ),
-                                );
-                              }
+                      RegisterPasswordTextField(
+                        obscureText: obscure,
+                        iconColor: obscure ? const Color(0xbb111015) : Colors.grey,
+                        suffixIcon: obscure ? Icons.visibility : Icons.visibility_off,
+                        iconOnPressed: () => setState(() => obscure = !obscure),
+                        onDoneEditing: (value) => _password = value,
+                        onSubmitted: (value) async {
+                          if (formKey.currentState!.validate()) {
+                            var isRegistered =
+                                await Api.register(_username!, _password!, _email!, _phone!);
+                            if (isRegistered) Navigator.popAndPushNamed(context, HomeFlow.id);
+                            if (!isRegistered) {
+                              showDialog(
+                                context: context,
+                                builder: (context) => const AlertDialog(
+                                  content:
+                                      Text('user already existed!', textAlign: TextAlign.center),
+                                ),
+                              );
                             }
-                          },
-                        ),
+                          }
+                        },
                       ),
-                      Card(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30))),
-                        child: InkWell(
-                          child: Ink(
-                            child: const Text(
-                              'REGISTER',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                            padding: const EdgeInsets.symmetric(horizontal: 55, vertical: 20),
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color(0xff111015),
-                                  Color(0xbb111015),
-                                ],
-                              ),
-                            ),
-                          ),
-                          onTap: () async {
-                            if (formKey.currentState!.validate()) {
-                              var isRegistered =
-                                  await Api.register(_username!, _password!, _email!, _phone!);
-                              if (isRegistered) Navigator.popAndPushNamed(context, HomeFlow.id);
-                              if (!isRegistered) {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => const AlertDialog(
-                                    content:
-                                        Text('user already existed!', textAlign: TextAlign.center),
-                                  ),
-                                );
-                              }
+                      RegisterButton(
+                        onTap: () async {
+                          if (formKey.currentState!.validate()) {
+                            var isRegistered =
+                                await Api.register(_username!, _password!, _email!, _phone!);
+                            if (isRegistered) Navigator.popAndPushNamed(context, HomeFlow.id);
+                            if (!isRegistered) {
+                              showDialog(
+                                context: context,
+                                builder: (context) => const AlertDialog(
+                                  content:
+                                      Text('user already existed!', textAlign: TextAlign.center),
+                                ),
+                              );
                             }
-                          },
-                        ),
+                          }
+                        },
                       ),
                       GestureDetector(
                         child: const Text(
