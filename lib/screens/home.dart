@@ -1,124 +1,11 @@
+import 'dart:convert';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:nbb/const.dart';
-import 'package:nbb/screens/clothing.dart';
-import 'package:nbb/screens/favorite.dart';
-import 'package:nbb/screens/profile.dart';
-import 'package:nbb/screens/shoes.dart';
-
-class HomeFlow extends StatefulWidget {
-  const HomeFlow({Key? key}) : super(key: key);
-  static const String id = 'home_screen';
-
-  @override
-  _HomeFlowState createState() => _HomeFlowState();
-}
-
-class _HomeFlowState extends State<HomeFlow> {
-  int selectedIndex = 0;
-
-  void onItemTapped(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
-
-  _screenOptions(int index) {
-    if (index == 0) {
-      return const HomeScreen();
-    } else if (index == 1) {
-      return const ShoeScreen();
-    } else if (index == 2) {
-      return const ClothScreen();
-    } else if (index == 3) {
-      return const FavoriteScreen();
-    } else if (index == 4) {
-      return const ProfileScreen();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: SizedBox(
-        height: 90,
-        child: Card(
-          margin: const EdgeInsets.all(20).copyWith(top: 0),
-          elevation: 5,
-          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: blackColor,
-            selectedIconTheme: const IconThemeData(color: whiteColor),
-            unselectedIconTheme: const IconThemeData(color: greyColor),
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            currentIndex: selectedIndex,
-            onTap: onItemTapped,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/images/house.png')),
-                label: 'home',
-              ),
-              BottomNavigationBarItem(
-                icon: ImageIcon(
-                  AssetImage('assets/images/ankle-boot.png'),
-                  size: 27,
-                ),
-                label: 'shoe',
-              ),
-              BottomNavigationBarItem(
-                icon: ImageIcon(
-                  AssetImage('assets/images/dress.png'),
-                  size: 30,
-                ),
-                label: 'clothing',
-              ),
-              BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/images/heart.png')),
-                label: 'favorite',
-              ),
-              BottomNavigationBarItem(
-                icon: ImageIcon(
-                  AssetImage('assets/images/account.png'),
-                  size: 27,
-                ),
-                label: 'profile',
-              ),
-            ],
-          ),
-        ),
-      ),
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          Column(
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(40),
-                      bottomRight: Radius.circular(40),
-                    ),
-                    color: Color(0xff111015),
-                  ),
-                ),
-                flex: 2,
-              ),
-              Expanded(
-                child: Container(),
-                flex: 5,
-              ),
-            ],
-          ),
-          _screenOptions(selectedIndex),
-        ],
-      ),
-    );
-  }
-}
+import 'package:nbb/models/productModel.dart';
+import 'package:nbb/utils/api.dart';
+import 'package:nbb/widgets/home_widgets/MainRowProducts.dart';
+import 'package:nbb/widgets/home_widgets/bottomRowProducts.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -128,17 +15,47 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<Product> products = [];
+
+  Future<void> getProducts() async {
+    List<dynamic> products = await Api.selectAllProducts();
+    for (var product in products) {
+      Product newProduct = Product(
+        productName: product[1],
+        productType: product[2],
+        productSubtype: product[3],
+        minSize: product[4],
+        maxSize: product[5],
+        price: product[6],
+        colors: jsonDecode(product[7]),
+        image: product[8],
+        description: product[9],
+        deleted: product[10],
+      );
+      this.products.add(newProduct);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      physics: const BouncingScrollPhysics(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return RefreshIndicator(
+      color: blackColor,
+      strokeWidth: 2,
+      onRefresh: getProducts,
+      child: ListView(
+        padding: EdgeInsets.zero,
+        scrollDirection: Axis.vertical,
+        physics: const BouncingScrollPhysics(),
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 70, horizontal: 35).copyWith(bottom: 0),
-            child: const Text(
+          const Padding(
+            padding: EdgeInsets.fromLTRB(35, 70, 35, 0),
+            child: Text(
               'NBB',
               style: TextStyle(
                 fontSize: 24,
@@ -147,455 +64,46 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            physics: const BouncingScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.only(right: 30),
-              child: Row(
-                children: [
-                  Container(
+          MainRowProducts(
+            builder: (context) {
+              List<Widget> productHolders = [];
+              for (int index = 0; index < products.length; index++) {
+                bool? pink = products[index].colors!['pink'];
+                bool? blue = products[index].colors!['blue'];
+                bool? green = products[index].colors!['green'];
+                bool? red = products[index].colors!['red'];
+                bool? black = products[index].colors!['black'];
+                var newHolder = MainRowProductsContainer(
+                  productName: products[index].productName,
+                  productSubtype: products[index].productSubtype,
+                  price: products[index].price,
+                  image: products[index].image,
+                  onLiked: () {},
+                  onTap: () {},
+                  pink: pink,
+                  blue: blue,
+                  green: green,
+                  red: red,
+                  black: black,
+                );
+                if (productHolders.length < 5) productHolders.add(newHolder);
+              }
+              if (products.isEmpty) {
+                productHolders = [
+                  SizedBox(
                     width: MediaQuery.of(context).size.width * 0.7,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 20,
-                          spreadRadius: 4,
-                          offset: Offset(2, 15),
-                        ),
-                      ],
-                    ),
-                    margin: const EdgeInsets.only(bottom: 50, left: 30, top: 50),
-                    child: InkWell(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(15).copyWith(bottom: 0),
-                            child: const IconButton(
-                              onPressed: null,
-                              icon: Icon(Icons.favorite_border_rounded),
-                              alignment: Alignment.topRight,
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
-                            height: 200,
-                            width: 200,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage(
-                                  'assets/images/shoe1.jpg',
-                                ),
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(20).copyWith(bottom: 0),
-                            child: const Text(
-                              'UltraBoost Shoes',
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 20, top: 5),
-                            child: Text(
-                              '10 cm',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  '799 T',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    const Text(
-                                      'colors : ',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 30,
-                                      width: 30,
-                                      child: Card(
-                                        shape: CircleBorder(),
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 30,
-                                      width: 30,
-                                      child: Card(
-                                        shape: const CircleBorder(),
-                                        color: Colors.pink[600],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 20,
-                          spreadRadius: 4,
-                          offset: Offset(2, 15),
-                        ),
-                      ],
-                    ),
-                    margin: const EdgeInsets.only(bottom: 50, left: 30, top: 50),
-                    child: InkWell(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(15).copyWith(bottom: 0),
-                            child: const IconButton(
-                              onPressed: null,
-                              icon: Icon(Icons.favorite_border_rounded),
-                              alignment: Alignment.topRight,
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
-                            height: 200,
-                            width: 200,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage(
-                                  'assets/images/shoe1.jpg',
-                                ),
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(20).copyWith(bottom: 0),
-                            child: const Text(
-                              'UltraBoost Shoes',
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 20, top: 5),
-                            child: Text(
-                              '10 cm',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  '799 T',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    const Text(
-                                      'colors : ',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 30,
-                                      width: 30,
-                                      child: Card(
-                                        shape: CircleBorder(),
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 30,
-                                      width: 30,
-                                      child: Card(
-                                        shape: const CircleBorder(),
-                                        color: Colors.pink[600],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 20,
-                          spreadRadius: 4,
-                          offset: Offset(2, 15),
-                        ),
-                      ],
-                    ),
-                    margin: const EdgeInsets.only(bottom: 50, left: 30, top: 50),
-                    child: InkWell(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(15).copyWith(bottom: 0),
-                            child: const IconButton(
-                              onPressed: null,
-                              icon: Icon(Icons.favorite_border_rounded),
-                              alignment: Alignment.topRight,
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
-                            height: 200,
-                            width: 200,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage(
-                                  'assets/images/shoe1.jpg',
-                                ),
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(20).copyWith(bottom: 0),
-                            child: const Text(
-                              'UltraBoost Shoes',
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 20, top: 5),
-                            child: Text(
-                              '10 cm',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  '799 T',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    const Text(
-                                      'colors : ',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 30,
-                                      width: 30,
-                                      child: Card(
-                                        shape: CircleBorder(),
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 30,
-                                      width: 30,
-                                      child: Card(
-                                        shape: const CircleBorder(),
-                                        color: Colors.pink[600],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 20,
-                          spreadRadius: 4,
-                          offset: Offset(2, 15),
-                        ),
-                      ],
-                    ),
-                    margin: const EdgeInsets.only(bottom: 50, left: 30, top: 50),
-                    child: InkWell(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(15).copyWith(bottom: 0),
-                            child: const IconButton(
-                              onPressed: null,
-                              icon: Icon(Icons.favorite_border_rounded),
-                              alignment: Alignment.topRight,
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
-                            height: 200,
-                            width: 200,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage(
-                                  'assets/images/shoe1.jpg',
-                                ),
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(20).copyWith(bottom: 0),
-                            child: const Text(
-                              'UltraBoost Shoes',
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 20, top: 5),
-                            child: Text(
-                              '10 cm',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  '799 T',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    const Text(
-                                      'colors : ',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 30,
-                                      width: 30,
-                                      child: Card(
-                                        shape: CircleBorder(),
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 30,
-                                      width: 30,
-                                      child: Card(
-                                        shape: const CircleBorder(),
-                                        color: Colors.pink[600],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                    height: MediaQuery.of(context).size.width * 0.85,
+                    child: const Center(child: Text('something went wrong')),
+                  )
+                ];
+              }
+              return Row(
+                children: productHolders,
+              );
+            },
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30).copyWith(bottom: 0),
+            padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -606,145 +114,47 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Row(
-                  children: const <Widget>[
-                    Text(
-                      'show all',
-                      style: TextStyle(
-                        fontSize: 16,
+                GestureDetector(
+                  child: Row(
+                    children: const <Widget>[
+                      Text(
+                        'show all',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
-                    ),
-                    Icon(EvaIcons.arrowIosForwardOutline),
-                  ],
+                      Icon(EvaIcons.arrowIosForwardOutline),
+                    ],
+                  ),
+                  onTap: () {},
                 ),
               ],
             ),
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            physics: const BouncingScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.215,
-                    height: MediaQuery.of(context).size.width * 0.215,
-                    margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 20)
-                        .copyWith(bottom: 30),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 20,
-                          offset: Offset(0, 10),
-                        ),
-                      ],
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage(
-                          'assets/images/shoe1.jpg',
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.215,
-                    height: MediaQuery.of(context).size.width * 0.215,
-                    margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 20)
-                        .copyWith(bottom: 30),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 20,
-                          offset: Offset(0, 10),
-                        ),
-                      ],
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage(
-                          'assets/images/shoe1.jpg',
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.215,
-                    height: MediaQuery.of(context).size.width * 0.215,
-                    margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 20)
-                        .copyWith(bottom: 30),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 20,
-                          offset: Offset(0, 10),
-                        ),
-                      ],
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage(
-                          'assets/images/shoe1.jpg',
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.215,
-                    height: MediaQuery.of(context).size.width * 0.215,
-                    margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 20)
-                        .copyWith(bottom: 30),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 20,
-                          offset: Offset(0, 10),
-                        ),
-                      ],
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage(
-                          'assets/images/shoe1.jpg',
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.215,
-                    height: MediaQuery.of(context).size.width * 0.215,
-                    margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 20)
-                        .copyWith(bottom: 30),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 20,
-                          offset: Offset(0, 10),
-                        ),
-                      ],
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage(
-                          'assets/images/shoe1.jpg',
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          BottomRowProducts(
+            builder: (context) {
+              List<Widget> bottomProductHolders = [];
+              for (int index = 0; index < products.length; index++) {
+                var newBottomProduct = BottomRowProductsContainer(
+                  image: products[index].image,
+                );
+                if (products[index].productType == 'Shoe') {
+                  if (bottomProductHolders.length < 10) bottomProductHolders.add(newBottomProduct);
+                }
+              }
+              if (products.isEmpty) {
+                bottomProductHolders = [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.width * 0.8,
+                    child: const Center(child: Text('something went wrong')),
+                  )
+                ];
+              }
+              return Row(
+                children: bottomProductHolders,
+              );
+            },
           ),
         ],
       ),
