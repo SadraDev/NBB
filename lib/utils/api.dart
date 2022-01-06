@@ -53,7 +53,7 @@ class Api {
         'colors': colors,
         'image': image,
         'description': description,
-        'userId': '13',
+        'userId': '20',
         'password': 'sadra'
       },
     );
@@ -64,5 +64,20 @@ class Api {
       if (data['result'] == false) return false;
     }
     return false;
+  }
+
+  static Future<List<dynamic>> selectAllProducts() async {
+    Uri url = Uri.parse('http://192.168.102.216/NBB/view/product.php');
+    Response response = await post(
+      url,
+      body: {'apiType': 'select_all', 'userId': '20', 'password': 'sadra'},
+    );
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return data;
+    } else {
+      return [];
+    }
   }
 }
