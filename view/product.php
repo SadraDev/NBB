@@ -13,6 +13,7 @@ if($uc->checkAuth()){
     if($pc->checkProductParams()){
         if(@$_POST['apiType'] == 'insert') $pc->insertProduct();
         if(@$_POST['apiType'] == 'select_all') $pc->selectAllProducts();
+        if(@$_POST['apiType'] == 'select_by_type') $pc->selectProductsByType();
         if(@$_POST['apiType'] == 'select_by_subType') $pc->selectProductBySubtype();
         if(@$_POST['apiType'] == 'select_single') $pc->selectSingleProduct();
     }
