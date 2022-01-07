@@ -19,21 +19,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> getProducts() async {
     List<dynamic> products = await Api.selectAllProducts();
-    for (var product in products) {
-      Product newProduct = Product(
-        productName: product[1],
-        productType: product[2],
-        productSubtype: product[3],
-        minSize: product[4],
-        maxSize: product[5],
-        price: product[6],
-        colors: jsonDecode(product[7]),
-        image: product[8],
-        description: product[9],
-        deleted: product[10],
-      );
-      this.products.add(newProduct);
-    }
+    setState(() {
+      for (var product in products) {
+        Product newProduct = Product(
+          productName: product[1],
+          productType: product[2],
+          productSubtype: product[3],
+          minSize: product[4],
+          maxSize: product[5],
+          price: product[6],
+          colors: jsonDecode(product[7]),
+          image: product[8],
+          description: product[9],
+          deleted: product[10],
+        );
+        this.products.add(newProduct);
+      }
+    });
   }
 
   @override
