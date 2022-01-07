@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nbb/const.dart';
-import 'package:nbb/screens/clothing.dart';
+import 'package:nbb/screens/cloth.dart';
 import 'package:nbb/screens/favorite.dart';
 import 'package:nbb/screens/home.dart';
 import 'package:nbb/screens/profile.dart';
