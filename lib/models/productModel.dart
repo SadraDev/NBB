@@ -1,4 +1,5 @@
 class Product {
+  final int? id;
   final String? productName;
   final String? productType;
   final String? productSubtype;
@@ -9,8 +10,10 @@ class Product {
   final String? image;
   final String? description;
   final int? deleted;
+  final bool? liked;
 
   Product({
+    this.id,
     this.productName,
     this.productType,
     this.productSubtype,
@@ -21,5 +24,6 @@ class Product {
     this.image,
     this.description,
     this.deleted,
+    this.liked,
   });
 }
