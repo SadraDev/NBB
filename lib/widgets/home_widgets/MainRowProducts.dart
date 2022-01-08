@@ -32,6 +32,7 @@ class MainRowProductsContainer extends StatelessWidget {
     this.green,
     this.red,
     this.black,
+    this.liked,
   }) : super(key: key);
   final void Function()? onLiked;
   final void Function()? onTap;
@@ -44,6 +45,7 @@ class MainRowProductsContainer extends StatelessWidget {
   final bool? green;
   final bool? red;
   final bool? black;
+  final bool? liked;
 
   oneLineOrTowLines() {
     if (red! && blue! && green! && pink! && black!) return true;
@@ -80,7 +82,8 @@ class MainRowProductsContainer extends StatelessWidget {
               padding: const EdgeInsets.all(15).copyWith(bottom: 0),
               child: IconButton(
                 onPressed: onLiked,
-                icon: const Icon(Icons.favorite_border_rounded),
+                icon:
+                    liked! ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border_rounded),
                 alignment: Alignment.topRight,
               ),
             ),
