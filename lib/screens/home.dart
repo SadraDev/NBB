@@ -1,11 +1,15 @@
 import 'dart:convert';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:nbb/const.dart';
 import 'package:nbb/models/productModel.dart';
 import 'package:nbb/utils/api.dart';
+import 'package:nbb/utils/onLiked.dart';
 import 'package:nbb/widgets/home_widgets/MainRowProducts.dart';
 import 'package:nbb/widgets/home_widgets/bottomRowProducts.dart';
+import 'package:nbb/widgets/shoe_cloth_widgets/modalBottomSheet.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -22,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       for (var product in products) {
         Product newProduct = Product(
+          id: product[0],
           productName: product[1],
           productType: product[2],
           productSubtype: product[3],
@@ -32,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
           image: product[8],
           description: product[9],
           deleted: product[10],
+          liked: false,
         );
         this.products.add(newProduct);
       }
@@ -46,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    OnLiked onLikedProvider = Provider.of<OnLiked>(context, listen: false);
     return RefreshIndicator(
       color: blackColor,
       strokeWidth: 2,
@@ -75,18 +82,59 @@ class _HomeScreenState extends State<HomeScreen> {
                 bool? green = products[index].colors!['green'];
                 bool? red = products[index].colors!['red'];
                 bool? black = products[index].colors!['black'];
+                if (onLikedProvider.likedProductsList.isNotEmpty) {
+                  onLikedProvider.likedProductsList.forEach((element) {
+                    if (products[index].id == element.id) products[index] = element;
+                  });
+                }
                 var newHolder = MainRowProductsContainer(
                   productName: products[index].productName,
                   productSubtype: products[index].productSubtype,
                   price: products[index].price,
                   image: products[index].image,
-                  onLiked: () {},
-                  onTap: () {},
+                  onLiked: () {
+                    Product newProduct = onLikedProvider.onLiked(products[index]);
+                    setState(() => products[index] = newProduct);
+                  },
+                  liked: products[index].liked,
                   pink: pink,
                   blue: blue,
                   green: green,
                   red: red,
                   black: black,
+                  onTap: () {
+                    showMaterialModalBottomSheet(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(25),
+                        ),
+                      ),
+                      context: context,
+                      builder: (context) {
+                        return ModalBottomSheetForShoeAndCloth(
+                          name: products[index].productName,
+                          subtype: products[index].productSubtype,
+                          image: products[index].image,
+                          price: products[index].price,
+                          minSize: products[index].minSize,
+                          maxSize: products[index].maxSize,
+                          description: products[index].description,
+                          isShoe: products[index].productType == 'Shoe',
+                          pink: pink,
+                          blue: blue,
+                          green: green,
+                          red: red,
+                          black: black,
+                          liked: products[index].liked,
+                          onLiked: () {
+                            Product newProduct = onLikedProvider.onLiked(products[index]);
+                            setState(() => products[index] = newProduct);
+                          },
+                          onBuy: () {},
+                        );
+                      },
+                    );
+                  },
                 );
                 if (productHolders.length < 5) productHolders.add(newHolder);
               }
