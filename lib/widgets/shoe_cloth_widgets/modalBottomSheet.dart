@@ -2,7 +2,13 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import '../../const.dart';
 
-class ModalBottomSheetForShoeAndCloth extends StatelessWidget {
+bool pinkSelector = false;
+bool blueSelector = false;
+bool redSelector = false;
+bool greenSelector = false;
+bool blackSelector = false;
+
+class ModalBottomSheetForShoeAndCloth extends StatefulWidget {
   const ModalBottomSheetForShoeAndCloth({
     Key? key,
     this.name,
@@ -20,6 +26,7 @@ class ModalBottomSheetForShoeAndCloth extends StatelessWidget {
     this.minSize,
     this.maxSize,
     this.isShoe,
+    this.liked,
   }) : super(key: key);
   final String? name;
   final String? image;
@@ -34,9 +41,15 @@ class ModalBottomSheetForShoeAndCloth extends StatelessWidget {
   final bool? red;
   final bool? black;
   final bool? isShoe;
+  final bool? liked;
   final int? minSize;
   final int? maxSize;
 
+  @override
+  State<ModalBottomSheetForShoeAndCloth> createState() => _ModalBottomSheetForShoeAndClothState();
+}
+
+class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForShoeAndCloth> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -55,7 +68,7 @@ class ModalBottomSheetForShoeAndCloth extends StatelessWidget {
                     top: Radius.circular(25),
                   ),
                   image: DecorationImage(
-                    image: NetworkImage(image!),
+                    image: NetworkImage(widget.image!),
                   ),
                 ),
               ),
@@ -73,8 +86,10 @@ class ModalBottomSheetForShoeAndCloth extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    onPressed: onLiked,
-                    icon: const Icon(Icons.favorite_border_rounded),
+                    onPressed: widget.onLiked,
+                    icon: widget.liked!
+                        ? const Icon(Icons.favorite)
+                        : const Icon(Icons.favorite_border_rounded),
                   ),
                 ],
               ),
@@ -83,7 +98,7 @@ class ModalBottomSheetForShoeAndCloth extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20).copyWith(bottom: 0),
             child: Text(
-              name!,
+              widget.name!,
               style: const TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
@@ -93,7 +108,7 @@ class ModalBottomSheetForShoeAndCloth extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 30),
             child: Text(
-              subtype!,
+              widget.subtype!,
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -107,7 +122,7 @@ class ModalBottomSheetForShoeAndCloth extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  price!,
+                  widget.price!,
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -117,7 +132,7 @@ class ModalBottomSheetForShoeAndCloth extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     const Text(
-                      'colors : ',
+                      'select a color : ',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -125,57 +140,117 @@ class ModalBottomSheetForShoeAndCloth extends StatelessWidget {
                       ),
                     ),
                     Visibility(
-                      visible: pink!,
+                      visible: widget.pink!,
                       child: SizedBox(
                         height: 30,
                         width: 30,
-                        child: Card(
-                          shape: const CircleBorder(),
-                          color: Colors.pink[600],
+                        child: InkWell(
+                          child: Card(
+                            shape: const CircleBorder(),
+                            color: Colors.pink[600],
+                            child: pinkSelector
+                                ? const Icon(Icons.check, color: Colors.white, size: 10)
+                                : Container(),
+                          ),
+                          onTap: () => setState(() {
+                            pinkSelector = true;
+                            blueSelector = false;
+                            greenSelector = false;
+                            redSelector = false;
+                            blackSelector = false;
+                          }),
                         ),
                       ),
                     ),
                     Visibility(
-                      visible: blue!,
-                      child: const SizedBox(
+                      visible: widget.blue!,
+                      child: SizedBox(
                         height: 30,
                         width: 30,
-                        child: Card(
-                          shape: CircleBorder(),
-                          color: Colors.blue,
+                        child: InkWell(
+                          child: Card(
+                            shape: const CircleBorder(),
+                            color: Colors.blue,
+                            child: blueSelector
+                                ? const Icon(Icons.check, color: Colors.white, size: 10)
+                                : Container(),
+                          ),
+                          onTap: () => setState(() {
+                            pinkSelector = false;
+                            blueSelector = true;
+                            greenSelector = false;
+                            redSelector = false;
+                            blackSelector = false;
+                          }),
                         ),
                       ),
                     ),
                     Visibility(
-                      visible: green!,
-                      child: const SizedBox(
+                      visible: widget.green!,
+                      child: SizedBox(
                         height: 30,
                         width: 30,
-                        child: Card(
-                          shape: CircleBorder(),
-                          color: Colors.green,
+                        child: InkWell(
+                          child: Card(
+                            shape: const CircleBorder(),
+                            color: Colors.green,
+                            child: greenSelector
+                                ? const Icon(Icons.check, color: Colors.white, size: 10)
+                                : Container(),
+                          ),
+                          onTap: () => setState(() {
+                            pinkSelector = false;
+                            blueSelector = false;
+                            greenSelector = true;
+                            redSelector = false;
+                            blackSelector = false;
+                          }),
                         ),
                       ),
                     ),
                     Visibility(
-                      visible: red!,
-                      child: const SizedBox(
+                      visible: widget.red!,
+                      child: SizedBox(
                         height: 30,
                         width: 30,
-                        child: Card(
-                          shape: CircleBorder(),
-                          color: Colors.red,
+                        child: InkWell(
+                          child: Card(
+                            shape: const CircleBorder(),
+                            color: Colors.red,
+                            child: redSelector
+                                ? const Icon(Icons.check, color: Colors.white, size: 10)
+                                : Container(),
+                          ),
+                          onTap: () => setState(() {
+                            pinkSelector = false;
+                            blueSelector = false;
+                            greenSelector = false;
+                            redSelector = true;
+                            blackSelector = false;
+                          }),
                         ),
                       ),
                     ),
                     Visibility(
-                      visible: black!,
-                      child: const SizedBox(
+                      visible: widget.black!,
+                      child: SizedBox(
                         height: 30,
                         width: 30,
-                        child: Card(
-                          shape: CircleBorder(),
-                          color: Colors.black87,
+                        child: InkWell(
+                          child: Card(
+                            shape: const CircleBorder(),
+                            color: Colors.black87,
+                            child: blackSelector
+                                ? const Icon(Icons.check, color: Colors.white, size: 10)
+                                : Container(),
+                          ),
+                          onTap: () => setState(() {
+                            pinkSelector = false;
+                            blueSelector = false;
+                            greenSelector = false;
+                            redSelector = false;
+                            blackSelector = true;
+                          }),
                         ),
                       ),
                     ),
@@ -195,28 +270,37 @@ class ModalBottomSheetForShoeAndCloth extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 25).copyWith(bottom: 10),
             child: Builder(builder: (context) {
               List<SizedBox> sizes = [];
-              if (isShoe!) {
-                var length = maxSize! - minSize! + 1;
+              bool selected = false;
+              if (widget.isShoe!) {
+                var length = widget.maxSize! - widget.minSize! + 1;
                 for (int i = 0; i < length; i++) {
                   var newSize = SizedBox(
                     height: 55,
                     width: 55,
-                    child: Card(
-                      shape: const CircleBorder(side: BorderSide(color: blackColor, width: 1)),
-                      child: Center(child: Text('${minSize! + i}')),
+                    child: InkWell(
+                      child: Card(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        color: selected ? Colors.black87 : Colors.white,
+                        shape: const CircleBorder(side: BorderSide(color: blackColor, width: 1)),
+                        child: Center(child: Text('${widget.minSize! + i}')),
+                      ),
+                      onTap: () => setState(() {
+                        selected = !selected;
+                        print('');
+                      }),
                     ),
                   );
                   sizes.add(newSize);
                 }
               } else {
-                var length = (maxSize! - minSize! + 1) / 2;
+                var length = (widget.maxSize! - widget.minSize! + 1) / 2;
                 for (int i = 0; i < length; i++) {
                   var newSize = SizedBox(
                     height: 55,
                     width: 55,
                     child: Card(
                       shape: const CircleBorder(side: BorderSide(color: blackColor, width: 1)),
-                      child: Center(child: Text('${minSize! + 2 * i}')),
+                      child: Center(child: Text('${widget.minSize! + 2 * i}')),
                     ),
                   );
                   sizes.add(newSize);
@@ -231,7 +315,7 @@ class ModalBottomSheetForShoeAndCloth extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              description!,
+              widget.description!,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -248,7 +332,7 @@ class ModalBottomSheetForShoeAndCloth extends StatelessWidget {
                   const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
               color: blackColor,
               child: InkWell(
-                onTap: onBuy,
+                onTap: widget.onBuy,
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 15),
                   child: Text(
