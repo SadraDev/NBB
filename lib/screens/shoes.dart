@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:nbb/const.dart';
 import 'package:nbb/models/productModel.dart';
 import 'package:nbb/utils/api.dart';
+import 'package:nbb/utils/onLiked.dart';
 import 'package:nbb/widgets/shoe_cloth_widgets/grids.dart';
 import 'package:nbb/widgets/shoe_cloth_widgets/modalBottomSheet.dart';
 import 'package:nbb/widgets/shoe_cloth_widgets/subTypeSelector.dart';
+import 'package:provider/provider.dart';
 
 class ShoeScreen extends StatefulWidget {
   const ShoeScreen({Key? key}) : super(key: key);
@@ -22,6 +24,7 @@ class _ShoeScreenState extends State<ShoeScreen> {
     setState(() {
       for (var product in products) {
         Product newProduct = Product(
+          id: product[0],
           productName: product[1],
           productType: product[2],
           productSubtype: product[3],
@@ -32,6 +35,7 @@ class _ShoeScreenState extends State<ShoeScreen> {
           image: product[8],
           description: product[9],
           deleted: product[10],
+          liked: false,
         );
 
         if (subType1! && newProduct.productSubtype == '10 cm') {
@@ -43,10 +47,10 @@ class _ShoeScreenState extends State<ShoeScreen> {
         if (subType3! && newProduct.productSubtype == 'sport') {
           this.products.add(newProduct);
         }
-        if (subType3! && newProduct.productSubtype == 'highHeels') {
+        if (subType4! && newProduct.productSubtype == 'highHeels') {
           this.products.add(newProduct);
         }
-        if (subType4! && newProduct.productSubtype == 'boots') {
+        if (subType5! && newProduct.productSubtype == 'boots') {
           this.products.add(newProduct);
         }
       }
@@ -67,6 +71,7 @@ class _ShoeScreenState extends State<ShoeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    OnLiked onLikedProvider = Provider.of<OnLiked>(context, listen: false);
     return Column(
       children: <Widget>[
         SubTypeSelector(
@@ -134,12 +139,21 @@ class _ShoeScreenState extends State<ShoeScreen> {
             bool? green = products[index].colors!['green'];
             bool? red = products[index].colors!['red'];
             bool? black = products[index].colors!['black'];
+            if (onLikedProvider.likedProductsList.isNotEmpty) {
+              onLikedProvider.likedProductsList.forEach((element) {
+                if (products[index].id == element.id) products[index] = element;
+              });
+            }
             if (products[index].productType == 'Shoe') {
               return ShoeAndClothGrid(
                 name: products[index].productName,
                 image: products[index].image,
                 price: products[index].price,
-                onLiked: () {},
+                liked: products[index].liked,
+                onLiked: () {
+                  Product newProduct = onLikedProvider.onLiked(products[index]);
+                  setState(() => products[index] = newProduct);
+                },
                 modalBuilder: (context) {
                   return ModalBottomSheetForShoeAndCloth(
                     name: products[index].productName,
@@ -155,7 +169,11 @@ class _ShoeScreenState extends State<ShoeScreen> {
                     green: green,
                     red: red,
                     black: black,
-                    onLiked: () {},
+                    onLiked: () {
+                      Product newProduct = onLikedProvider.onLiked(products[index]);
+                      setState(() => products[index] = newProduct);
+                    },
+                    liked: products[index].liked,
                     onBuy: () {},
                   );
                 },
