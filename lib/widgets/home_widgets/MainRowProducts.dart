@@ -284,6 +284,7 @@ class MainRowProductsContainer extends StatelessWidget {
           ],
         ),
         onTap: onTap,
+        onDoubleTap: onLiked,
       ),
     );
   }

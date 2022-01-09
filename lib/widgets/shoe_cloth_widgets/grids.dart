@@ -29,12 +29,19 @@ class ShoeAndClothGridView extends StatelessWidget {
 }
 
 class ShoeAndClothGrid extends StatelessWidget {
-  const ShoeAndClothGrid(
-      {Key? key, this.name, this.price, this.image, this.onLiked, required this.modalBuilder})
-      : super(key: key);
+  const ShoeAndClothGrid({
+    Key? key,
+    this.name,
+    this.price,
+    this.image,
+    this.onLiked,
+    required this.modalBuilder,
+    this.liked,
+  }) : super(key: key);
   final String? name;
   final String? price;
   final String? image;
+  final bool? liked;
   final void Function()? onLiked;
   final Widget Function(BuildContext) modalBuilder;
 
@@ -55,6 +62,7 @@ class ShoeAndClothGrid extends StatelessWidget {
       ),
       margin: const EdgeInsets.symmetric(horizontal: 10),
       child: InkWell(
+        onDoubleTap: onLiked,
         onTap: () {
           showMaterialModalBottomSheet(
             shape: const RoundedRectangleBorder(
@@ -72,9 +80,10 @@ class ShoeAndClothGrid extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(15).copyWith(bottom: 0),
               child: IconButton(
-                onPressed: onLiked,
-                icon: const Icon(Icons.favorite_border_rounded),
                 alignment: Alignment.topRight,
+                onPressed: onLiked,
+                icon:
+                    liked! ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border_rounded),
               ),
             ),
             Container(
