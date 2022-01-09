@@ -50,6 +50,16 @@ class ModalBottomSheetForShoeAndCloth extends StatefulWidget {
 }
 
 class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForShoeAndCloth> {
+  oneLineOrTowLines() {
+    if (widget.red! && widget.blue! && widget.green! && widget.pink! && widget.black!) return true;
+    if (widget.blue! && widget.green! && widget.pink! && widget.black!) return true;
+    if (widget.red! && widget.green! && widget.pink! && widget.black!) return true;
+    if (widget.red! && widget.blue! && widget.pink! && widget.black!) return true;
+    if (widget.red! && widget.blue! && widget.green! && widget.black!) return true;
+    if (widget.red! && widget.blue! && widget.green! && widget.pink!) return true;
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -72,26 +82,16 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                   ),
                 ),
               ),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50)
-                        .copyWith(bottom: 0),
-                    child: IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(
-                        EvaIcons.close,
-                        size: 30,
-                      ),
-                    ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 50).copyWith(bottom: 0),
+                child: IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(
+                    EvaIcons.close,
+                    size: 30,
                   ),
-                  IconButton(
-                    onPressed: widget.onLiked,
-                    icon: widget.liked!
-                        ? const Icon(Icons.favorite)
-                        : const Icon(Icons.favorite_border_rounded),
-                  ),
-                ],
+                ),
               ),
             ],
           ),
@@ -128,134 +128,273 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Text(
-                      'select a color : ',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Visibility(
-                      visible: widget.pink!,
-                      child: SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: InkWell(
-                          child: Card(
-                            shape: const CircleBorder(),
-                            color: Colors.pink[600],
-                            child: pinkSelector
-                                ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                : Container(),
+                oneLineOrTowLines()
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          const Text(
+                            'select a color : ',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
+                            ),
                           ),
-                          onTap: () => setState(() {
-                            pinkSelector = true;
-                            blueSelector = false;
-                            greenSelector = false;
-                            redSelector = false;
-                            blackSelector = false;
-                          }),
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: widget.blue!,
-                      child: SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: InkWell(
-                          child: Card(
-                            shape: const CircleBorder(),
-                            color: Colors.blue,
-                            child: blueSelector
-                                ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                : Container(),
+                          Row(
+                            children: <Widget>[
+                              Visibility(
+                                visible: widget.pink!,
+                                child: SizedBox(
+                                  height: 30,
+                                  width: 30,
+                                  child: Card(
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    shape: const CircleBorder(),
+                                    color: Colors.pink[600],
+                                    child: InkWell(
+                                      child: pinkSelector
+                                          ? const Icon(Icons.check, color: Colors.white, size: 10)
+                                          : Container(),
+                                      onTap: () => setState(() {
+                                        pinkSelector = true;
+                                        blueSelector = false;
+                                        greenSelector = false;
+                                        redSelector = false;
+                                        blackSelector = false;
+                                      }),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                visible: widget.blue!,
+                                child: SizedBox(
+                                  height: 30,
+                                  width: 30,
+                                  child: Card(
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    shape: const CircleBorder(),
+                                    color: Colors.blue,
+                                    child: InkWell(
+                                      child: blueSelector
+                                          ? const Icon(Icons.check, color: Colors.white, size: 10)
+                                          : Container(),
+                                      onTap: () => setState(() {
+                                        pinkSelector = false;
+                                        blueSelector = true;
+                                        greenSelector = false;
+                                        redSelector = false;
+                                        blackSelector = false;
+                                      }),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                visible: widget.green!,
+                                child: SizedBox(
+                                  height: 30,
+                                  width: 30,
+                                  child: Card(
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      shape: const CircleBorder(),
+                                      color: Colors.green,
+                                      child: InkWell(
+                                        child: greenSelector
+                                            ? const Icon(Icons.check, color: Colors.white, size: 10)
+                                            : Container(),
+                                        onTap: () => setState(() {
+                                          pinkSelector = false;
+                                          blueSelector = false;
+                                          greenSelector = true;
+                                          redSelector = false;
+                                          blackSelector = false;
+                                        }),
+                                      )),
+                                ),
+                              ),
+                              Visibility(
+                                visible: widget.red!,
+                                child: SizedBox(
+                                  height: 30,
+                                  width: 30,
+                                  child: Card(
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      shape: const CircleBorder(),
+                                      color: Colors.red,
+                                      child: InkWell(
+                                        child: redSelector
+                                            ? const Icon(Icons.check, color: Colors.white, size: 10)
+                                            : Container(),
+                                        onTap: () => setState(() {
+                                          pinkSelector = false;
+                                          blueSelector = false;
+                                          greenSelector = false;
+                                          redSelector = true;
+                                          blackSelector = false;
+                                        }),
+                                      )),
+                                ),
+                              ),
+                              Visibility(
+                                visible: widget.black!,
+                                child: SizedBox(
+                                  height: 30,
+                                  width: 30,
+                                  child: Card(
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    shape: const CircleBorder(),
+                                    color: Colors.black87,
+                                    child: InkWell(
+                                      child: blackSelector
+                                          ? const Icon(Icons.check, color: Colors.white, size: 10)
+                                          : Container(),
+                                      onTap: () => setState(() {
+                                        pinkSelector = false;
+                                        blueSelector = false;
+                                        greenSelector = false;
+                                        redSelector = false;
+                                        blackSelector = true;
+                                      }),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          onTap: () => setState(() {
-                            pinkSelector = false;
-                            blueSelector = true;
-                            greenSelector = false;
-                            redSelector = false;
-                            blackSelector = false;
-                          }),
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: widget.green!,
-                      child: SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: InkWell(
-                          child: Card(
-                            shape: const CircleBorder(),
-                            color: Colors.green,
-                            child: greenSelector
-                                ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                : Container(),
+                        ],
+                      )
+                    : Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          const Text(
+                            'select a color : ',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
+                            ),
                           ),
-                          onTap: () => setState(() {
-                            pinkSelector = false;
-                            blueSelector = false;
-                            greenSelector = true;
-                            redSelector = false;
-                            blackSelector = false;
-                          }),
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: widget.red!,
-                      child: SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: InkWell(
-                          child: Card(
-                            shape: const CircleBorder(),
-                            color: Colors.red,
-                            child: redSelector
-                                ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                : Container(),
+                          Visibility(
+                            visible: widget.pink!,
+                            child: SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: Card(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                shape: const CircleBorder(),
+                                color: Colors.pink[600],
+                                child: InkWell(
+                                  child: pinkSelector
+                                      ? const Icon(Icons.check, color: Colors.white, size: 10)
+                                      : Container(),
+                                  onTap: () => setState(() {
+                                    pinkSelector = true;
+                                    blueSelector = false;
+                                    greenSelector = false;
+                                    redSelector = false;
+                                    blackSelector = false;
+                                  }),
+                                ),
+                              ),
+                            ),
                           ),
-                          onTap: () => setState(() {
-                            pinkSelector = false;
-                            blueSelector = false;
-                            greenSelector = false;
-                            redSelector = true;
-                            blackSelector = false;
-                          }),
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: widget.black!,
-                      child: SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: InkWell(
-                          child: Card(
-                            shape: const CircleBorder(),
-                            color: Colors.black87,
-                            child: blackSelector
-                                ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                : Container(),
+                          Visibility(
+                            visible: widget.blue!,
+                            child: SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: Card(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                shape: const CircleBorder(),
+                                color: Colors.blue,
+                                child: InkWell(
+                                  child: blueSelector
+                                      ? const Icon(Icons.check, color: Colors.white, size: 10)
+                                      : Container(),
+                                  onTap: () => setState(() {
+                                    pinkSelector = false;
+                                    blueSelector = true;
+                                    greenSelector = false;
+                                    redSelector = false;
+                                    blackSelector = false;
+                                  }),
+                                ),
+                              ),
+                            ),
                           ),
-                          onTap: () => setState(() {
-                            pinkSelector = false;
-                            blueSelector = false;
-                            greenSelector = false;
-                            redSelector = false;
-                            blackSelector = true;
-                          }),
-                        ),
+                          Visibility(
+                            visible: widget.green!,
+                            child: SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: Card(
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  shape: const CircleBorder(),
+                                  color: Colors.green,
+                                  child: InkWell(
+                                    child: greenSelector
+                                        ? const Icon(Icons.check, color: Colors.white, size: 10)
+                                        : Container(),
+                                    onTap: () => setState(() {
+                                      pinkSelector = false;
+                                      blueSelector = false;
+                                      greenSelector = true;
+                                      redSelector = false;
+                                      blackSelector = false;
+                                    }),
+                                  )),
+                            ),
+                          ),
+                          Visibility(
+                            visible: widget.red!,
+                            child: SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: Card(
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  shape: const CircleBorder(),
+                                  color: Colors.red,
+                                  child: InkWell(
+                                    child: redSelector
+                                        ? const Icon(Icons.check, color: Colors.white, size: 10)
+                                        : Container(),
+                                    onTap: () => setState(() {
+                                      pinkSelector = false;
+                                      blueSelector = false;
+                                      greenSelector = false;
+                                      redSelector = true;
+                                      blackSelector = false;
+                                    }),
+                                  )),
+                            ),
+                          ),
+                          Visibility(
+                            visible: widget.black!,
+                            child: SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: Card(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                shape: const CircleBorder(),
+                                color: Colors.black87,
+                                child: InkWell(
+                                  child: blackSelector
+                                      ? const Icon(Icons.check, color: Colors.white, size: 10)
+                                      : Container(),
+                                  onTap: () => setState(() {
+                                    pinkSelector = false;
+                                    blueSelector = false;
+                                    greenSelector = false;
+                                    redSelector = false;
+                                    blackSelector = true;
+                                  }),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
               ],
             ),
           ),
@@ -286,7 +425,6 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                       ),
                       onTap: () => setState(() {
                         selected = !selected;
-                        print('');
                       }),
                     ),
                   );
