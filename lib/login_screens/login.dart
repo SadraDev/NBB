@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nbb/login_screens/register.dart';
 import 'package:nbb/screens/flow.dart';
 import 'package:nbb/utils/api.dart';
+import 'package:nbb/utils/shared.dart';
 import 'package:nbb/widgets/login_widgets/backGround.dart';
 import 'package:nbb/widgets/login_widgets/loginEmailAndPhoneTextField.dart';
 import 'package:nbb/widgets/login_widgets/loginButton.dart';
@@ -60,96 +61,121 @@ class _LoginScreenState extends State<LoginScreen> {
     color: Colors.white,
   );
 
+  Future<void> login() async {
+    if (await Api.login(_emailOrPhone!, _password!)) {
+      Navigator.popAndPushNamed(context, FlowScreen.id);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _emailOrPhone = Shared.getUserPhone() ?? '';
+    _password = Shared.getUserPassword() ?? '';
+    login();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: <Widget>[
-          const BackGround(),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.7,
-                decoration: decoration,
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      const Text(
-                        'LOGIN',
-                        style: TextStyle(
-                          color: Color(0xff111015),
-                          fontWeight: FontWeight.w900,
-                          fontSize: 36,
-                        ),
-                      ),
-                      LoginEmailAndPhoneTextField(
-                        hintText: emailOrPhoneChecker ? 'JohnDoe@example.io' : '09123456789',
-                        labelText: emailOrPhoneChecker ? 'Email' : 'Phone',
-                        suffixIcon: emailOrPhoneChecker ? Icons.phone : Icons.email,
-                        iconOnPressed: () =>
-                            setState(() => emailOrPhoneChecker = !emailOrPhoneChecker),
-                        validator: validator,
-                      ),
-                      LoginPasswordTextFiled(
-                        obscureText: obscure,
-                        suffixIcon: obscure ? Icons.visibility : Icons.visibility_off,
-                        iconColor: obscure ? const Color(0xbb111015) : Colors.grey,
-                        iconOnPressed: () => setState(() => obscure = !obscure),
-                        onDoneEditing: (value) => _password = value,
-                        onSubmitted: (value) async {
-                          if (formKey.currentState!.validate()) {
-                            bool loggedIN = await Api.login(_emailOrPhone!, _password!);
-                            if (loggedIN) Navigator.popAndPushNamed(context, FlowScreen.id);
-                            if (!loggedIN) {
-                              showDialog(
-                                context: context,
-                                builder: (context) => const AlertDialog(
-                                  content: Text('wrong password', textAlign: TextAlign.center),
-                                ),
-                              );
-                            }
-                          }
-                        },
-                        onTapForgotPassword: () {}, //todo implement forgot password
-                      ),
-                      LoginButton(
-                        onTap: () async {
-                          if (formKey.currentState!.validate()) {
-                            bool loggedIN = await Api.login(_emailOrPhone!, _password!);
-                            if (loggedIN) Navigator.popAndPushNamed(context, FlowScreen.id);
-                            if (!loggedIN) {
-                              showDialog(
-                                context: context,
-                                builder: (context) => const AlertDialog(
-                                  content: Text('wrong password', textAlign: TextAlign.center),
-                                ),
-                              );
-                            }
-                          }
-                        },
-                      ),
-                      GestureDetector(
-                        child: const Text(
-                          'Don\'t have an account? Sign up',
+      body: RefreshIndicator(
+        onRefresh: login,
+        child: Stack(
+          children: <Widget>[
+            const BackGround(),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.7,
+                  decoration: decoration,
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        const Text(
+                          'LOGIN',
                           style: TextStyle(
-                            color: Color(0xbb111015),
+                            color: Color(0xff111015),
+                            fontWeight: FontWeight.w900,
+                            fontSize: 36,
                           ),
                         ),
-                        onTap: () {
-                          Navigator.pushNamed(context, RegisterScreen.id);
-                        },
-                      ),
-                    ],
+                        LoginEmailAndPhoneTextField(
+                          hintText: emailOrPhoneChecker ? 'JohnDoe@example.io' : '09123456789',
+                          labelText: emailOrPhoneChecker ? 'Email' : 'Phone',
+                          suffixIcon: emailOrPhoneChecker ? Icons.phone : Icons.email,
+                          iconOnPressed: () =>
+                              setState(() => emailOrPhoneChecker = !emailOrPhoneChecker),
+                          validator: validator,
+                        ),
+                        LoginPasswordTextFiled(
+                          obscureText: obscure,
+                          suffixIcon: obscure ? Icons.visibility : Icons.visibility_off,
+                          iconColor: obscure ? const Color(0xbb111015) : Colors.grey,
+                          iconOnPressed: () => setState(() => obscure = !obscure),
+                          onDoneEditing: (value) => _password = value,
+                          onSubmitted: (value) async {
+                            if (formKey.currentState!.validate()) {
+                              bool loggedIN = await Api.login(_emailOrPhone!, _password!);
+                              if (loggedIN) {
+                                Shared.setUserEmailOrPhone(_emailOrPhone!);
+                                Shared.setUserPassword(_password!);
+                                Navigator.popAndPushNamed(context, FlowScreen.id);
+                              }
+                              if (!loggedIN) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => const AlertDialog(
+                                    content: Text('wrong password', textAlign: TextAlign.center),
+                                  ),
+                                );
+                              }
+                            }
+                          },
+                          onTapForgotPassword: () {}, //todo implement forgot password
+                        ),
+                        LoginButton(
+                          onTap: () async {
+                            if (formKey.currentState!.validate()) {
+                              bool loggedIN = await Api.login(_emailOrPhone!, _password!);
+                              if (loggedIN) {
+                                Shared.setUserEmailOrPhone(_emailOrPhone!);
+                                Shared.setUserPassword(_password!);
+                                Navigator.popAndPushNamed(context, FlowScreen.id);
+                              }
+                              if (!loggedIN) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => const AlertDialog(
+                                    content: Text('wrong password', textAlign: TextAlign.center),
+                                  ),
+                                );
+                              }
+                            }
+                          },
+                        ),
+                        GestureDetector(
+                          child: const Text(
+                            'Don\'t have an account? Sign up',
+                            style: TextStyle(
+                              color: Color(0xbb111015),
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.pushNamed(context, RegisterScreen.id);
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
