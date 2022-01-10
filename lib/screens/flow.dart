@@ -73,7 +73,7 @@ class _FlowScreenState extends State<FlowScreen> {
                   AssetImage('assets/images/dress.png'),
                   size: 30,
                 ),
-                label: 'clothing',
+                label: ' =) ',
               ),
               BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage('assets/images/heart.png')),
