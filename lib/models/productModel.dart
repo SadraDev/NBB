@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Product {
   final int? id;
   final String? productName;
@@ -26,4 +28,38 @@ class Product {
     this.deleted,
     this.liked,
   });
+
+  factory Product.fromJson(List<dynamic> parsedJson) {
+    return Product(
+      id: parsedJson[0],
+      productName: parsedJson[1],
+      productType: parsedJson[2],
+      productSubtype: parsedJson[3],
+      minSize: parsedJson[4],
+      maxSize: parsedJson[5],
+      price: parsedJson[6],
+      colors: jsonDecode(parsedJson[7]),
+      image: parsedJson[8],
+      description: parsedJson[9],
+      deleted: parsedJson[10],
+      liked: false,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'productName': productName,
+      'productType': productType,
+      'productSubtype': productSubtype,
+      'minSize': minSize,
+      'maxSize': maxSize,
+      'price': price,
+      'colors': colors,
+      'image': image,
+      'description': description,
+      'deleted': deleted,
+      'liked': false,
+    };
+  }
 }

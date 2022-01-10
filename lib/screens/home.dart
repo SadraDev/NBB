@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -25,20 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     List<dynamic> products = await Api.selectAllProducts();
     setState(() {
       for (var product in products) {
-        Product newProduct = Product(
-          id: product[0],
-          productName: product[1],
-          productType: product[2],
-          productSubtype: product[3],
-          minSize: product[4],
-          maxSize: product[5],
-          price: product[6],
-          colors: jsonDecode(product[7]),
-          image: product[8],
-          description: product[9],
-          deleted: product[10],
-          liked: false,
-        );
+        Product newProduct = Product.fromJson(product);
         this.products.add(newProduct);
       }
     });
