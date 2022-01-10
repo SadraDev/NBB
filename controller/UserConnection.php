@@ -41,7 +41,7 @@ class UserConnection
 
         $result = $stmt->get_result();
 
-        if ($result->num_rows > 0){
+        if ($result->num_rows > 0) {
             exit(json_encode(
                 [
                     'result' => false,
@@ -57,7 +57,7 @@ class UserConnection
         $stmt = "INSERT INTO `tbl_user` (`username`, `phone`, `email`, `password`, `status`) values (?, ?, ?, ?, 'NEW_USER')";
         $stmt = $this->conn->prepare($stmt);
         $stmt->bind_param("ssss", $this->post['username'], $this->post['phone'], $this->post['email'], $password);
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             exit(json_encode(
                 [
                     'result' => true,
@@ -87,10 +87,10 @@ class UserConnection
         $stmt = 'SELECT * FROM `tbl_user` WHERE `phone` = ? or `email` = ?';
         $stmt = $this->conn->prepare($stmt);
         $stmt->bind_param('ss', $this->post['phoneOrEmail'], $this->post['phoneOrEmail']);
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             $result = $stmt->get_result();
 
-            if ($result->num_rows <= 0){
+            if ($result->num_rows <= 0) {
                 exit(json_encode(
                     [
                         'result' => false,
@@ -124,7 +124,7 @@ class UserConnection
         $userId = @$_POST['userId'];
         $password = @$_POST['password'];
 
-        if(isset($userId) and isset($password)) {
+        if (isset($userId) and isset($password)) {
             $password = hash('sha256', $password);
             $stmt = 'SELECT * FROM `tbl_user` WHERE `id` = ? and `password` = ?';
             $stmt = $this->conn->prepare($stmt);
@@ -137,6 +137,50 @@ class UserConnection
                 [
                     'result' => false,
                     'msg' => 'auth error'
+                ]
+            ));
+        }
+    }
+
+    public function getUserId($phone)
+    {
+        $stmt = 'SELECT * FROM `tbl_user` WHERE `phone` = ?';
+        $stmt = $this->conn->prepare($stmt);
+        $stmt->bind_param('s', $phone);
+        $stmt->execute();
+        $row = $stmt->get_result()->fetch_assoc();
+        return $row['id'];
+    }
+
+    public function updateUsername()
+    {
+        if (!isset($this->post['username'])) array_push($this->response, 'username required');
+        if (!isset($this->post['phone'])) array_push($this->response, 'phone required');
+        if (count($this->response) > 0) {
+            exit(json_encode(
+                [
+                    'result' => false,
+                    'error' => $this->response
+                ]
+            ));
+        }
+
+        $stmt = 'UPDATE `tbl_user` SET `username` = ? WHERE `phone` = ?';
+        $stmt = $this->conn->prepare($stmt);
+        $stmt->bind_param('ss', $this->post['username'], $this->post['phone']);
+        $stmt->execute();
+        if ($stmt->execute()) {
+            exit(json_encode(
+                [
+                    'result' => true,
+                    'msg' => 'username updated',
+                ]
+            ));
+        } else {
+            exit(json_encode(
+                [
+                    'result' => false,
+                    'msg' => 'no username with that phone number is found'
                 ]
             ));
         }
