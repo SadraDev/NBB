@@ -111,8 +111,8 @@ class _AdminScreenState extends State<AdminScreen> {
             onTap: () async {
               String colors = json.encode(GetColors.colors());
               String productSubType = getSubtype();
-              bool inserted = await Api.insert(productName, productType, productSubType, price,
-                  minSize, maxSize, colors, imageURL, description);
+              bool inserted = await Api.insertNewProduct(productName, productType, productSubType,
+                  price, minSize, maxSize, colors, imageURL, description);
               if (inserted) {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(
