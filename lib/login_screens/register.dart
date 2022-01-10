@@ -128,7 +128,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         onTap: () async {
                           if (formKey.currentState!.validate()) {
                             var isRegistered =
-                            await Api.register(_username!, _password!, _email!, _phone!);
+                                await Api.register(_username!, _password!, _email!, _phone!);
                             if (isRegistered) {
                               Shared.setUserName(_username!);
                               Shared.setUserPassword(_password!);
@@ -141,7 +141,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 context: context,
                                 builder: (context) => const AlertDialog(
                                   content:
-                                  Text('user already existed!', textAlign: TextAlign.center),
+                                      Text('user already existed!', textAlign: TextAlign.center),
                                 ),
                               );
                             }
