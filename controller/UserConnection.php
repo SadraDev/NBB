@@ -144,6 +144,34 @@ class UserConnection
         }
     }
 
+    public function checkAdminAuth()
+    {
+        $phone = @$_POST['phone'];
+        $password = @$_POST['password'];
+
+        $userId = $this->getUserId($phone);
+
+        if (isset($userId) and isset($password)) {
+            $password = hash('sha256', $password);
+            $stmt = 'SELECT * FROM `tbl_user` WHERE `id` = ? and `password` = ?';
+            $stmt = $this->conn->prepare($stmt);
+            $stmt->bind_param('is', $userId, $password);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                if ($phone == ADMINPHONE) return true;
+                return false;
+            }
+        } else {
+            exit(json_encode(
+                [
+                    'result' => false,
+                    'msg' => 'addmin auth error'
+                ]
+            ));
+        }
+    }
+
     public function getUserId($phone)
     {
         $stmt = 'SELECT * FROM `tbl_user` WHERE `phone` = ?';
