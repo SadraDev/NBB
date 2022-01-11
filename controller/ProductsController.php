@@ -46,6 +46,20 @@ class ProductsController
                     }
                     break;
                 }
+            case 'delete': {
+                    if (!isset($this->post['product_id'])) array_push($this->response, 'product_name required');
+                    if (!isset($this->post['product_type'])) array_push($this->response, 'product_type required');
+                    if (!isset($this->post['product_subtype'])) array_push($this->response, 'product_subtype required');
+                    if (count($this->response) > 0) {
+                        exit(json_encode(
+                            [
+                                'result' => false,
+                                'error' => $this->response
+                            ]
+                        ));
+                    }
+                    break;
+                }
             case 'buy': {
                     if (!isset($this->post['user_phone'])) array_push($this->response, 'user_id required');
                     if (!isset($this->post['product_id'])) array_push($this->response, 'product_id required');
@@ -130,6 +144,21 @@ class ProductsController
                 [
                     'result' => $stmt->execute(),
                     'msg' => 'product didnt inserted'
+                ]
+            ));
+        }
+    }
+
+    public function deleteProduct()
+    {
+        $stmt = "UPDATE `tbl_product` SET `deleted` = true WHERE `id` = ? and `product_type` = ? and `product_subtype` = ?";
+        $stmt = $this->conn->prepare($stmt);
+        $stmt->bind_param('iss', $this->post['product_id'], $this->post['product_type'], $this->post['product_subtype']);
+        if ($stmt->execute()) {
+            exit(json_encode(
+                [
+                    'result' => true,
+                    'msg' => 'product is set for deleted'
                 ]
             ));
         }
