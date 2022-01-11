@@ -44,8 +44,7 @@ class FavoriteProductHolderBubble extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(12)),
                 image: DecorationImage(
                   fit: BoxFit.fill,
-                  image: NetworkImage(
-                      'https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg'),
+                  image: NetworkImage(image!),
                 ),
               ),
             ),
