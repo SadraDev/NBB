@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:nbb/models/productModel.dart';
+import 'package:nbb/utils/shared.dart';
 
 class OnLiked extends ChangeNotifier {
-  List<Product> likedProductsList = [];
+  List<String>? likedProductsListId = [];
 
   Product onLiked(Product product) {
     if (product.liked == false) {
@@ -20,10 +21,12 @@ class OnLiked extends ChangeNotifier {
         deleted: product.deleted,
         liked: true,
       );
-      likedProductsList.add(product);
+      likedProductsListId!.add(product.id.toString());
+      Shared.setLikedProducts(likedProductsListId!);
       return product;
     } else if (product.liked == true) {
-      likedProductsList.remove(product);
+      likedProductsListId!.remove(product.id.toString());
+      Shared.setLikedProducts(likedProductsListId!);
       product = Product(
         id: product.id,
         productName: product.productName,
