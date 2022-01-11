@@ -21,7 +21,7 @@ class _ShoeScreenState extends State<ShoeScreen> {
   List<String> likedProducts = [];
 
   Future<void> getProducts() async {
-    List<dynamic> products = await Api.selectAllProducts();
+    List<dynamic> products = await Api.selectAllProductsByType('shoe');
     setState(() {
       for (var product in products) {
         Product newProduct = Product.fromJson(product);
