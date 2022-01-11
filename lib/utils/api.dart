@@ -80,4 +80,24 @@ class Api {
       return [];
     }
   }
+
+  static Future<List<dynamic>> selectAllProductsByType(String type) async {
+    Uri url = Uri.parse('http://192.168.136.216/NBB/view/product.php');
+    Response response = await post(
+      url,
+      body: {
+        'apiType': 'select_by_type',
+        'product_type': type,
+        'userId': '20',
+        'password': 'sadra'
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return data;
+    } else {
+      return [];
+    }
+  }
 }
