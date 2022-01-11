@@ -1,6 +1,8 @@
 <?php
 
-CONST database = 'nbb';
+const database = 'nbb';
 const hostname = 'localhost';
-CONST username = 'NBB_user';
-CONST password = 'sadra1234';
+const username = 'NBB_user';
+const password = 'sadra1234';
+
+const ADMINPHONE = '+989370603580';
