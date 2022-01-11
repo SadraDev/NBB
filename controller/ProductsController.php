@@ -218,4 +218,14 @@ class ProductsController
             ));
         }
     }
+
+    public function getBoughtProductsForUser()
+    {
+        $stmt = "SELECT * FROM `tbl_sells` where `user_phone` = ?";
+        $stmt = $this->conn->prepare($stmt);
+        $stmt->bind_param('s', $this->post['phone']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        exit(json_encode($result->fetch_all()));
+    }
 }
