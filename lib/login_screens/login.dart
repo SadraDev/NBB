@@ -7,7 +7,6 @@ import 'package:nbb/widgets/login_widgets/backGround.dart';
 import 'package:nbb/widgets/login_widgets/loginEmailAndPhoneTextField.dart';
 import 'package:nbb/widgets/login_widgets/loginButton.dart';
 import 'package:nbb/widgets/login_widgets/loginPasswordTextField.dart';
-import 'package:validators/validators.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -21,29 +20,24 @@ class _LoginScreenState extends State<LoginScreen> {
   final formKey = GlobalKey<FormState>();
 
   bool obscure = true;
-  bool emailOrPhoneChecker = false;
-  String? _emailOrPhone = '';
+  String? _phone = '';
   String? _password = '';
 
   String? validator(String? value) {
-    if (emailOrPhoneChecker == true) {
-      return !isEmail(value!) ? 'please enter a valid email address' : _emailOrPhone = value;
+    if (value!.length == 11 &&
+        RegExp(r'^[0-9]+$').hasMatch(value) &&
+        value.substring(0, 2) == '09') {
+      _phone = '+98' + value.substring(1);
+    } else if (value.length == 13 &&
+        RegExp(r'^[+]{1}[0-9]{12}$').hasMatch(value) &&
+        value.substring(0, 4) == '+989') {
+      _phone = value;
+    } else if (value.length == 10 &&
+        RegExp(r'^[0-9]+$').hasMatch(value) &&
+        value.substring(0, 1) == '9') {
+      _phone = '+98' + value;
     } else {
-      if (value!.length == 11 &&
-          RegExp(r'^[0-9]+$').hasMatch(value) &&
-          value.substring(0, 2) == '09') {
-        _emailOrPhone = '+98' + value.substring(1);
-      } else if (value.length == 13 &&
-          RegExp(r'^[+]{1}[0-9]{12}$').hasMatch(value) &&
-          value.substring(0, 4) == '+989') {
-        _emailOrPhone = value;
-      } else if (value.length == 10 &&
-          RegExp(r'^[0-9]+$').hasMatch(value) &&
-          value.substring(0, 1) == '9') {
-        _emailOrPhone = '+98' + value;
-      } else {
-        return 'please enter a valid phone number';
-      }
+      return 'please enter a valid phone number';
     }
   }
 
@@ -62,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
   );
 
   Future<void> login() async {
-    if (await Api.login(_emailOrPhone!, _password!)) {
+    if (await Api.login(_phone!, _password!)) {
       Navigator.popAndPushNamed(context, FlowScreen.id);
     }
   }
@@ -70,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    _emailOrPhone = Shared.getUserPhone() ?? '';
+    _phone = Shared.getUserPhone() ?? '';
     _password = Shared.getUserPassword() ?? '';
     login();
   }
@@ -104,11 +98,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         LoginEmailAndPhoneTextField(
-                          hintText: emailOrPhoneChecker ? 'JohnDoe@example.io' : '09123456789',
-                          labelText: emailOrPhoneChecker ? 'Email' : 'Phone',
-                          suffixIcon: emailOrPhoneChecker ? Icons.phone : Icons.email,
-                          iconOnPressed: () =>
-                              setState(() => emailOrPhoneChecker = !emailOrPhoneChecker),
+                          hintText: '09123456789',
+                          labelText: 'Phone',
+                          suffixIcon: Icons.phone,
                           validator: validator,
                         ),
                         LoginPasswordTextFiled(
@@ -119,9 +111,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           onDoneEditing: (value) => _password = value,
                           onSubmitted: (value) async {
                             if (formKey.currentState!.validate()) {
-                              bool loggedIN = await Api.login(_emailOrPhone!, _password!);
+                              bool loggedIN = await Api.login(_phone!, _password!);
                               if (loggedIN) {
-                                Shared.setUserEmailOrPhone(_emailOrPhone!);
+                                Shared.setUserPhone(_phone!);
                                 Shared.setUserPassword(_password!);
                                 Navigator.popAndPushNamed(context, FlowScreen.id);
                               }
@@ -140,9 +132,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         LoginButton(
                           onTap: () async {
                             if (formKey.currentState!.validate()) {
-                              bool loggedIN = await Api.login(_emailOrPhone!, _password!);
+                              bool loggedIN = await Api.login(_phone!, _password!);
                               if (loggedIN) {
-                                Shared.setUserEmailOrPhone(_emailOrPhone!);
+                                Shared.setUserPhone(_phone!);
                                 Shared.setUserPassword(_password!);
                                 Navigator.popAndPushNamed(context, FlowScreen.id);
                               }
