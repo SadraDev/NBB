@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:nbb/const.dart';
+import 'package:nbb/models/productModel.dart';
+import 'package:nbb/utils/api.dart';
+import 'package:nbb/utils/onLiked.dart';
+import 'package:nbb/utils/shared.dart';
+import 'package:nbb/widgets/favorite_widgets/favoriteProductHolderBubble.dart';
+import 'package:provider/provider.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({Key? key}) : super(key: key);
@@ -9,292 +14,88 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
+  List<Product> products = [];
+  List<String> likedProducts = [];
+
+  Future<void> getProducts() async {
+    List<dynamic> products = await Api.selectAllProducts();
+    setState(() {
+      for (var product in products) {
+        Product newProduct = Product.fromJson(product);
+        this.products.add(newProduct);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getProducts();
+    //getLikedProductsList();
+    likedProducts = Shared.getLikedProducts() ?? [];
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.zero,
-      physics: const BouncingScrollPhysics(),
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 70, horizontal: 35).copyWith(bottom: 20),
-          child: const Text(
-            'Favorites',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+    OnLiked onLikedProvider = Provider.of<OnLiked>(context, listen: false);
+    onLikedProvider.likedProductsListId = likedProducts;
+    return Builder(
+      builder: (context) {
+        List<Widget> favorites = [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 70, horizontal: 35).copyWith(bottom: 20),
+            child: const Text(
+              'Favorites',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
-          child: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey,
-                  blurRadius: 20,
-                  spreadRadius: 5,
-                ),
-              ],
-            ),
-            padding: const EdgeInsets.all(20),
-            child: Row(
-              children: <Widget>[
-                Container(
-                  height: 70,
-                  width: 70,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage('assets/images/shoe1.jpg'),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const Text(
-                          'HighHeals Shoes',
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: blackColor,
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              '799 T',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: greyColor,
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.favorite),
-                            ),
-                            Card(
-                              margin: EdgeInsets.zero,
-                              color: blackColor,
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(8))),
-                              child: InkWell(
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 6, horizontal: 24),
-                                  child: Text(
-                                    'buy',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                                onTap: () {},
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
-          child: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey,
-                  blurRadius: 20,
-                  spreadRadius: 5,
-                ),
-              ],
-            ),
-            padding: const EdgeInsets.all(20),
-            height: MediaQuery.of(context).size.height * 0.15,
-            width: MediaQuery.of(context).size.width,
-            child: Row(
-              children: <Widget>[
-                Container(
-                  height: 70,
-                  width: 70,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage('assets/images/shoe2.jpg'),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const Text(
-                          'UltraBoost Shoes',
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: blackColor,
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              '799 T',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: greyColor,
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.favorite),
-                            ),
-                            Card(
-                              margin: EdgeInsets.zero,
-                              color: blackColor,
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(8))),
-                              child: InkWell(
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 6, horizontal: 24),
-                                  child: Text(
-                                    'buy',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                                onTap: () {},
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
-          child: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey,
-                  blurRadius: 20,
-                  spreadRadius: 5,
-                ),
-              ],
-            ),
-            padding: const EdgeInsets.all(20),
-            height: MediaQuery.of(context).size.height * 0.15,
-            width: MediaQuery.of(context).size.width,
-            child: Row(
-              children: <Widget>[
-                Container(
-                  height: 70,
-                  width: 70,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage('assets/images/cloth.jpg'),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const Text(
-                          'Red dress',
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: blackColor,
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              '1200 T',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: greyColor,
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.favorite),
-                            ),
-                            Card(
-                              margin: EdgeInsets.zero,
-                              color: blackColor,
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(8))),
-                              child: InkWell(
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 6, horizontal: 24),
-                                  child: Text(
-                                    'buy',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                                onTap: () {}, //redirect to single product view
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-      ],
+          )
+        ];
+        for (var favorite in products) {
+          if (onLikedProvider.likedProductsListId!.isNotEmpty) {
+            onLikedProvider.likedProductsListId!.forEach((element) {
+              if (favorite.id.toString() == element) {
+                favorite = Product(
+                  id: favorite.id,
+                  productName: favorite.productName,
+                  productType: favorite.productType,
+                  productSubtype: favorite.productSubtype,
+                  minSize: favorite.minSize,
+                  maxSize: favorite.maxSize,
+                  price: favorite.price,
+                  colors: favorite.colors,
+                  image: favorite.image,
+                  description: favorite.description,
+                  deleted: favorite.deleted,
+                  liked: true,
+                );
+              }
+            });
+          }
+          if (favorite.liked == true) {
+            var newFavorite = FavoriteProductHolderBubble(
+              productName: favorite.productName,
+              productPrice: favorite.price,
+              image: favorite.image,
+              liked: favorite.liked,
+              onLiked: () {
+                Product likedFav = onLikedProvider.onLiked(favorite);
+                setState(() => favorite = likedFav);
+              },
+              onBuy: () {},
+            );
+            favorites.add(newFavorite);
+          }
+        }
+        return ListView(
+          padding: EdgeInsets.zero,
+          physics: const BouncingScrollPhysics(),
+          children: favorites,
+        );
+      },
     );
   }
 }
