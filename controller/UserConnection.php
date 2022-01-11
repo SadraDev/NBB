@@ -178,8 +178,18 @@ class UserConnection
         $stmt = $this->conn->prepare($stmt);
         $stmt->bind_param('s', $phone);
         $stmt->execute();
-        $row = $stmt->get_result()->fetch_assoc();
-        return $row['id'];
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['id'];
+        } else {
+            exit(json_encode(
+                [
+                    'result' => false,
+                    'msg' => 'no user with that number exists'
+                ]
+            ));
+        }
     }
 
     public function updateUsername()
