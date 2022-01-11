@@ -3,6 +3,7 @@ import 'package:nbb/const.dart';
 import 'package:nbb/models/productModel.dart';
 import 'package:nbb/utils/api.dart';
 import 'package:nbb/utils/onLiked.dart';
+import 'package:nbb/utils/shared.dart';
 import 'package:nbb/widgets/shoe_cloth_widgets/grids.dart';
 import 'package:nbb/widgets/shoe_cloth_widgets/modalBottomSheet.dart';
 import 'package:nbb/widgets/shoe_cloth_widgets/subTypeSelector.dart';
@@ -17,6 +18,7 @@ class ShoeScreen extends StatefulWidget {
 
 class _ShoeScreenState extends State<ShoeScreen> {
   List<Product> products = [];
+  List<String> likedProducts = [];
 
   Future<void> getProducts() async {
     List<dynamic> products = await Api.selectAllProducts();
@@ -47,6 +49,7 @@ class _ShoeScreenState extends State<ShoeScreen> {
   void initState() {
     super.initState();
     getProducts();
+    likedProducts = Shared.getLikedProducts() ?? [];
   }
 
   bool? subType1 = true;
@@ -58,6 +61,7 @@ class _ShoeScreenState extends State<ShoeScreen> {
   @override
   Widget build(BuildContext context) {
     OnLiked onLikedProvider = Provider.of<OnLiked>(context, listen: false);
+    onLikedProvider.likedProductsListId = likedProducts;
     return Column(
       children: <Widget>[
         SubTypeSelector(
@@ -125,9 +129,24 @@ class _ShoeScreenState extends State<ShoeScreen> {
             bool? green = products[index].colors!['green'];
             bool? red = products[index].colors!['red'];
             bool? black = products[index].colors!['black'];
-            if (onLikedProvider.likedProductsList.isNotEmpty) {
-              onLikedProvider.likedProductsList.forEach((element) {
-                if (products[index].id == element.id) products[index] = element;
+            if (onLikedProvider.likedProductsListId!.isNotEmpty) {
+              onLikedProvider.likedProductsListId!.forEach((element) {
+                if (products[index].id.toString() == element) {
+                  products[index] = Product(
+                    id: products[index].id,
+                    productName: products[index].productName,
+                    productType: products[index].productType,
+                    productSubtype: products[index].productSubtype,
+                    minSize: products[index].minSize,
+                    maxSize: products[index].maxSize,
+                    price: products[index].price,
+                    colors: products[index].colors,
+                    image: products[index].image,
+                    description: products[index].description,
+                    deleted: products[index].deleted,
+                    liked: true,
+                  );
+                }
               });
             }
             if (products[index].productType == 'Shoe') {
