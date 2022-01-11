@@ -12,6 +12,7 @@ if ($uc->checkAuth()) {
 
     if ($pc->checkProductParams()) {
         if (@$_POST['apiType'] == 'buy') $pc->onBuy();
+        if (@$_POST['apiType'] == 'get_bought') $pc->getBoughtProductsForUser();
         if (@$_POST['apiType'] == 'select_all') $pc->selectAllProducts();
         if (@$_POST['apiType'] == 'select_by_type') $pc->selectProductsByType();
         if (@$_POST['apiType'] == 'select_by_subType') $pc->selectProductBySubtype();
