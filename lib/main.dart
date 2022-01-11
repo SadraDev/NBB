@@ -5,9 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:nbb/screens/admin.dart';
 import 'package:nbb/screens/flow.dart';
 import 'package:nbb/utils/onLiked.dart';
+import 'package:nbb/utils/shared.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Shared.init();
   runApp(const MyApp());
 }
 
