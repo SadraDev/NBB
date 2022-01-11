@@ -5,6 +5,7 @@ import 'package:nbb/const.dart';
 import 'package:nbb/models/productModel.dart';
 import 'package:nbb/utils/api.dart';
 import 'package:nbb/utils/onLiked.dart';
+import 'package:nbb/utils/shared.dart';
 import 'package:nbb/widgets/home_widgets/MainRowProducts.dart';
 import 'package:nbb/widgets/home_widgets/bottomRowProducts.dart';
 import 'package:nbb/widgets/shoe_cloth_widgets/modalBottomSheet.dart';
@@ -19,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Product> products = [];
+  List<String> likedProducts = [];
 
   Future<void> getProducts() async {
     List<dynamic> products = await Api.selectAllProducts();
@@ -34,11 +36,13 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     getProducts();
+    likedProducts = Shared.getLikedProducts() ?? [];
   }
 
   @override
   Widget build(BuildContext context) {
     OnLiked onLikedProvider = Provider.of<OnLiked>(context, listen: false);
+    onLikedProvider.likedProductsListId = likedProducts;
     return RefreshIndicator(
       color: blackColor,
       strokeWidth: 2,
@@ -68,9 +72,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 bool? green = products[index].colors!['green'];
                 bool? red = products[index].colors!['red'];
                 bool? black = products[index].colors!['black'];
-                if (onLikedProvider.likedProductsList.isNotEmpty) {
-                  onLikedProvider.likedProductsList.forEach((element) {
-                    if (products[index].id == element.id) products[index] = element;
+                if (onLikedProvider.likedProductsListId!.isNotEmpty) {
+                  onLikedProvider.likedProductsListId!.forEach((element) {
+                    if (products[index].id.toString() == element) {
+                      products[index] = Product(
+                        id: products[index].id,
+                        productName: products[index].productName,
+                        productType: products[index].productType,
+                        productSubtype: products[index].productSubtype,
+                        minSize: products[index].minSize,
+                        maxSize: products[index].maxSize,
+                        price: products[index].price,
+                        colors: products[index].colors,
+                        image: products[index].image,
+                        description: products[index].description,
+                        deleted: products[index].deleted,
+                        liked: true,
+                      );
+                    }
                   });
                 }
                 var newHolder = MainRowProductsContainer(
