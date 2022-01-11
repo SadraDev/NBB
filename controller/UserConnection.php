@@ -121,8 +121,10 @@ class UserConnection
 
     public function checkAuth()
     {
-        $userId = @$_POST['userId'];
+        $phone = @$_POST['phone'];
         $password = @$_POST['password'];
+
+        $userId = $this->getUserId($phone);
 
         if (isset($userId) and isset($password)) {
             $password = hash('sha256', $password);
