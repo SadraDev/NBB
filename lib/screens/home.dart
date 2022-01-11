@@ -23,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> likedProducts = [];
 
   Future<void> getProducts() async {
+    this.products = [];
     List<dynamic> products = await Api.selectAllProducts();
     setState(() {
       for (var product in products) {
