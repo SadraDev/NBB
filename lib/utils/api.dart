@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart';
+import 'package:nbb/utils/shared.dart';
 
 class Api {
   static Future<bool> login(String emailOrPhone, String password) async {
@@ -52,8 +53,8 @@ class Api {
       ..fields['colors'] = colors
       ..fields['image'] = image
       ..fields['description'] = description
-      ..fields['userId'] = '20'
-      ..fields['password'] = 'sadra';
+      ..fields['phone'] = Shared.getUserPhone()!
+      ..fields['password'] = Shared.getUserPassword()!;
     //..files.add(await MultipartFile.fromPath('image', image));
 
     StreamedResponse response = await request.send();
@@ -70,7 +71,11 @@ class Api {
     Uri url = Uri.parse('http://192.168.136.216/NBB/view/product.php');
     Response response = await post(
       url,
-      body: {'apiType': 'select_all', 'userId': '20', 'password': 'sadra'},
+      body: {
+        'apiType': 'select_all',
+        'phone': Shared.getUserPhone()!,
+        'password': Shared.getUserPassword()!
+      },
     );
 
     if (response.statusCode == 200) {
@@ -88,8 +93,8 @@ class Api {
       body: {
         'apiType': 'select_by_type',
         'product_type': type,
-        'userId': '20',
-        'password': 'sadra'
+        'phone': Shared.getUserPhone()!,
+        'password': Shared.getUserPassword()!
       },
     );
 
