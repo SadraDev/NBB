@@ -4,7 +4,7 @@ import 'package:nbb/screens/flow.dart';
 import 'package:nbb/utils/api.dart';
 import 'package:nbb/utils/shared.dart';
 import 'package:nbb/widgets/login_widgets/backGround.dart';
-import 'package:nbb/widgets/login_widgets/loginEmailAndPhoneTextField.dart';
+import 'package:nbb/widgets/login_widgets/loginPhoneTextField.dart';
 import 'package:nbb/widgets/login_widgets/loginButton.dart';
 import 'package:nbb/widgets/login_widgets/loginPasswordTextField.dart';
 
@@ -97,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             fontSize: 36,
                           ),
                         ),
-                        LoginEmailAndPhoneTextField(
+                        LoginPhoneTextField(
                           hintText: '09123456789',
                           labelText: 'Phone',
                           suffixIcon: Icons.phone,
