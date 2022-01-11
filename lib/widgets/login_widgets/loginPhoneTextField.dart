@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LoginEmailAndPhoneTextField extends StatelessWidget {
-  const LoginEmailAndPhoneTextField({
+class LoginPhoneTextField extends StatelessWidget {
+  const LoginPhoneTextField({
     Key? key,
     this.hintText,
     this.labelText,
@@ -20,8 +20,7 @@ class LoginEmailAndPhoneTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: TextFormField(
-        autofillHints: const [AutofillHints.email],
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: TextInputType.number,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: const TextStyle(color: Colors.grey),
