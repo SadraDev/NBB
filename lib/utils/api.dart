@@ -105,4 +105,37 @@ class Api {
       return [];
     }
   }
+
+  static Future<List<dynamic>> getBoughtProducts() async {
+    Uri url = Uri.parse('http://192.168.136.216/NBB/view/product.php');
+    Response response = await post(
+      url,
+      body: {
+        'apiType': 'get_bought',
+        'phone': Shared.getUserPhone()!,
+        'password': Shared.getUserPassword()!
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return data;
+    } else {
+      return [];
+    }
+  }
+
+  static Future<bool> updateUserName() async {
+    Uri url = Uri.parse('http://192.168.136.216/NBB/view/updateusername.php');
+    Response response = await post(
+      url,
+      body: {'phone': Shared.getUserPhone()!, 'username': Shared.getUserName()!},
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
