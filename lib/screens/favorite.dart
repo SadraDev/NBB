@@ -82,8 +82,28 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               image: favorite.image,
               liked: favorite.liked,
               onLiked: () {
-                Product likedFav = onLikedProvider.onLiked(favorite);
-                setState(() => favorite = likedFav);
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    content: const Text('Are You Sure?'),
+                    actions: [
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.close),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          Product likedFav = onLikedProvider.onLiked(favorite);
+                          setState(() => favorite = likedFav);
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.delete),
+                      ),
+                    ],
+                  ),
+                );
               },
               onBuy: () {},
             );
