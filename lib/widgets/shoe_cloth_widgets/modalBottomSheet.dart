@@ -7,6 +7,7 @@ bool blueSelector = false;
 bool redSelector = false;
 bool greenSelector = false;
 bool blackSelector = false;
+int selectedSize = -1;
 
 class ModalBottomSheetForShoeAndCloth extends StatefulWidget {
   const ModalBottomSheetForShoeAndCloth({
@@ -122,7 +123,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  widget.price!,
+                  "${widget.price!} T",
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -196,21 +197,22 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                   height: 30,
                                   width: 30,
                                   child: Card(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      shape: const CircleBorder(),
-                                      color: Colors.green,
-                                      child: InkWell(
-                                        child: greenSelector
-                                            ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                            : Container(),
-                                        onTap: () => setState(() {
-                                          pinkSelector = false;
-                                          blueSelector = false;
-                                          greenSelector = true;
-                                          redSelector = false;
-                                          blackSelector = false;
-                                        }),
-                                      )),
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    shape: const CircleBorder(),
+                                    color: Colors.green,
+                                    child: InkWell(
+                                      child: greenSelector
+                                          ? const Icon(Icons.check, color: Colors.white, size: 10)
+                                          : Container(),
+                                      onTap: () => setState(() {
+                                        pinkSelector = false;
+                                        blueSelector = false;
+                                        greenSelector = true;
+                                        redSelector = false;
+                                        blackSelector = false;
+                                      }),
+                                    ),
+                                  ),
                                 ),
                               ),
                               Visibility(
@@ -219,21 +221,22 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                   height: 30,
                                   width: 30,
                                   child: Card(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      shape: const CircleBorder(),
-                                      color: Colors.red,
-                                      child: InkWell(
-                                        child: redSelector
-                                            ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                            : Container(),
-                                        onTap: () => setState(() {
-                                          pinkSelector = false;
-                                          blueSelector = false;
-                                          greenSelector = false;
-                                          redSelector = true;
-                                          blackSelector = false;
-                                        }),
-                                      )),
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    shape: const CircleBorder(),
+                                    color: Colors.red,
+                                    child: InkWell(
+                                      child: redSelector
+                                          ? const Icon(Icons.check, color: Colors.white, size: 10)
+                                          : Container(),
+                                      onTap: () => setState(() {
+                                        pinkSelector = false;
+                                        blueSelector = false;
+                                        greenSelector = false;
+                                        redSelector = true;
+                                        blackSelector = false;
+                                      }),
+                                    ),
+                                  ),
                                 ),
                               ),
                               Visibility(
@@ -409,26 +412,47 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
             padding: const EdgeInsets.symmetric(horizontal: 25).copyWith(bottom: 10),
             child: Builder(builder: (context) {
               List<SizedBox> sizes = [];
-              bool selected = false;
               if (widget.isShoe!) {
                 var length = widget.maxSize! - widget.minSize! + 1;
                 for (int i = 0; i < length; i++) {
                   var newSize = SizedBox(
                     height: 55,
                     width: 55,
-                    child: InkWell(
-                      child: Card(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        color: selected ? Colors.black87 : Colors.white,
-                        shape: const CircleBorder(side: BorderSide(color: blackColor, width: 1)),
+                    child: Card(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      color: Colors.white,
+                      shape: const CircleBorder(side: BorderSide(color: blackColor, width: 1)),
+                      child: InkWell(
                         child: Center(child: Text('${widget.minSize! + i}')),
+                        onTap: () {
+                          setState(() {
+                            selectedSize = i;
+                          });
+                        },
                       ),
-                      onTap: () => setState(() {
-                        selected = !selected;
-                      }),
                     ),
                   );
-                  sizes.add(newSize);
+                  if (selectedSize != i) sizes.add(newSize);
+                  if (selectedSize == i) {
+                    sizes.add(SizedBox(
+                      height: 55,
+                      width: 55,
+                      child: Card(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        color: Colors.black,
+                        shape: const CircleBorder(side: BorderSide(color: whiteColor, width: 1)),
+                        child: InkWell(
+                          child: Center(
+                            child: Text(
+                              '${widget.minSize! + i}',
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          onTap: () {},
+                        ),
+                      ),
+                    ));
+                  }
                 }
               } else {
                 var length = (widget.maxSize! - widget.minSize! + 1) / 2;
@@ -437,11 +461,40 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                     height: 55,
                     width: 55,
                     child: Card(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      color: Colors.white,
                       shape: const CircleBorder(side: BorderSide(color: blackColor, width: 1)),
-                      child: Center(child: Text('${widget.minSize! + 2 * i}')),
+                      child: InkWell(
+                        child: Center(child: Text('${widget.minSize! + 2 * i}')),
+                        onTap: () {
+                          setState(() {
+                            selectedSize = i;
+                          });
+                        },
+                      ),
                     ),
                   );
-                  sizes.add(newSize);
+                  if (selectedSize != i) sizes.add(newSize);
+                  if (selectedSize == i) {
+                    sizes.add(SizedBox(
+                      height: 55,
+                      width: 55,
+                      child: Card(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        color: Colors.black,
+                        shape: const CircleBorder(side: BorderSide(color: whiteColor, width: 1)),
+                        child: InkWell(
+                          child: Center(
+                            child: Text(
+                              '${widget.minSize! + 2 * i}',
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          onTap: () {},
+                        ),
+                      ),
+                    ));
+                  }
                 }
               }
               return Wrap(
@@ -489,5 +542,20 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
         ],
       ),
     );
+  }
+}
+
+class GetSizeAndColor {
+  static int? getSize(bool isShoe, int minSize) {
+    if (isShoe) return selectedSize + minSize;
+    if (!isShoe) return selectedSize * 2 + minSize;
+  }
+
+  static String? getColor() {
+    if (pinkSelector) return 'pink';
+    if (blueSelector) return 'blue';
+    if (greenSelector) return 'green';
+    if (redSelector) return 'red';
+    if (blackSelector) return 'black';
   }
 }

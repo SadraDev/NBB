@@ -111,7 +111,7 @@ class ShoeAndClothGrid extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Text(
-                price!,
+                "$price T",
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

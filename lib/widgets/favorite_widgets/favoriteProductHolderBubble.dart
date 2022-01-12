@@ -31,6 +31,7 @@ class FavoriteProductHolderBubble extends StatelessWidget {
               color: Colors.grey,
               blurRadius: 20,
               spreadRadius: 5,
+              offset: Offset(0, 10),
             ),
           ],
         ),
@@ -68,7 +69,7 @@ class FavoriteProductHolderBubble extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          productPrice!,
+                          "$productPrice T",
                           style: const TextStyle(
                             fontSize: 14,
                             color: greyColor,
@@ -77,7 +78,7 @@ class FavoriteProductHolderBubble extends StatelessWidget {
                         IconButton(
                           onPressed: onLiked!,
                           icon: liked!
-                              ? const Icon(Icons.favorite)
+                              ? const Icon(Icons.delete, color: blackColor)
                               : const Icon(Icons.favorite_outline_rounded),
                         ),
                         Card(

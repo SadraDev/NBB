@@ -130,7 +130,7 @@ class MainRowProductsContainer extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 15),
                     child: Text(
-                      price!,
+                      "$price T",
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,

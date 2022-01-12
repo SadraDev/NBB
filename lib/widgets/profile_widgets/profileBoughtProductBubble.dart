@@ -86,7 +86,7 @@ class ProfileScreenBoughtProductBubble extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          price!,
+                          "$price T",
                           style: const TextStyle(
                             fontSize: 14,
                             color: greyColor,
