@@ -6,7 +6,7 @@ import 'package:nbb/widgets/register_widgets/registerPasswordTextField.dart';
 import 'package:nbb/widgets/register_widgets/registerPhoneTextField.dart';
 import 'package:nbb/widgets/register_widgets/registerUsernameTextFiled.dart';
 import 'package:nbb/widgets/login_widgets/backGround.dart';
-import 'package:nbb/login_screens/login.dart';
+import 'package:nbb/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:nbb/utils/api.dart';
 
