@@ -28,7 +28,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     super.initState();
     getBoughtProducts();
-    username = Shared.getUserName();
+    username = Shared.getUserName() ?? '';
   }
 
   @override
