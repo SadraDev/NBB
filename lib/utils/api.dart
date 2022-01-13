@@ -3,20 +3,25 @@ import 'package:http/http.dart';
 import 'package:nbb/utils/shared.dart';
 
 class Api {
-  static Future<bool> login(String emailOrPhone, String password) async {
-    Uri url = Uri.parse('http://192.168.136.216/NBB/view/login.php');
-    Response response = await post(url, body: {'phoneOrEmail': emailOrPhone, 'password': password});
+  static Future<String> login(String emailOrPhone, String password) async {
+    Uri url = Uri.parse('https://sadradev.000webhostapp.com/view/login.php');
+    Response response = await post(url, body: {'phone': emailOrPhone, 'password': password});
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      if (data['result'] == true) return true;
-      if (data['result'] == false) return false;
+      if (data['result'] == true) return "true";
+      try {
+        if (data['result'] == false) return data['error'];
+      } catch (e) {
+        if (data['result'] == false) return data['error'][0];
+      }
     }
-    return false;
+    return "false";
   }
 
-  static Future<bool> register(String username, String password, String email, String phone) async {
-    Uri url = Uri.parse('http://192.168.136.216/NBB/view/register.php');
+  static Future<String> register(
+      String username, String password, String email, String phone) async {
+    Uri url = Uri.parse('https://sadradev.000webhostapp.com/view/register.php');
     Response response = await post(
       url,
       body: {'username': username, 'password': password, 'email': email, 'phone': phone},
@@ -24,10 +29,14 @@ class Api {
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      if (data['result'] == true) return true;
-      if (data['result'] == false) return false;
+      if (data['result'] == true) return 'true';
+      try {
+        if (data['result'] == false) return data['error'];
+      } catch (e) {
+        if (data['result'] == false) return data['error'][0];
+      }
     }
-    return false;
+    return 'false';
   }
 
   static Future<bool> insertNewProduct(
@@ -41,7 +50,7 @@ class Api {
     String image,
     String description,
   ) async {
-    Uri url = Uri.parse('http://192.168.136.216/NBB/view/product.php');
+    Uri url = Uri.parse('https://sadradev.000webhostapp.com/view/product.php');
     var request = MultipartRequest('POST', url)
       ..fields['apiType'] = 'insert'
       ..fields['product_name'] = productName
@@ -68,7 +77,7 @@ class Api {
   }
 
   static Future<List<dynamic>> selectAllProducts() async {
-    Uri url = Uri.parse('http://192.168.136.216/NBB/view/product.php');
+    Uri url = Uri.parse('https://sadradev.000webhostapp.com/view/product.php');
     Response response = await post(
       url,
       body: {
@@ -87,7 +96,7 @@ class Api {
   }
 
   static Future<List<dynamic>> selectAllProductsByType(String type) async {
-    Uri url = Uri.parse('http://192.168.136.216/NBB/view/product.php');
+    Uri url = Uri.parse('https://sadradev.000webhostapp.com/view/product.php');
     Response response = await post(
       url,
       body: {
@@ -107,7 +116,7 @@ class Api {
   }
 
   static Future<List<dynamic>> getBoughtProducts() async {
-    Uri url = Uri.parse('http://192.168.136.216/NBB/view/product.php');
+    Uri url = Uri.parse('https://sadradev.000webhostapp.com/view/product.php');
     Response response = await post(
       url,
       body: {
@@ -126,7 +135,7 @@ class Api {
   }
 
   static Future<bool> updateUserName() async {
-    Uri url = Uri.parse('http://192.168.136.216/NBB/view/updateusername.php');
+    Uri url = Uri.parse('https://sadradev.000webhostapp.com/view/updateusername.php');
     Response response = await post(
       url,
       body: {'phone': Shared.getUserPhone()!, 'username': Shared.getUserName()!},
