@@ -19,13 +19,13 @@ class _SplashScreenState extends State<SplashScreen> {
   String? password = Shared.getUserPassword() ?? '';
 
   login() async {
-    bool? loggedIn = await Api.login(phone!, password!);
+    String? loggedIn = await Api.login(phone!, password!);
 
-    if (loggedIn) {
+    if (loggedIn == 'true') {
       Future.delayed(
           const Duration(seconds: 1), () => Navigator.popAndPushNamed(context, FlowScreen.id));
     }
-    if (!loggedIn) {
+    if (loggedIn != 'true') {
       Future.delayed(
           const Duration(seconds: 1), () => Navigator.popAndPushNamed(context, LoginScreen.id));
     }
@@ -45,14 +45,24 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            SizedBox(
-              height: 120,
-              width: 120,
-              child: Card(
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(25))),
-                child: Image.asset('assets/images/logo.jpeg', height: 120, width: 120),
-              ),
+            Column(
+              children: [
+                Card(
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(25))),
+                  child: Image.asset('assets/images/logo.jpeg', height: 120, width: 120),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 12),
+                  child: Text(
+                    'Mezon Turkey',
+                    style: TextStyle(
+                      color: whiteColor,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ],
             ),
             GestureDetector(
               child: Column(
