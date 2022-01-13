@@ -1,9 +1,10 @@
-import 'package:nbb/login_screens/register.dart';
-import 'package:nbb/login_screens/login.dart';
+import 'package:nbb/screens/register.dart';
+import 'package:nbb/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nbb/screens/admin.dart';
 import 'package:nbb/screens/flow.dart';
+import 'package:nbb/screens/splash.dart';
 import 'package:nbb/utils/onLiked.dart';
 import 'package:nbb/utils/shared.dart';
 import 'package:provider/provider.dart';
@@ -24,12 +25,13 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData(fontFamily: 'poppins'),
         debugShowCheckedModeBanner: false,
-        initialRoute: LoginScreen.id,
+        initialRoute: SplashScreen.id,
         routes: {
           LoginScreen.id: (context) => const LoginScreen(),
           RegisterScreen.id: (context) => const RegisterScreen(),
           FlowScreen.id: (context) => const FlowScreen(),
           AdminScreen.id: (context) => const AdminScreen(),
+          SplashScreen.id: (context) => const SplashScreen(),
         },
       ),
     );
