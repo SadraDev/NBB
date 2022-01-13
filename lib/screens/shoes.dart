@@ -27,19 +27,19 @@ class _ShoeScreenState extends State<ShoeScreen> {
         Product newProduct = Product.fromJson(product);
 
         if (subType1! && newProduct.productSubtype == '10 cm') {
-          this.products.add(newProduct);
+          if (product[10] != 1) this.products.add(newProduct);
         }
         if (subType2! && newProduct.productSubtype == '12 cm') {
-          this.products.add(newProduct);
+          if (product[10] != 1) this.products.add(newProduct);
         }
         if (subType3! && newProduct.productSubtype == 'sport') {
-          this.products.add(newProduct);
+          if (product[10] != 1) this.products.add(newProduct);
         }
         if (subType4! && newProduct.productSubtype == 'highHeels') {
-          this.products.add(newProduct);
+          if (product[10] != 1) this.products.add(newProduct);
         }
         if (subType5! && newProduct.productSubtype == 'boots') {
-          this.products.add(newProduct);
+          if (product[10] != 1) this.products.add(newProduct);
         }
       }
     });

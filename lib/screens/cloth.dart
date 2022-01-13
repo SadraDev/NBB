@@ -27,19 +27,19 @@ class _ClothScreenState extends State<ClothScreen> {
         Product newProduct = Product.fromJson(product);
 
         if (subType1! && newProduct.productSubtype == 't-shirt') {
-          this.products.add(newProduct);
+          if (product[10] != 1) this.products.add(newProduct);
         }
         if (subType2! && newProduct.productSubtype == 'pants') {
-          this.products.add(newProduct);
+          if (product[10] != 1) this.products.add(newProduct);
         }
         if (subType3! && newProduct.productSubtype == 'sets') {
-          this.products.add(newProduct);
+          if (product[10] != 1) this.products.add(newProduct);
         }
         if (subType4! && newProduct.productSubtype == 'coats') {
-          this.products.add(newProduct);
+          if (product[10] != 1) this.products.add(newProduct);
         }
         if (subType5! && newProduct.productSubtype == 'skirts') {
-          this.products.add(newProduct);
+          if (product[10] != 1) this.products.add(newProduct);
         }
       }
     });

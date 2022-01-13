@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       for (var product in products) {
         Product newProduct = Product.fromJson(product);
-        this.products.add(newProduct);
+        if (product[10] != 1) this.products.add(newProduct);
       }
     });
   }
