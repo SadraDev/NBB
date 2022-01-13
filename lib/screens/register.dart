@@ -21,8 +21,8 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final formKey = GlobalKey<FormState>();
   bool obscure = true;
-  String? _username = '';
-  String? _email = '';
+  String? _username = 'USERNAME_NOT_GIVEN';
+  String? _email = 'EMAIL_NOT_GIVEN';
   String? _phone = '';
   String? _password = '';
 
@@ -103,21 +103,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         onDoneEditing: (value) => _password = value,
                         onSubmitted: (value) async {
                           if (formKey.currentState!.validate()) {
-                            var isRegistered =
+                            if (_username == '') _username = 'USERNAME_NOT_GIVEN';
+                            if (_email == '') _email = 'EMAIL_NOT_GIVEN';
+                            String isRegistered =
                                 await Api.register(_username!, _password!, _email!, _phone!);
-                            if (isRegistered) {
+                            if (isRegistered == 'true') {
                               Shared.setUserName(_username!);
                               Shared.setUserPassword(_password!);
                               Shared.setUserEmail(_email!);
                               Shared.setUserPhone(_phone!);
                               Navigator.popAndPushNamed(context, FlowScreen.id);
                             }
-                            if (!isRegistered) {
+                            if (isRegistered != 'true') {
                               showDialog(
                                 context: context,
-                                builder: (context) => const AlertDialog(
-                                  content:
-                                      Text('user already existed!', textAlign: TextAlign.center),
+                                builder: (context) => AlertDialog(
+                                  content: Text(isRegistered, textAlign: TextAlign.center),
                                 ),
                               );
                             }
@@ -127,21 +128,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       RegisterButton(
                         onTap: () async {
                           if (formKey.currentState!.validate()) {
-                            var isRegistered =
+                            if (_username == '') _username = 'USERNAME_NOT_GIVEN';
+                            if (_email == '') _email = 'EMAIL_NOT_GIVEN';
+                            String isRegistered =
                                 await Api.register(_username!, _password!, _email!, _phone!);
-                            if (isRegistered) {
+                            if (isRegistered == 'true') {
                               Shared.setUserName(_username!);
                               Shared.setUserPassword(_password!);
                               Shared.setUserEmail(_email!);
                               Shared.setUserPhone(_phone!);
                               Navigator.popAndPushNamed(context, FlowScreen.id);
                             }
-                            if (!isRegistered) {
+                            if (isRegistered != 'true') {
                               showDialog(
                                 context: context,
-                                builder: (context) => const AlertDialog(
-                                  content:
-                                      Text('user already existed!', textAlign: TextAlign.center),
+                                builder: (context) => AlertDialog(
+                                  content: Text(isRegistered, textAlign: TextAlign.center),
                                 ),
                               );
                             }
@@ -154,7 +156,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: TextStyle(color: Color(0xbb111015)),
                         ),
                         onTap: () {
-                          Navigator.pushNamed(context, LoginScreen.id);
+                          Navigator.popAndPushNamed(context, LoginScreen.id);
                         },
                       ),
                     ],

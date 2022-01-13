@@ -95,17 +95,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         onDoneEditing: (value) => _password = value,
                         onSubmitted: (value) async {
                           if (formKey.currentState!.validate()) {
-                            bool loggedIN = await Api.login(_phone!, _password!);
-                            if (loggedIN) {
+                            String loggedIN = await Api.login(_phone!, _password!);
+                            if (loggedIN[0] == 'true') {
                               Shared.setUserPhone(_phone!);
                               Shared.setUserPassword(_password!);
                               Navigator.popAndPushNamed(context, FlowScreen.id);
                             }
-                            if (!loggedIN) {
+                            if (loggedIN[0] != 'ture') {
                               showDialog(
                                 context: context,
-                                builder: (context) => const AlertDialog(
-                                  content: Text('wrong password', textAlign: TextAlign.center),
+                                builder: (context) => AlertDialog(
+                                  content: Text(loggedIN, textAlign: TextAlign.center),
                                 ),
                               );
                             }
@@ -116,17 +116,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       LoginButton(
                         onTap: () async {
                           if (formKey.currentState!.validate()) {
-                            bool loggedIN = await Api.login(_phone!, _password!);
-                            if (loggedIN) {
+                            String loggedIN = await Api.login(_phone!, _password!);
+                            if (loggedIN[0] == 'true') {
                               Shared.setUserPhone(_phone!);
                               Shared.setUserPassword(_password!);
                               Navigator.popAndPushNamed(context, FlowScreen.id);
                             }
-                            if (!loggedIN) {
+                            if (loggedIN[0] != 'ture') {
                               showDialog(
                                 context: context,
-                                builder: (context) => const AlertDialog(
-                                  content: Text('wrong password', textAlign: TextAlign.center),
+                                builder: (context) => AlertDialog(
+                                  content: Text(loggedIN, textAlign: TextAlign.center),
                                 ),
                               );
                             }
@@ -141,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         onTap: () {
-                          Navigator.pushNamed(context, RegisterScreen.id);
+                          Navigator.popAndPushNamed(context, RegisterScreen.id);
                         },
                       ),
                     ],
