@@ -9,6 +9,7 @@ class RegisterPhoneTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: TextFormField(
+        keyboardType: TextInputType.number,
         decoration: const InputDecoration(
           hintText: '09123456789',
           hintStyle: TextStyle(color: Colors.grey),
