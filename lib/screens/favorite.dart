@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:nbb/models/productModel.dart';
 import 'package:nbb/utils/api.dart';
 import 'package:nbb/utils/onLiked.dart';
 import 'package:nbb/utils/shared.dart';
 import 'package:nbb/widgets/favorite_widgets/favoriteProductHolderBubble.dart';
+import 'package:nbb/widgets/shoe_cloth_widgets/modalBottomSheet.dart';
 import 'package:provider/provider.dart';
 
 class FavoriteScreen extends StatefulWidget {
@@ -31,7 +33,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   void initState() {
     super.initState();
     getProducts();
-    //getLikedProductsList();
     likedProducts = Shared.getLikedProducts() ?? [];
   }
 
@@ -105,7 +106,34 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   ),
                 );
               },
-              onBuy: () {},
+              onBuy: () {
+                showMaterialModalBottomSheet(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(25),
+                    ),
+                  ),
+                  context: context,
+                  builder: (context) {
+                    return ModalBottomSheetForShoeAndCloth(
+                      name: favorite.productName,
+                      subtype: favorite.productSubtype,
+                      image: favorite.image,
+                      price: favorite.price,
+                      minSize: favorite.minSize,
+                      maxSize: favorite.maxSize,
+                      description: favorite.description,
+                      isShoe: favorite.productType == 'Shoe',
+                      pink: favorite.colors!['pink'],
+                      blue: favorite.colors!['blue'],
+                      green: favorite.colors!['green'],
+                      red: favorite.colors!['red'],
+                      black: favorite.colors!['black'],
+                      onBuy: () {},
+                    );
+                  },
+                );
+              },
             );
             favorites.add(newFavorite);
           }
