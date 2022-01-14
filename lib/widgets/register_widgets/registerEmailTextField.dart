@@ -15,7 +15,7 @@ class RegisterEmailTextField extends StatelessWidget {
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Color(0xbb111015), width: 2),
           ),
-          labelText: 'Email',
+          labelText: 'Email(optional)',
           labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
           floatingLabelStyle: TextStyle(color: Color(0xbb111015)),
         ),
