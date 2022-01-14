@@ -31,6 +31,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     username = Shared.getUserName() ?? '';
   }
 
+  String? usernameChecker() {
+    if (username == '' || username == 'USERNAME_NOT_GIVEN') return 'Your Name Here...';
+    return username!;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
@@ -38,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         const ProfileDynamicHeader(),
         ProfileScreenCenterBubble(count: boughtProducts.length.toString()),
         ProfileScreenUsernameEditor(
-          username: username,
+          username: usernameChecker(),
           onSubmitted: (value) async {
             Shared.setUserName(value!);
             await Api.updateUserName();
