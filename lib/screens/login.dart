@@ -96,12 +96,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         onSubmitted: (value) async {
                           if (formKey.currentState!.validate()) {
                             String loggedIN = await Api.login(_phone!, _password!);
-                            if (loggedIN[0] == 'true') {
+                            if (loggedIN == 'true') {
                               Shared.setUserPhone(_phone!);
                               Shared.setUserPassword(_password!);
                               Navigator.popAndPushNamed(context, FlowScreen.id);
-                            }
-                            if (loggedIN[0] != 'ture') {
+                            } else {
                               showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
@@ -117,12 +116,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         onTap: () async {
                           if (formKey.currentState!.validate()) {
                             String loggedIN = await Api.login(_phone!, _password!);
-                            if (loggedIN[0] == 'true') {
+                            if (loggedIN == 'true') {
                               Shared.setUserPhone(_phone!);
                               Shared.setUserPassword(_password!);
                               Navigator.popAndPushNamed(context, FlowScreen.id);
-                            }
-                            if (loggedIN[0] != 'ture') {
+                            } else {
                               showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
