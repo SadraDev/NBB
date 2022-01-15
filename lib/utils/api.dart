@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart';
+import 'package:nbb/models/productModel.dart';
 import 'package:nbb/utils/shared.dart';
 
 class Api {
@@ -143,6 +144,29 @@ class Api {
 
     if (response.statusCode == 200) {
       return true;
+    } else {
+      return false;
+    }
+  }
+
+  static Future<bool> delete(Product product) async {
+    Uri url = Uri.parse('https://sadradev.000webhostapp.com/view/product.php');
+    Response response = await post(
+      url,
+      body: {
+        'apiType': 'delete',
+        'product_id': '${product.id}',
+        'product_type': product.productType,
+        'product_subtype': product.productSubtype,
+        'phone': Shared.getUserPhone()!,
+        'password': Shared.getUserPassword()!
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      if (data['result'] == true) return true;
+      return false;
     } else {
       return false;
     }
