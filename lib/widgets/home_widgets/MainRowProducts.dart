@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:nbb/const.dart';
+import 'package:nbb/utils/shared.dart';
 
 class MainRowProducts extends StatelessWidget {
   const MainRowProducts({Key? key, required this.builder}) : super(key: key);
@@ -22,7 +24,7 @@ class MainRowProductsContainer extends StatelessWidget {
   const MainRowProductsContainer({
     Key? key,
     this.onLiked,
-    this.onTap,
+    required this.modalBuilder,
     this.image,
     this.productName,
     this.productSubtype,
@@ -33,9 +35,11 @@ class MainRowProductsContainer extends StatelessWidget {
     this.red,
     this.black,
     this.liked,
+    this.onDelete,
   }) : super(key: key);
   final void Function()? onLiked;
-  final void Function()? onTap;
+  final Widget Function(BuildContext) modalBuilder;
+  final void Function()? onDelete;
   final String? image;
   final String? productName;
   final String? productSubtype;
@@ -54,6 +58,12 @@ class MainRowProductsContainer extends StatelessWidget {
     if (red! && blue! && pink! && black!) return true;
     if (red! && blue! && green! && black!) return true;
     if (red! && blue! && green! && pink!) return true;
+    return false;
+  }
+
+  bool? adminChecker() {
+    if (Shared.getUserPhone() == adminNumber) return true;
+    if (Shared.getUserPhone() != adminNumber) return false;
     return false;
   }
 
@@ -283,8 +293,49 @@ class MainRowProductsContainer extends StatelessWidget {
             ),
           ],
         ),
-        onTap: onTap,
+        onTap: () {
+          showMaterialModalBottomSheet(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(25),
+              ),
+            ),
+            context: context,
+            builder: modalBuilder,
+          );
+        },
         onDoubleTap: onLiked,
+        onLongPress: () {
+          if (adminChecker()!) {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                content: const Text(
+                  'You are about to delete this product. Are you sure?',
+                  textAlign: TextAlign.center,
+                ),
+                actions: [
+                  TextButton(
+                    child: const Text(
+                      'no',
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  TextButton(
+                    child: const Text(
+                      'delete',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    onPressed: onDelete,
+                  )
+                ],
+              ),
+            );
+          }
+        },
       ),
     );
   }

@@ -17,7 +17,6 @@ class ModalBottomSheetForShoeAndCloth extends StatefulWidget {
     this.price,
     this.subtype,
     this.description,
-    this.onLiked,
     this.onBuy,
     this.pink,
     this.blue,
@@ -27,14 +26,12 @@ class ModalBottomSheetForShoeAndCloth extends StatefulWidget {
     this.minSize,
     this.maxSize,
     this.isShoe,
-    this.liked,
   }) : super(key: key);
   final String? name;
   final String? image;
   final String? price;
   final String? subtype;
   final String? description;
-  final void Function()? onLiked;
   final void Function()? onBuy;
   final bool? pink;
   final bool? blue;
@@ -42,7 +39,6 @@ class ModalBottomSheetForShoeAndCloth extends StatefulWidget {
   final bool? red;
   final bool? black;
   final bool? isShoe;
-  final bool? liked;
   final int? minSize;
   final int? maxSize;
 
