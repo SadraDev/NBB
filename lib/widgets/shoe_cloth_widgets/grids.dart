@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:nbb/utils/shared.dart';
+import '../../const.dart';
 
 class ShoeAndClothGridView extends StatelessWidget {
   const ShoeAndClothGridView({Key? key, required this.builder, this.count}) : super(key: key);
@@ -37,13 +39,21 @@ class ShoeAndClothGrid extends StatelessWidget {
     this.onLiked,
     required this.modalBuilder,
     this.liked,
+    this.onDelete,
   }) : super(key: key);
   final String? name;
   final String? price;
   final String? image;
   final bool? liked;
   final void Function()? onLiked;
+  final void Function()? onDelete;
   final Widget Function(BuildContext) modalBuilder;
+
+  bool? adminChecker() {
+    if (Shared.getUserPhone() == adminNumber) return true;
+    if (Shared.getUserPhone() != adminNumber) return false;
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,6 +130,37 @@ class ShoeAndClothGrid extends StatelessWidget {
             ),
           ],
         ),
+        onLongPress: () async {
+          if (adminChecker()!) {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                content: const Text(
+                  'You are about to delete this product. Are you sure?',
+                  textAlign: TextAlign.center,
+                ),
+                actions: [
+                  TextButton(
+                    child: const Text(
+                      'no',
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  TextButton(
+                    child: const Text(
+                      'delete',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    onPressed: onDelete,
+                  )
+                ],
+              ),
+            );
+          }
+        },
       ),
     );
   }
