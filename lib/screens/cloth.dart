@@ -159,6 +159,11 @@ class _ClothScreenState extends State<ClothScreen> {
                   Product newProduct = onLikedProvider.onLiked(products[index]);
                   setState(() => products[index] = newProduct);
                 },
+                onDelete: () async {
+                  await Api.delete(products[index]);
+                  setState(() => getProducts());
+                  Navigator.pop(context);
+                },
                 modalBuilder: (context) {
                   return ModalBottomSheetForShoeAndCloth(
                     name: products[index].productName,
@@ -174,11 +179,6 @@ class _ClothScreenState extends State<ClothScreen> {
                     green: green,
                     red: red,
                     black: black,
-                    onLiked: () {
-                      Product newProduct = onLikedProvider.onLiked(products[index]);
-                      setState(() => products[index] = newProduct);
-                    },
-                    liked: products[index].liked,
                     onBuy: () {},
                   );
                 },

@@ -1,6 +1,5 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:nbb/const.dart';
 import 'package:nbb/models/productModel.dart';
 import 'package:nbb/utils/api.dart';
@@ -102,43 +101,33 @@ class _HomeScreenState extends State<HomeScreen> {
                     Product newProduct = onLikedProvider.onLiked(products[index]);
                     setState(() => products[index] = newProduct);
                   },
+                  onDelete: () async {
+                    Navigator.pop(context);
+                    await Api.delete(products[index]);
+                    setState(() => getProducts());
+                  },
                   liked: products[index].liked,
                   pink: pink,
                   blue: blue,
                   green: green,
                   red: red,
                   black: black,
-                  onTap: () {
-                    showMaterialModalBottomSheet(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(25),
-                        ),
-                      ),
-                      context: context,
-                      builder: (context) {
-                        return ModalBottomSheetForShoeAndCloth(
-                          name: products[index].productName,
-                          subtype: products[index].productSubtype,
-                          image: products[index].image,
-                          price: products[index].price,
-                          minSize: products[index].minSize,
-                          maxSize: products[index].maxSize,
-                          description: products[index].description,
-                          isShoe: products[index].productType == 'Shoe',
-                          pink: pink,
-                          blue: blue,
-                          green: green,
-                          red: red,
-                          black: black,
-                          liked: products[index].liked,
-                          onLiked: () {
-                            Product newProduct = onLikedProvider.onLiked(products[index]);
-                            setState(() => products[index] = newProduct);
-                          },
-                          onBuy: () {},
-                        );
-                      },
+                  modalBuilder: (context) {
+                    return ModalBottomSheetForShoeAndCloth(
+                      name: products[index].productName,
+                      subtype: products[index].productSubtype,
+                      image: products[index].image,
+                      price: products[index].price,
+                      minSize: products[index].minSize,
+                      maxSize: products[index].maxSize,
+                      description: products[index].description,
+                      isShoe: products[index].productType == 'Shoe',
+                      pink: pink,
+                      blue: blue,
+                      green: green,
+                      red: red,
+                      black: black,
+                      onBuy: () {},
                     );
                   },
                 );
