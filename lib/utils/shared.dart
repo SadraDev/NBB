@@ -6,7 +6,6 @@ class Shared {
   static const _userPassword = 'userPassword';
   static const _userEmail = 'userEmail';
   static const _userPhone = 'userPhone';
-  static const _userEmailOrPhone = 'userEmailOrPhone';
   static const _likedProducts = 'likedProducts';
 
   static Future init() async => _preferences = await SharedPreferences.getInstance();
@@ -30,11 +29,6 @@ class Shared {
       await _preferences!.setString(_userPhone, userPhone);
 
   static String? getUserPhone() => _preferences!.getString(_userPhone);
-
-  static Future setUserEmailOrPhone(String userEmailOrPhone) async =>
-      await _preferences!.setString(_userEmailOrPhone, userEmailOrPhone);
-
-  static String? getUserEmailOrPhone() => _preferences!.getString(_userEmailOrPhone);
 
   static Future setLikedProducts(List<String> likedProducts) async =>
       await _preferences!.setStringList(_likedProducts, likedProducts);
