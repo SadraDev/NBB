@@ -17,16 +17,17 @@ class UserConnection
 
     public function checkRegisterParams()
     {
-        if (!isset($this->post['username'])) array_push($this->response, 'username required');
-        if (!isset($this->post['phone'])) array_push($this->response, 'phone required');
-        if (!isset($this->post['password'])) array_push($this->response, 'password required');
-        if (!isset($this->post['email'])) array_push($this->response, 'email required');
+        if (!isset($this->post['username']) or $this->post['username'] == '') array_push($this->response, 'username required');
+        if (!isset($this->post['phone']) or $this->post['phone'] == '') array_push($this->response, 'phone required');
+        if (!isset($this->post['password']) or $this->post['password'] == '') array_push($this->response, 'password required');
+        if (!isset($this->post['email']) or $this->post['email'] == '') array_push($this->response, 'email required');
 
         if (count($this->response) > 0) {
             exit(json_encode(
                 [
                     'result' => false,
-                    'error' => $this->response
+                    'error' => $this->response,
+                    'action' => 'REGISTER_FAILED'
                 ]
             ));
         }
@@ -45,7 +46,8 @@ class UserConnection
             exit(json_encode(
                 [
                     'result' => false,
-                    'error' => 'user already existed'
+                    'error' => 'user already existed',
+                    'action' => 'REGISTER_FAILED'
                 ]
             ));
         }
@@ -61,7 +63,8 @@ class UserConnection
             exit(json_encode(
                 [
                     'result' => true,
-                    'msg' => 'user created successfully'
+                    'msg' => 'user created successfully',
+                    'action' => 'REGISTER_SUCCESSUL'
                 ]
             ));
         }
@@ -69,14 +72,15 @@ class UserConnection
 
     public function checkLoginParams()
     {
-        if (!isset($this->post['phoneOrEmail'])) array_push($this->response, 'phone or email required');
-        if (!isset($this->post['password'])) array_push($this->response, 'password required');
+        if (!isset($this->post['phone']) or $this->post['phone'] == '') array_push($this->response, 'phone required');
+        if (!isset($this->post['password']) or $this->post['password'] == '') array_push($this->response, 'password required');
 
         if (count($this->response) > 0) {
             exit(json_encode(
                 [
                     'result' => false,
-                    'error' => $this->response
+                    'error' => $this->response,
+                    'action' => 'LOGIN_FAILED'
                 ]
             ));
         }
@@ -84,9 +88,9 @@ class UserConnection
 
     public function checkLogin()
     {
-        $stmt = 'SELECT * FROM `tbl_user` WHERE `phone` = ? or `email` = ?';
+        $stmt = 'SELECT * FROM `tbl_user` WHERE `phone` = ?';
         $stmt = $this->conn->prepare($stmt);
-        $stmt->bind_param('ss', $this->post['phoneOrEmail'], $this->post['phoneOrEmail']);
+        $stmt->bind_param('s', $this->post['phone']);
         if ($stmt->execute()) {
             $result = $stmt->get_result();
 
@@ -94,7 +98,8 @@ class UserConnection
                 exit(json_encode(
                     [
                         'result' => false,
-                        'error' => 'user does not exist'
+                        'error' => 'user does not exist',
+                        'action' => 'LOGIN_FAILED'
                     ]
                 ));
             } else {
@@ -104,14 +109,17 @@ class UserConnection
                     exit(json_encode(
                         [
                             'result' => true,
-                            'msg' => 'logged in'
+                            'msg' => 'logged in',
+                            'action' => 'LOGIN_SUCCESSFUL'
+
                         ]
                     ));
                 } else {
                     exit(json_encode(
                         [
                             'result' => false,
-                            'error' => 'wrong password'
+                            'error' => 'wrong password',
+                            'action' => 'LOGIN_FAILED'
                         ]
                     ));
                 }
@@ -194,8 +202,8 @@ class UserConnection
 
     public function updateUsername()
     {
-        if (!isset($this->post['username'])) array_push($this->response, 'username required');
-        if (!isset($this->post['phone'])) array_push($this->response, 'phone required');
+        if (!isset($this->post['username']) or $this->post['username'] == '') array_push($this->response, 'username required');
+        if (!isset($this->post['phone']) or $this->post['phone'] == '') array_push($this->response, 'phone required');
         if (count($this->response) > 0) {
             exit(json_encode(
                 [
