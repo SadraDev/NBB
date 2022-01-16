@@ -103,7 +103,7 @@ class ShoeAndClothGrid extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.fill,
-                  image: NetworkImage(image!),
+                  image: NetworkImage('$imageURL/$image'),
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
               ),

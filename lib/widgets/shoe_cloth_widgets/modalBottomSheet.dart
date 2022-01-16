@@ -75,7 +75,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                     top: Radius.circular(25),
                   ),
                   image: DecorationImage(
-                    image: NetworkImage(widget.image!),
+                    image: NetworkImage('$imageURL/${widget.image}'),
                   ),
                 ),
               ),
