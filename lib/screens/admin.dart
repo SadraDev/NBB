@@ -31,7 +31,6 @@ class _AdminScreenState extends State<AdminScreen> {
   String price = '';
   String minSize = '';
   String maxSize = '';
-  String imageURL = '';
   String description = '';
 
   Future pickImage() async {
@@ -40,7 +39,6 @@ class _AdminScreenState extends State<AdminScreen> {
 
     final onHandImage = File(image.path);
     setState(() => this.image = onHandImage);
-    imageURL = image.name;
   }
 
   @override
@@ -112,7 +110,7 @@ class _AdminScreenState extends State<AdminScreen> {
               String colors = json.encode(GetColors.colors());
               String productSubType = getSubtype();
               bool inserted = await Api.insertNewProduct(productName, productType, productSubType,
-                  price, minSize, maxSize, colors, imageURL, description);
+                  price, minSize, maxSize, colors, image!, description);
               if (inserted) {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(
