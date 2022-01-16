@@ -27,67 +27,71 @@ class ProductsController
 
         switch ($apiType) {
             case 'insert': {
-                    if (!isset($this->post['product_name'])) array_push($this->response, 'product_name required');
-                    if (!isset($this->post['product_type'])) array_push($this->response, 'product_type required');
-                    if (!isset($this->post['product_subtype'])) array_push($this->response, 'product_subtype required');
-                    if (!isset($this->post['price'])) array_push($this->response, 'price required');
-                    if (!isset($this->post['min_size'])) array_push($this->response, 'min_size required');
-                    if (!isset($this->post['max_size'])) array_push($this->response, 'max_size required');
-                    if (!isset($this->post['colors'])) array_push($this->response, 'colors required');
-                    if (!isset($this->post['image'])) array_push($this->response, 'image required');
-                    if (!isset($this->post['description'])) array_push($this->response, 'description required');
+                    if (!isset($this->post['product_name']) or $this->post['product_name'] == '') array_push($this->response, 'product_name required');
+                    if (!isset($this->post['product_type']) or $this->post['product_type'] == '') array_push($this->response, 'product_type required');
+                    if (!isset($this->post['product_subtype']) or $this->post['product_subtype'] == '') array_push($this->response, 'product_subtype required');
+                    if (!isset($this->post['price']) or $this->post['price'] == '') array_push($this->response, 'price required');
+                    if (!isset($this->post['min_size']) or $this->post['min_size'] == '') array_push($this->response, 'min_size required');
+                    if (!isset($this->post['max_size']) or $this->post['max_size'] == '') array_push($this->response, 'max_size required');
+                    if (!isset($this->post['colors']) or $this->post['colors'] == '') array_push($this->response, 'colors required');
+                    if (!isset($this->post['image']) or $this->post['image'] == '') array_push($this->response, 'image required');
+                    if (!isset($this->post['description']) or $this->post['description'] == '') array_push($this->response, 'description required');
                     if (count($this->response) > 0) {
                         exit(json_encode(
                             [
                                 'result' => false,
-                                'error' => $this->response
+                                'error' => $this->response,
+                                'action' => 'INSERT_FAILED'
                             ]
                         ));
                     }
                     break;
                 }
             case 'delete': {
-                    if (!isset($this->post['product_id'])) array_push($this->response, 'product_name required');
-                    if (!isset($this->post['product_type'])) array_push($this->response, 'product_type required');
-                    if (!isset($this->post['product_subtype'])) array_push($this->response, 'product_subtype required');
+                    if (!isset($this->post['product_id']) or $this->post['product_id'] == '') array_push($this->response, 'product_name required');
+                    if (!isset($this->post['product_type']) or $this->post['product_type'] == '') array_push($this->response, 'product_type required');
+                    if (!isset($this->post['product_subtype']) or $this->post['product_subtype'] == '') array_push($this->response, 'product_subtype required');
                     if (count($this->response) > 0) {
                         exit(json_encode(
                             [
                                 'result' => false,
-                                'error' => $this->response
+                                'error' => $this->response,
+                                'action' => 'DELETE_FAILED'
                             ]
                         ));
                     }
                     break;
                 }
             case 'buy': {
-                    if (!isset($this->post['user_phone'])) array_push($this->response, 'user_id required');
-                    if (!isset($this->post['product_id'])) array_push($this->response, 'product_id required');
-                    if (!isset($this->post['product_type'])) array_push($this->response, 'product_type required');
-                    if (!isset($this->post['product_subtype'])) array_push($this->response, 'product_subtype required');
-                    if (!isset($this->post['product_price'])) array_push($this->response, 'price required');
-                    if (!isset($this->post['product_size'])) array_push($this->response, 'size required');
-                    if (!isset($this->post['product_color'])) array_push($this->response, 'color required');
-                    if (!isset($this->post['product_image'])) array_push($this->response, 'image required');
-                    if (!isset($this->post['product_name'])) array_push($this->response, 'product_name required');
+                    if (!isset($this->post['user_phone']) or $this->post['user_phone'] == '') array_push($this->response, 'user_id required');
+                    if (!isset($this->post['product_id']) or $this->post['product_id'] == '') array_push($this->response, 'product_id required');
+                    if (!isset($this->post['product_type']) or $this->post['product_type'] == '') array_push($this->response, 'product_type required');
+                    if (!isset($this->post['product_subtype']) or $this->post['product_subtype'] == '') array_push($this->response, 'product_subtype required');
+                    if (!isset($this->post['product_price']) or $this->post['product_price'] == '') array_push($this->response, 'price required');
+                    if (!isset($this->post['product_size']) or $this->post['product_size'] == '') array_push($this->response, 'size required');
+                    if (!isset($this->post['product_color']) or $this->post['product_color'] == '') array_push($this->response, 'color required');
+                    if (!isset($this->post['product_image']) or $this->post['product_image'] == '') array_push($this->response, 'image required');
+                    if (!isset($this->post['product_name']) or $this->post['product_name'] == '') array_push($this->response, 'product_name required');
                     if (count($this->response) > 0) {
                         exit(json_encode(
                             [
                                 'result' => false,
-                                'error' => $this->response
+                                'error' => $this->response,
+                                'action' => 'BUY_FAILED'
                             ]
                         ));
                     }
                     break;
                 }
             case 'select_by_type': {
-                    if (!isset($this->post['product_type'])) array_push($this->response, 'product_type required');
+                    if (!isset($this->post['product_type']) or $this->post['product_type'] == '') array_push($this->response, 'product_type required');
 
                     if (count($this->response) > 0) {
                         exit(json_encode(
                             [
                                 'result' => false,
-                                'error' => $this->response
+                                'error' => $this->response,
+                                'action' => 'SELECT_BY_TYPE_FAILED'
                             ]
                         ));
                     }
@@ -101,7 +105,8 @@ class ProductsController
                         exit(json_encode(
                             [
                                 'result' => false,
-                                'error' => $this->response
+                                'error' => $this->response,
+                                'action' => 'SELECT_BY_SUBTYPE_FAILED'
                             ]
                         ));
                     }
@@ -116,7 +121,8 @@ class ProductsController
                         exit(json_encode(
                             [
                                 'result' => false,
-                                'error' => $this->response
+                                'error' => $this->response,
+                                'action' => 'SELECT_SINGLE_FAILED'
                             ]
                         ));
                     }
@@ -128,22 +134,40 @@ class ProductsController
 
     public function insertProduct()
     {
+        $file = @$_FILES['image'];
+        $fileName = null;
+        if (!empty($file)) {
+            if ($file['size'] > 10000000) {
+                exit(json_encode(
+                    [
+                        'result' => false,
+                        'error' => 'file size too big',
+                        'action' => 'FILE_SIZE_OVER_LIMIT'
+                    ]
+                ));
+            }
+            $fileName = $file['name'];
+            move_uploaded_file($file['tmp_name'], '../uploads/' . $fileName);
+        }
+
         $stmt = "INSERT INTO `tbl_product` (`product_name`, `product_type`, `product_subtype`, `min_size`, `max_size`, `colors`, `price`, `image`, `description`, `deleted`) values  (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
         $stmt = $this->conn->prepare($stmt);
-        $stmt->bind_param('sssiissss', $this->post['product_name'], $this->post['product_type'], $this->post['product_subtype'], $this->post['min_size'], $this->post['max_size'], $this->post['colors'], $this->post['price'], $this->post['image'], $this->post['description']);
+        $stmt->bind_param('sssiissss', $this->post['product_name'], $this->post['product_type'], $this->post['product_subtype'], $this->post['min_size'], $this->post['max_size'], $this->post['colors'], $this->post['price'], $fileName, $this->post['description']);
         $result = $stmt->execute();
         if ($result) {
             exit(json_encode(
                 [
                     'result' => true,
-                    'msg' => 'product inserted'
+                    'msg' => 'product inserted',
+                    'action' => 'INSERT_SUCCESS'
                 ]
             ));
         } else {
             exit(json_encode(
                 [
                     'result' => $stmt->execute(),
-                    'msg' => 'product didnt inserted'
+                    'msg' => 'product didnt inserted',
+                    'action' => 'INSERT_FAILED'
                 ]
             ));
         }
@@ -154,11 +178,22 @@ class ProductsController
         $stmt = "UPDATE `tbl_product` SET `deleted` = true WHERE `id` = ? and `product_type` = ? and `product_subtype` = ?";
         $stmt = $this->conn->prepare($stmt);
         $stmt->bind_param('iss', $this->post['product_id'], $this->post['product_type'], $this->post['product_subtype']);
-        if ($stmt->execute()) {
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
             exit(json_encode(
                 [
                     'result' => true,
-                    'msg' => 'product is set for deleted'
+                    'msg' => 'product is set for deleted',
+                    'action' => 'DELETE_SUCCESS'
+                ]
+            ));
+        } else {
+            exit(json_encode(
+                [
+                    'result' => false,
+                    'error' => 'product with that information does not exist',
+                    'action' => 'DELETE_FAILED'
                 ]
             ));
         }
