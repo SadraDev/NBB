@@ -7,18 +7,21 @@ import 'package:nbb/utils/shared.dart';
 class Api {
   static Future<String> login(String emailOrPhone, String password) async {
     Uri url = Uri.parse('https://phloxco.ir/test/view/login.php');
-    Response response = await post(url, body: {'phone': emailOrPhone, 'password': password});
-
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      if (data['result'] == true) return "true";
-      try {
-        if (data['result'] == false) return data['error'];
-      } catch (e) {
-        if (data['result'] == false) return data['error'][0];
+    try {
+      Response response = await post(url, body: {'phone': emailOrPhone, 'password': password});
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        if (data['result'] == true) return "true";
+        try {
+          if (data['result'] == false) return data['error'];
+        } catch (e) {
+          if (data['result'] == false) return data['error'][0];
+        }
       }
+      return "false";
+    } catch (e) {
+      return "NETWORK_ERROR";
     }
-    return "false";
   }
 
   static Future<String> register(
