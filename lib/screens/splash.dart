@@ -20,12 +20,26 @@ class _SplashScreenState extends State<SplashScreen> {
 
   login() async {
     String? loggedIn = await Api.login(phone!, password!);
+    print(loggedIn);
 
     if (loggedIn == 'true') {
       Future.delayed(
           const Duration(seconds: 1), () => Navigator.popAndPushNamed(context, FlowScreen.id));
     }
-    if (loggedIn != 'true') {
+    if (loggedIn == 'NETWORK_ERROR') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          duration: Duration(seconds: 5),
+          backgroundColor: Colors.white,
+          content: Text(
+            'please check your connection.',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: blackColor),
+          ),
+        ),
+      );
+    }
+    if (loggedIn == 'phone required') {
       Future.delayed(
           const Duration(seconds: 1), () => Navigator.popAndPushNamed(context, LoginScreen.id));
     }
