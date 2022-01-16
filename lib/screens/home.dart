@@ -67,11 +67,11 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context) {
               List<Widget> productHolders = [];
               for (int index = 0; index < products.length; index++) {
-                bool? pink = products[index].colors!['pink'];
-                bool? blue = products[index].colors!['blue'];
-                bool? green = products[index].colors!['green'];
-                bool? red = products[index].colors!['red'];
-                bool? black = products[index].colors!['black'];
+                bool? pink = products[index].colors!['pink'] ?? false;
+                bool? blue = products[index].colors!['blue'] ?? false;
+                bool? green = products[index].colors!['green'] ?? false;
+                bool? red = products[index].colors!['red'] ?? false;
+                bool? black = products[index].colors!['black'] ?? false;
                 if (onLikedProvider.likedProductsListId!.isNotEmpty) {
                   onLikedProvider.likedProductsListId!.forEach((element) {
                     if (products[index].id.toString() == element) {
