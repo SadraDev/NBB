@@ -40,56 +40,6 @@ class _FlowScreenState extends State<FlowScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: SizedBox(
-        height: 90,
-        child: Card(
-          margin: const EdgeInsets.all(20).copyWith(top: 0),
-          elevation: 5,
-          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: blackColor,
-            selectedIconTheme: const IconThemeData(color: whiteColor),
-            unselectedIconTheme: const IconThemeData(color: greyColor),
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            currentIndex: selectedIndex,
-            onTap: onItemTapped,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/images/house.png')),
-                label: 'home',
-              ),
-              BottomNavigationBarItem(
-                icon: ImageIcon(
-                  AssetImage('assets/images/ankle-boot.png'),
-                  size: 27,
-                ),
-                label: 'shoe',
-              ),
-              BottomNavigationBarItem(
-                icon: ImageIcon(
-                  AssetImage('assets/images/dress.png'),
-                  size: 30,
-                ),
-                label: ' =) ',
-              ),
-              BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/images/heart.png')),
-                label: 'favorite',
-              ),
-              BottomNavigationBarItem(
-                icon: ImageIcon(
-                  AssetImage('assets/images/account.png'),
-                  size: 27,
-                ),
-                label: 'profile',
-              ),
-            ],
-          ),
-        ),
-      ),
       body: Stack(
         alignment: Alignment.center,
         children: [
@@ -114,6 +64,60 @@ class _FlowScreenState extends State<FlowScreen> {
             ],
           ),
           _screenOptions(selectedIndex),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: SizedBox(
+              height: 90,
+              child: Card(
+                margin: const EdgeInsets.all(20).copyWith(top: 0),
+                elevation: 5,
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15))),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                child: BottomNavigationBar(
+                  type: BottomNavigationBarType.fixed,
+                  backgroundColor: blackColor,
+                  selectedIconTheme: const IconThemeData(color: whiteColor),
+                  unselectedIconTheme: const IconThemeData(color: greyColor),
+                  showSelectedLabels: false,
+                  showUnselectedLabels: false,
+                  currentIndex: selectedIndex,
+                  onTap: onItemTapped,
+                  items: const <BottomNavigationBarItem>[
+                    BottomNavigationBarItem(
+                      icon: ImageIcon(AssetImage('assets/images/house.png')),
+                      label: '',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: ImageIcon(
+                        AssetImage('assets/images/ankle-boot.png'),
+                        size: 27,
+                      ),
+                      label: '',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: ImageIcon(
+                        AssetImage('assets/images/dress.png'),
+                        size: 30,
+                      ),
+                      label: ' =) ',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: ImageIcon(AssetImage('assets/images/heart.png')),
+                      label: '',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: ImageIcon(
+                        AssetImage('assets/images/account.png'),
+                        size: 27,
+                      ),
+                      label: '',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

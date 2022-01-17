@@ -11,20 +11,18 @@ class ShoeAndClothGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height - 196,
-        width: MediaQuery.of(context).size.width,
-        child: StaggeredGridView.countBuilder(
-          shrinkWrap: true,
-          staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
-          crossAxisCount: 2,
-          mainAxisSpacing: 20,
-          physics: const BouncingScrollPhysics(),
-          itemCount: count,
-          itemBuilder: builder,
-        ),
+    return SizedBox(
+      height: MediaQuery.of(context).size.height - 102,
+      width: MediaQuery.of(context).size.width,
+      child: StaggeredGridView.countBuilder(
+        padding: const EdgeInsets.only(bottom: 90, top: 30),
+        shrinkWrap: true,
+        staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
+        crossAxisCount: 2,
+        mainAxisSpacing: 20,
+        physics: const BouncingScrollPhysics(),
+        itemCount: count,
+        itemBuilder: builder,
       ),
     );
   }

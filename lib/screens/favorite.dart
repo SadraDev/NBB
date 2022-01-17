@@ -139,7 +139,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           }
         }
         return ListView(
-          padding: EdgeInsets.zero,
+          padding: const EdgeInsets.only(bottom: 90),
           physics: const BouncingScrollPhysics(),
           children: favorites,
         );

@@ -72,7 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }
       return ListView(
         physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.zero,
+        padding: const EdgeInsets.only(bottom: 90),
         children: children,
       );
     });
