@@ -1,3 +1,4 @@
+import 'package:nbb/widgets/admin_widgets/HomeProductsOrNotSelector.dart';
 import 'package:nbb/widgets/admin_widgets/productDescriptionTextField.dart';
 import 'package:nbb/widgets/admin_widgets/productColorsSelector.dart';
 import 'package:nbb/widgets/admin_widgets/productSubTypeSelector.dart';
@@ -25,6 +26,7 @@ class AdminScreen extends StatefulWidget {
 
 class _AdminScreenState extends State<AdminScreen> {
   bool isSwitched = false;
+  bool isHomeProduct = false;
   File? image;
   String productName = '';
   String productType = 'Shoe';
@@ -32,6 +34,8 @@ class _AdminScreenState extends State<AdminScreen> {
   String minSize = '';
   String maxSize = '';
   String description = '';
+  String homeProduct = '0';
+  bool loading = false;
 
   Future pickImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -102,15 +106,24 @@ class _AdminScreenState extends State<AdminScreen> {
             maxSize: (value) => maxSize = value!,
           ),
           const ProductColorsSelector(),
+          HomeProductsOrNotSelector(
+            isHomeProduct: isHomeProduct,
+            homeProductSwitcher: (value) => setState(() => isHomeProduct = !isHomeProduct),
+            sameHomeProductSwitcher: () => setState(() => isHomeProduct = !isHomeProduct),
+          ),
           ProductDescriptionTextField(
             onDoneEditing: (value) => description = value,
           ),
           SubmitButton(
+            loading: loading,
             onTap: () async {
               String colors = json.encode(GetColors.colors());
               String productSubType = getSubtype();
+              if (isHomeProduct == true) homeProduct = '1';
+              if (image != null) setState(() => loading = true);
               bool inserted = await Api.insertNewProduct(productName, productType, productSubType,
-                  price, minSize, maxSize, colors, image!, description);
+                  price, minSize, maxSize, colors, image!, description, homeProduct);
+              setState(() => loading = false);
               if (inserted) {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(

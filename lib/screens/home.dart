@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   },
                 );
-                if (productHolders.length < 5) productHolders.add(newHolder);
+                if (products[index].homeProduct == 1) productHolders.add(newHolder);
               }
               if (products.isEmpty) {
                 productHolders = [

@@ -12,6 +12,7 @@ class Product {
   final String? image;
   final String? description;
   final int? deleted;
+  final int? homeProduct;
   final bool? liked;
 
   Product({
@@ -27,6 +28,7 @@ class Product {
     this.description,
     this.deleted,
     this.liked,
+    this.homeProduct,
   });
 
   factory Product.fromJson(List<dynamic> parsedJson) {
@@ -42,6 +44,7 @@ class Product {
       image: parsedJson[8],
       description: parsedJson[9],
       deleted: parsedJson[10],
+      homeProduct: parsedJson[11],
       liked: false,
     );
   }
