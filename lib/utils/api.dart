@@ -45,16 +45,16 @@ class Api {
   }
 
   static Future<bool> insertNewProduct(
-    String productName,
-    String productType,
-    String productSubtype,
-    String price,
-    String minSize,
-    String maxSize,
-    String colors,
-    File image,
-    String description,
-  ) async {
+      String productName,
+      String productType,
+      String productSubtype,
+      String price,
+      String minSize,
+      String maxSize,
+      String colors,
+      File image,
+      String description,
+      String isHomeProduct) async {
     Uri url = Uri.parse('https://phloxco.ir/test/view/product.php');
     var request = MultipartRequest('POST', url)
       ..fields['apiType'] = 'insert'
@@ -66,6 +66,7 @@ class Api {
       ..fields['max_size'] = maxSize
       ..fields['colors'] = colors
       ..fields['description'] = description
+      ..fields['home_product'] = isHomeProduct
       ..fields['phone'] = Shared.getUserPhone()!
       ..fields['password'] = Shared.getUserPassword()!
       ..files.add(await MultipartFile.fromPath('image', image.path));
