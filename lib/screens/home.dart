@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
       strokeWidth: 2,
       onRefresh: getProducts,
       child: ListView(
-        padding: EdgeInsets.zero,
+        padding: const EdgeInsets.only(bottom: 80),
         scrollDirection: Axis.vertical,
         physics: const BouncingScrollPhysics(),
         children: <Widget>[
@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.7,
                     height: MediaQuery.of(context).size.width * 0.85,
-                    child: const Center(child: Text('something went wrong')),
+                    child: const Center(child: CircularProgressIndicator(color: blackColor)),
                   )
                 ];
               }
@@ -192,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.8,
                     height: MediaQuery.of(context).size.width * 0.8,
-                    child: const Center(child: Text('something went wrong')),
+                    child: const Center(child: CircularProgressIndicator(color: blackColor)),
                   )
                 ];
               }
