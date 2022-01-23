@@ -1,28 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:nbb/utils/shared.dart';
 import '../../const.dart';
 
 class ShoeAndClothGridView extends StatelessWidget {
-  const ShoeAndClothGridView({Key? key, required this.builder, this.count}) : super(key: key);
-  final Widget Function(BuildContext, int) builder;
-  final int? count;
+  const ShoeAndClothGridView({Key? key, required this.builder, this.future}) : super(key: key);
+  final Widget Function(BuildContext, AsyncSnapshot<List<dynamic>>) builder;
+  final Future<List<dynamic>>? future;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height - 102,
+      height: MediaQuery.of(context).size.height - 106,
       width: MediaQuery.of(context).size.width,
-      child: StaggeredGridView.countBuilder(
-        padding: const EdgeInsets.only(bottom: 90, top: 30),
-        shrinkWrap: true,
-        staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
-        crossAxisCount: 2,
-        mainAxisSpacing: 20,
-        physics: const BouncingScrollPhysics(),
-        itemCount: count,
-        itemBuilder: builder,
+      child: FutureBuilder<List<dynamic>>(
+        future: future,
+        builder: builder,
       ),
     );
   }
