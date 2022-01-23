@@ -20,7 +20,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   login() async {
     String? loggedIn = await Api.login(phone!, password!);
-    print(loggedIn);
 
     if (loggedIn == 'true') {
       Future.delayed(
