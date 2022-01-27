@@ -124,11 +124,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       maxSize: favorite.maxSize,
                       description: favorite.description,
                       isShoe: favorite.productType == 'Shoe',
-                      pink: favorite.colors!['pink'],
-                      blue: favorite.colors!['blue'],
-                      green: favorite.colors!['green'],
-                      red: favorite.colors!['red'],
-                      black: favorite.colors!['black'],
+                      colors: favorite.colors,
                       onBuy: () {},
                     );
                   },

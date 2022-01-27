@@ -23,17 +23,13 @@ class MainRowProducts extends StatelessWidget {
 class MainRowProductsContainer extends StatelessWidget {
   const MainRowProductsContainer({
     Key? key,
-    this.onLiked,
     required this.modalBuilder,
+    this.onLiked,
     this.image,
     this.productName,
     this.productSubtype,
     this.price,
-    this.pink,
-    this.blue,
-    this.green,
-    this.red,
-    this.black,
+    this.colors,
     this.liked,
     this.onDelete,
   }) : super(key: key);
@@ -44,27 +40,31 @@ class MainRowProductsContainer extends StatelessWidget {
   final String? productName;
   final String? productSubtype;
   final String? price;
-  final bool? pink;
-  final bool? blue;
-  final bool? green;
-  final bool? red;
-  final bool? black;
+  final Map<String, dynamic>? colors;
   final bool? liked;
-
-  oneLineOrTowLines() {
-    if (red! && blue! && green! && pink! && black!) return true;
-    if (blue! && green! && pink! && black!) return true;
-    if (red! && green! && pink! && black!) return true;
-    if (red! && blue! && pink! && black!) return true;
-    if (red! && blue! && green! && black!) return true;
-    if (red! && blue! && green! && pink!) return true;
-    return false;
-  }
 
   bool? adminChecker() {
     if (Shared.getUserPhone() == adminNumber) return true;
     if (Shared.getUserPhone() != adminNumber) return false;
     return false;
+  }
+
+  getColorsLength() {
+    int length = 0;
+    if (colors!['black'] == true) length++;
+    if (colors!['maroon'] == true) length++;
+    if (colors!['candyApple'] == true) length++;
+    if (colors!['red'] == true) length++;
+    if (colors!['pink'] == true) length++;
+    if (colors!['green'] == true) length++;
+    if (colors!['navy'] == true) length++;
+    if (colors!['blue'] == true) length++;
+    if (colors!['babyBlue'] == true) length++;
+    if (colors!['white'] == true) length++;
+    if (colors!['brown'] == true) length++;
+    if (colors!['cream'] == true) length++;
+    if (colors!['yellow'] == true) length++;
+    return length;
   }
 
   @override
@@ -147,7 +147,7 @@ class MainRowProductsContainer extends StatelessWidget {
                       ),
                     ),
                   ),
-                  oneLineOrTowLines()
+                  getColorsLength() > 4
                       ? Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
@@ -161,61 +161,312 @@ class MainRowProductsContainer extends StatelessWidget {
                             ),
                             Row(
                               children: <Widget>[
-                                Visibility(
-                                  visible: pink!,
-                                  child: SizedBox(
-                                    height: 30,
-                                    width: 30,
-                                    child: Card(
-                                      shape: const CircleBorder(),
-                                      color: Colors.pink[600],
-                                    ),
-                                  ),
-                                ),
-                                Visibility(
-                                  visible: blue!,
-                                  child: const SizedBox(
-                                    height: 30,
-                                    width: 30,
-                                    child: Card(
-                                      shape: CircleBorder(),
-                                      color: Colors.blue,
-                                    ),
-                                  ),
-                                ),
-                                Visibility(
-                                  visible: green!,
-                                  child: const SizedBox(
-                                    height: 30,
-                                    width: 30,
-                                    child: Card(
-                                      shape: CircleBorder(),
-                                      color: Colors.green,
-                                    ),
-                                  ),
-                                ),
-                                Visibility(
-                                  visible: red!,
-                                  child: const SizedBox(
-                                    height: 30,
-                                    width: 30,
-                                    child: Card(
-                                      shape: CircleBorder(),
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                ),
-                                Visibility(
-                                  visible: black!,
-                                  child: const SizedBox(
-                                    height: 30,
-                                    width: 30,
-                                    child: Card(
-                                      shape: CircleBorder(),
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                ),
+                                getColorsLength() > 5
+                                    ? Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Row(
+                                            children: [
+                                              Visibility(
+                                                visible: colors!['black'] ?? false,
+                                                child: const SizedBox(
+                                                  height: 30,
+                                                  width: 30,
+                                                  child: Card(
+                                                    shape: CircleBorder(),
+                                                    color: Colors.black87,
+                                                  ),
+                                                ),
+                                              ),
+                                              Visibility(
+                                                visible: colors!['maroon'] ?? false,
+                                                child: const SizedBox(
+                                                  height: 30,
+                                                  width: 30,
+                                                  child: Card(
+                                                    shape: CircleBorder(),
+                                                    color: Color(0xff800000),
+                                                  ),
+                                                ),
+                                              ),
+                                              Visibility(
+                                                visible: colors!['candyApple'] ?? false,
+                                                child: const SizedBox(
+                                                  height: 30,
+                                                  width: 30,
+                                                  child: Card(
+                                                    shape: CircleBorder(),
+                                                    color: Color(0xffff0800),
+                                                  ),
+                                                ),
+                                              ),
+                                              Visibility(
+                                                visible: colors!['red'] ?? false,
+                                                child: const SizedBox(
+                                                  height: 30,
+                                                  width: 30,
+                                                  child: Card(
+                                                    shape: CircleBorder(),
+                                                    color: Colors.red,
+                                                  ),
+                                                ),
+                                              ),
+                                              Visibility(
+                                                visible: colors!['pink'] ?? false,
+                                                child: SizedBox(
+                                                  height: 30,
+                                                  width: 30,
+                                                  child: Card(
+                                                    shape: const CircleBorder(),
+                                                    color: Colors.pink[600],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Visibility(
+                                                visible: colors!['green'] ?? false,
+                                                child: const SizedBox(
+                                                  height: 30,
+                                                  width: 30,
+                                                  child: Card(
+                                                    shape: CircleBorder(),
+                                                    color: Colors.green,
+                                                  ),
+                                                ),
+                                              ),
+                                              Visibility(
+                                                visible: colors!['navy'] ?? false,
+                                                child: const SizedBox(
+                                                  height: 30,
+                                                  width: 30,
+                                                  child: Card(
+                                                    shape: CircleBorder(),
+                                                    color: Color(0xff000080),
+                                                  ),
+                                                ),
+                                              ),
+                                              Visibility(
+                                                visible: colors!['blue'] ?? false,
+                                                child: const SizedBox(
+                                                  height: 30,
+                                                  width: 30,
+                                                  child: Card(
+                                                    shape: CircleBorder(),
+                                                    color: Colors.blue,
+                                                  ),
+                                                ),
+                                              ),
+                                              Visibility(
+                                                visible: colors!['babyBlue'] ?? false,
+                                                child: const SizedBox(
+                                                  height: 30,
+                                                  width: 30,
+                                                  child: Card(
+                                                    shape: CircleBorder(),
+                                                    color: Color(0xff89cfef),
+                                                  ),
+                                                ),
+                                              ),
+                                              Visibility(
+                                                visible: colors!['white'] ?? false,
+                                                child: const SizedBox(
+                                                  height: 30,
+                                                  width: 30,
+                                                  child: Card(
+                                                    shape: CircleBorder(),
+                                                    color: Colors.white60,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Visibility(
+                                                visible: colors!['brown'] ?? false,
+                                                child: SizedBox(
+                                                  height: 30,
+                                                  width: 30,
+                                                  child: Card(
+                                                    shape: const CircleBorder(),
+                                                    color: Colors.brown[700],
+                                                  ),
+                                                ),
+                                              ),
+                                              Visibility(
+                                                visible: colors!['cream'] ?? false,
+                                                child: const SizedBox(
+                                                  height: 30,
+                                                  width: 30,
+                                                  child: Card(
+                                                    shape: CircleBorder(),
+                                                    color: Color(0xff997950),
+                                                  ),
+                                                ),
+                                              ),
+                                              Visibility(
+                                                visible: colors!['yellow'] ?? false,
+                                                child: const SizedBox(
+                                                  height: 30,
+                                                  width: 30,
+                                                  child: Card(
+                                                    shape: CircleBorder(),
+                                                    color: Color(0xfffce205),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      )
+                                    : Row(
+                                        children: [
+                                          Visibility(
+                                            visible: colors!['black'] ?? false,
+                                            child: const SizedBox(
+                                              height: 30,
+                                              width: 30,
+                                              child: Card(
+                                                shape: CircleBorder(),
+                                                color: Colors.black87,
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: colors!['maroon'] ?? false,
+                                            child: const SizedBox(
+                                              height: 30,
+                                              width: 30,
+                                              child: Card(
+                                                shape: CircleBorder(),
+                                                color: Color(0xff800000),
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: colors!['candyApple'] ?? false,
+                                            child: const SizedBox(
+                                              height: 30,
+                                              width: 30,
+                                              child: Card(
+                                                shape: CircleBorder(),
+                                                color: Color(0xffff0800),
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: colors!['red'] ?? false,
+                                            child: const SizedBox(
+                                              height: 30,
+                                              width: 30,
+                                              child: Card(
+                                                shape: CircleBorder(),
+                                                color: Colors.red,
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: colors!['pink'] ?? false,
+                                            child: SizedBox(
+                                              height: 30,
+                                              width: 30,
+                                              child: Card(
+                                                shape: const CircleBorder(),
+                                                color: Colors.pink[600],
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: colors!['green'] ?? false,
+                                            child: const SizedBox(
+                                              height: 30,
+                                              width: 30,
+                                              child: Card(
+                                                shape: CircleBorder(),
+                                                color: Colors.green,
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: colors!['navy'] ?? false,
+                                            child: const SizedBox(
+                                              height: 30,
+                                              width: 30,
+                                              child: Card(
+                                                shape: CircleBorder(),
+                                                color: Color(0xff000080),
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: colors!['blue'] ?? false,
+                                            child: const SizedBox(
+                                              height: 30,
+                                              width: 30,
+                                              child: Card(
+                                                shape: CircleBorder(),
+                                                color: Colors.blue,
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: colors!['babyBlue'] ?? false,
+                                            child: const SizedBox(
+                                              height: 30,
+                                              width: 30,
+                                              child: Card(
+                                                shape: CircleBorder(),
+                                                color: Color(0xff89cfef),
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: colors!['white'] ?? false,
+                                            child: const SizedBox(
+                                              height: 30,
+                                              width: 30,
+                                              child: Card(
+                                                shape: CircleBorder(),
+                                                color: Colors.white60,
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: colors!['brown'] ?? false,
+                                            child: SizedBox(
+                                              height: 30,
+                                              width: 30,
+                                              child: Card(
+                                                shape: const CircleBorder(),
+                                                color: Colors.brown[700],
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: colors!['cream'] ?? false,
+                                            child: const SizedBox(
+                                              height: 30,
+                                              width: 30,
+                                              child: Card(
+                                                  shape: CircleBorder(), color: Color(0xff997950)),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: colors!['yellow'] ?? false,
+                                            child: const SizedBox(
+                                              height: 30,
+                                              width: 30,
+                                              child: Card(
+                                                shape: CircleBorder(),
+                                                color: Color(0xfffce205),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
                               ],
                             ),
                           ],
@@ -231,63 +482,152 @@ class MainRowProductsContainer extends StatelessWidget {
                                 color: Colors.grey,
                               ),
                             ),
-                            Visibility(
-                              visible: pink!,
-                              child: SizedBox(
-                                height: 30,
-                                width: 30,
-                                child: Card(
-                                  shape: const CircleBorder(),
-                                  color: Colors.pink[600],
+                            Row(
+                              children: <Widget>[
+                                Visibility(
+                                  visible: colors!['black'] ?? false,
+                                  child: const SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Card(
+                                      shape: CircleBorder(),
+                                      color: Colors.black87,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            Visibility(
-                              visible: blue!,
-                              child: const SizedBox(
-                                height: 30,
-                                width: 30,
-                                child: Card(
-                                  shape: CircleBorder(),
-                                  color: Colors.blue,
+                                Visibility(
+                                  visible: colors!['maroon'] ?? false,
+                                  child: const SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Card(
+                                      shape: CircleBorder(),
+                                      color: Color(0xff800000),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            Visibility(
-                              visible: green!,
-                              child: const SizedBox(
-                                height: 30,
-                                width: 30,
-                                child: Card(
-                                  shape: CircleBorder(),
-                                  color: Colors.green,
+                                Visibility(
+                                  visible: colors!['candyApple'] ?? false,
+                                  child: const SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Card(
+                                      shape: CircleBorder(),
+                                      color: Color(0xffff0800),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            Visibility(
-                              visible: red!,
-                              child: const SizedBox(
-                                height: 30,
-                                width: 30,
-                                child: Card(
-                                  shape: CircleBorder(),
-                                  color: Colors.red,
+                                Visibility(
+                                  visible: colors!['red'] ?? false,
+                                  child: const SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Card(
+                                      shape: CircleBorder(),
+                                      color: Colors.red,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            Visibility(
-                              visible: black!,
-                              child: const SizedBox(
-                                height: 30,
-                                width: 30,
-                                child: Card(
-                                  shape: CircleBorder(),
-                                  color: Colors.black87,
+                                Visibility(
+                                  visible: colors!['pink'] ?? false,
+                                  child: SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Card(
+                                      shape: const CircleBorder(),
+                                      color: Colors.pink[600],
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                Visibility(
+                                  visible: colors!['green'] ?? false,
+                                  child: const SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Card(
+                                      shape: CircleBorder(),
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: colors!['navy'] ?? false,
+                                  child: const SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Card(
+                                      shape: CircleBorder(),
+                                      color: Color(0xff000080),
+                                    ),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: colors!['blue'] ?? false,
+                                  child: const SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Card(
+                                      shape: CircleBorder(),
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: colors!['babyBlue'] ?? false,
+                                  child: const SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Card(
+                                      shape: CircleBorder(),
+                                      color: Color(0xff89cfef),
+                                    ),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: colors!['white'] ?? false,
+                                  child: const SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Card(
+                                      shape: CircleBorder(),
+                                      color: Colors.white60,
+                                    ),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: colors!['brown'] ?? false,
+                                  child: SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Card(
+                                      shape: const CircleBorder(),
+                                      color: Colors.brown[700],
+                                    ),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: colors!['cream'] ?? false,
+                                  child: const SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Card(shape: CircleBorder(), color: Color(0xff997950)),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: colors!['yellow'] ?? false,
+                                  child: const SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Card(
+                                      shape: CircleBorder(),
+                                      color: Color(0xfffce205),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
-                        ),
+                        )
                 ],
               ),
             ),

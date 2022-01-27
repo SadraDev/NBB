@@ -19,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Product> products = [];
+  List<Product> bottomProducts = [];
   List<String> likedProducts = [];
 
   Future<void> getProducts() async {
@@ -27,7 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       for (var product in products) {
         Product newProduct = Product.fromJson(product);
-        if (product[10] != 1) this.products.add(newProduct);
+        if (product[10] != 1 && product[11] == 1) this.products.add(newProduct);
+        if (product[10] != 1) bottomProducts.add(newProduct);
       }
     });
   }
@@ -67,11 +69,6 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context) {
               List<Widget> productHolders = [];
               for (int index = 0; index < products.length; index++) {
-                bool? pink = products[index].colors!['pink'] ?? false;
-                bool? blue = products[index].colors!['blue'] ?? false;
-                bool? green = products[index].colors!['green'] ?? false;
-                bool? red = products[index].colors!['red'] ?? false;
-                bool? black = products[index].colors!['black'] ?? false;
                 if (onLikedProvider.likedProductsListId!.isNotEmpty) {
                   onLikedProvider.likedProductsListId!.forEach((element) {
                     if (products[index].id.toString() == element) {
@@ -87,6 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         image: products[index].image,
                         description: products[index].description,
                         deleted: products[index].deleted,
+                        homeProduct: products[index].homeProduct,
                         liked: true,
                       );
                     }
@@ -107,11 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     setState(() => getProducts());
                   },
                   liked: products[index].liked,
-                  pink: pink,
-                  blue: blue,
-                  green: green,
-                  red: red,
-                  black: black,
+                  colors: products[index].colors,
                   modalBuilder: (context) {
                     return ModalBottomSheetForShoeAndCloth(
                       name: products[index].productName,
@@ -122,16 +116,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       maxSize: products[index].maxSize,
                       description: products[index].description,
                       isShoe: products[index].productType == 'Shoe',
-                      pink: pink,
-                      blue: blue,
-                      green: green,
-                      red: red,
-                      black: black,
+                      colors: products[index].colors,
                       onBuy: () {},
                     );
                   },
                 );
-                if (products[index].homeProduct == 1) productHolders.add(newHolder);
+                productHolders.add(newHolder);
               }
               if (products.isEmpty) {
                 productHolders = [
@@ -179,19 +169,19 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomRowProducts(
             builder: (context) {
               List<Widget> bottomProductHolders = [];
-              for (int index = 0; index < products.length; index++) {
+              for (int index = 0; index < bottomProducts.length; index++) {
                 var newBottomProduct = BottomRowProductsContainer(
-                  image: products[index].image,
+                  image: bottomProducts[index].image,
                 );
-                if (products[index].productType == 'Shoe') {
+                if (bottomProducts[index].productType == 'Shoe') {
                   if (bottomProductHolders.length < 10) bottomProductHolders.add(newBottomProduct);
                 }
               }
-              if (products.isEmpty) {
+              if (bottomProducts.isEmpty) {
                 bottomProductHolders = [
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.width * 0.2,
                     child: const Center(child: CircularProgressIndicator(color: blackColor)),
                   )
                 ];

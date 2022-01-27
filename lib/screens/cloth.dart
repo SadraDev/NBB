@@ -118,11 +118,6 @@ class _ClothScreenState extends State<ClothScreen> {
                 itemCount: products.length,
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
-                  bool? pink = products[index].colors!['pink'];
-                  bool? blue = products[index].colors!['blue'];
-                  bool? green = products[index].colors!['green'];
-                  bool? red = products[index].colors!['red'];
-                  bool? black = products[index].colors!['black'];
                   if (onLikedProvider.likedProductsListId!.isNotEmpty) {
                     onLikedProvider.likedProductsListId!.forEach((element) {
                       if (products[index].id.toString() == element) {
@@ -166,11 +161,7 @@ class _ClothScreenState extends State<ClothScreen> {
                         maxSize: products[index].maxSize,
                         description: products[index].description,
                         isShoe: products[index].productType == 'Shoe',
-                        pink: pink,
-                        blue: blue,
-                        green: green,
-                        red: red,
-                        black: black,
+                        colors: products[index].colors,
                         onBuy: () {},
                       );
                     },
