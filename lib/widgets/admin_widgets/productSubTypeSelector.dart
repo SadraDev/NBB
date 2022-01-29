@@ -9,7 +9,6 @@ bool active5 = false;
 bool active6 = false;
 bool active7 = false;
 bool active8 = false;
-bool active9 = false;
 
 class ProductSubTypeSelector extends StatefulWidget {
   const ProductSubTypeSelector({
@@ -22,7 +21,6 @@ class ProductSubTypeSelector extends StatefulWidget {
     required this.subType6,
     required this.subType7,
     required this.subType8,
-    required this.subType9,
   }) : super(key: key);
   final String subType1;
   final String subType2;
@@ -32,7 +30,6 @@ class ProductSubTypeSelector extends StatefulWidget {
   final String subType6;
   final String subType7;
   final String subType8;
-  final String subType9;
 
   @override
   State<ProductSubTypeSelector> createState() => _ProductSubTypeSelectorState();
@@ -79,7 +76,6 @@ class _ProductSubTypeSelectorState extends State<ProductSubTypeSelector> {
                   active6 = false;
                   active7 = false;
                   active8 = false;
-                  active9 = false;
                 });
               },
             ),
@@ -105,7 +101,6 @@ class _ProductSubTypeSelectorState extends State<ProductSubTypeSelector> {
                   active6 = false;
                   active7 = false;
                   active8 = false;
-                  active9 = false;
                 });
               },
             ),
@@ -131,7 +126,6 @@ class _ProductSubTypeSelectorState extends State<ProductSubTypeSelector> {
                   active6 = false;
                   active7 = false;
                   active8 = false;
-                  active9 = false;
                 });
               },
             ),
@@ -157,7 +151,6 @@ class _ProductSubTypeSelectorState extends State<ProductSubTypeSelector> {
                   active6 = false;
                   active7 = false;
                   active8 = false;
-                  active9 = false;
                 });
               },
             ),
@@ -183,7 +176,6 @@ class _ProductSubTypeSelectorState extends State<ProductSubTypeSelector> {
                   active6 = false;
                   active7 = false;
                   active8 = false;
-                  active9 = false;
                 });
               },
             ),
@@ -209,7 +201,6 @@ class _ProductSubTypeSelectorState extends State<ProductSubTypeSelector> {
                   active6 = true;
                   active7 = false;
                   active8 = false;
-                  active9 = false;
                 });
               },
             ),
@@ -235,7 +226,6 @@ class _ProductSubTypeSelectorState extends State<ProductSubTypeSelector> {
                   active6 = false;
                   active7 = true;
                   active8 = false;
-                  active9 = false;
                 });
               },
             ),
@@ -261,33 +251,6 @@ class _ProductSubTypeSelectorState extends State<ProductSubTypeSelector> {
                   active6 = false;
                   active7 = false;
                   active8 = true;
-                  active9 = false;
-                });
-              },
-            ),
-            GestureDetector(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  widget.subType9,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: active9 ? blackColor : Colors.grey,
-                  ),
-                ),
-              ),
-              onTap: () {
-                setState(() {
-                  active1 = false;
-                  active2 = false;
-                  active3 = false;
-                  active4 = false;
-                  active5 = false;
-                  active6 = false;
-                  active7 = false;
-                  active8 = false;
-                  active9 = true;
                 });
               },
             ),
@@ -308,6 +271,5 @@ class GetSubtype {
     if (active6 == true) return 'sixth';
     if (active7 == true) return 'seventh';
     if (active8 == true) return 'eighth';
-    if (active9 == true) return 'ninth';
   }
 }
