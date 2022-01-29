@@ -6,6 +6,10 @@ bool active2 = false;
 bool active3 = false;
 bool active4 = false;
 bool active5 = false;
+bool active6 = false;
+bool active7 = false;
+bool active8 = false;
+bool active9 = false;
 
 class ProductSubTypeSelector extends StatefulWidget {
   const ProductSubTypeSelector({
@@ -15,12 +19,20 @@ class ProductSubTypeSelector extends StatefulWidget {
     required this.subType3,
     required this.subType4,
     required this.subType5,
+    required this.subType6,
+    required this.subType7,
+    required this.subType8,
+    required this.subType9,
   }) : super(key: key);
   final String subType1;
   final String subType2;
   final String subType3;
   final String subType4;
   final String subType5;
+  final String subType6;
+  final String subType7;
+  final String subType8;
+  final String subType9;
 
   @override
   State<ProductSubTypeSelector> createState() => _ProductSubTypeSelectorState();
@@ -64,6 +76,10 @@ class _ProductSubTypeSelectorState extends State<ProductSubTypeSelector> {
                   active3 = false;
                   active4 = false;
                   active5 = false;
+                  active6 = false;
+                  active7 = false;
+                  active8 = false;
+                  active9 = false;
                 });
               },
             ),
@@ -86,6 +102,10 @@ class _ProductSubTypeSelectorState extends State<ProductSubTypeSelector> {
                   active3 = false;
                   active4 = false;
                   active5 = false;
+                  active6 = false;
+                  active7 = false;
+                  active8 = false;
+                  active9 = false;
                 });
               },
             ),
@@ -108,6 +128,10 @@ class _ProductSubTypeSelectorState extends State<ProductSubTypeSelector> {
                   active3 = true;
                   active4 = false;
                   active5 = false;
+                  active6 = false;
+                  active7 = false;
+                  active8 = false;
+                  active9 = false;
                 });
               },
             ),
@@ -130,6 +154,10 @@ class _ProductSubTypeSelectorState extends State<ProductSubTypeSelector> {
                   active3 = false;
                   active4 = true;
                   active5 = false;
+                  active6 = false;
+                  active7 = false;
+                  active8 = false;
+                  active9 = false;
                 });
               },
             ),
@@ -152,6 +180,114 @@ class _ProductSubTypeSelectorState extends State<ProductSubTypeSelector> {
                   active3 = false;
                   active4 = false;
                   active5 = true;
+                  active6 = false;
+                  active7 = false;
+                  active8 = false;
+                  active9 = false;
+                });
+              },
+            ),
+            GestureDetector(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  widget.subType6,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: active6 ? blackColor : Colors.grey,
+                  ),
+                ),
+              ),
+              onTap: () {
+                setState(() {
+                  active1 = false;
+                  active2 = false;
+                  active3 = false;
+                  active4 = false;
+                  active5 = false;
+                  active6 = true;
+                  active7 = false;
+                  active8 = false;
+                  active9 = false;
+                });
+              },
+            ),
+            GestureDetector(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  widget.subType7,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: active7 ? blackColor : Colors.grey,
+                  ),
+                ),
+              ),
+              onTap: () {
+                setState(() {
+                  active1 = false;
+                  active2 = false;
+                  active3 = false;
+                  active4 = false;
+                  active5 = false;
+                  active6 = false;
+                  active7 = true;
+                  active8 = false;
+                  active9 = false;
+                });
+              },
+            ),
+            GestureDetector(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  widget.subType8,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: active8 ? blackColor : Colors.grey,
+                  ),
+                ),
+              ),
+              onTap: () {
+                setState(() {
+                  active1 = false;
+                  active2 = false;
+                  active3 = false;
+                  active4 = false;
+                  active5 = false;
+                  active6 = false;
+                  active7 = false;
+                  active8 = true;
+                  active9 = false;
+                });
+              },
+            ),
+            GestureDetector(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  widget.subType9,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: active9 ? blackColor : Colors.grey,
+                  ),
+                ),
+              ),
+              onTap: () {
+                setState(() {
+                  active1 = false;
+                  active2 = false;
+                  active3 = false;
+                  active4 = false;
+                  active5 = false;
+                  active6 = false;
+                  active7 = false;
+                  active8 = false;
+                  active9 = true;
                 });
               },
             ),
@@ -169,5 +305,9 @@ class GetSubtype {
     if (active3 == true) return 'third';
     if (active4 == true) return 'forth';
     if (active5 == true) return 'fifth';
+    if (active6 == true) return 'sixth';
+    if (active7 == true) return 'seventh';
+    if (active8 == true) return 'eighth';
+    if (active9 == true) return 'ninth';
   }
 }
