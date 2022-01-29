@@ -25,6 +25,7 @@ class ShoeAndClothGrid extends StatelessWidget {
   const ShoeAndClothGrid({
     Key? key,
     this.name,
+    this.brand,
     this.price,
     this.image,
     this.onLiked,
@@ -33,6 +34,7 @@ class ShoeAndClothGrid extends StatelessWidget {
     this.onDelete,
   }) : super(key: key);
   final String? name;
+  final String? brand;
   final String? price;
   final String? image;
   final bool? liked;
@@ -44,6 +46,11 @@ class ShoeAndClothGrid extends StatelessWidget {
     if (Shared.getUserPhone() == adminNumber) return true;
     if (Shared.getUserPhone() != adminNumber) return false;
     return false;
+  }
+
+  bool brandOrNo() {
+    if (brand == 'NOT_BRAND') return false;
+    return true;
   }
 
   @override
@@ -83,8 +90,7 @@ class ShoeAndClothGrid extends StatelessWidget {
               child: IconButton(
                 alignment: Alignment.topRight,
                 onPressed: onLiked,
-                icon:
-                    liked! ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border_rounded),
+                icon: liked! ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border_rounded),
               ),
             ),
             Container(
@@ -106,6 +112,19 @@ class ShoeAndClothGrid extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Visibility(
+              visible: brandOrNo(),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Text(
+                  brand!,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey,
+                  ),
                 ),
               ),
             ),
