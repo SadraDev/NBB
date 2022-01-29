@@ -12,11 +12,12 @@ class ProfileScreenBoughtProductBubble extends StatelessWidget {
   final String? color;
 
   Color? getColor() {
-    if (color == 'pink') return Colors.pink[600];
+    if (color == 'pink') return Colors.pink[200];
     if (color == 'blue') return Colors.blue;
     if (color == 'green') return Colors.green;
-    if (color == 'red') return Colors.red;
+    if (color == 'orange') return Colors.orangeAccent;
     if (color == 'black') return Colors.black;
+    //todo add more colors
   }
 
   @override
