@@ -220,7 +220,7 @@ class _ShoeScreenState extends State<ShoeScreen> {
                           colors: products[index].colors,
                           image: products[index].image,
                           description: products[index].description,
-                          deleted: products[index].deleted,
+                          brand: products[index].brand,
                           liked: true,
                         );
                       }
@@ -228,6 +228,7 @@ class _ShoeScreenState extends State<ShoeScreen> {
                   }
                   return ShoeAndClothGrid(
                     name: products[index].productName,
+                    brand: products[index].brand,
                     image: products[index].image,
                     price: products[index].price,
                     liked: products[index].liked,
@@ -236,12 +237,15 @@ class _ShoeScreenState extends State<ShoeScreen> {
                       setState(() => products[index] = newProduct);
                     },
                     onDelete: () {
-                      setState(() async => await Api.delete(products[index]));
-                      Navigator.pop(context);
+                      setState(() async {
+                        await Api.delete(products[index]);
+                        Navigator.pop(context);
+                      });
                     },
                     modalBuilder: (context) {
                       return ModalBottomSheetForShoeAndCloth(
                         name: products[index].productName,
+                        brand: products[index].brand,
                         subtype: products[index].productSubtype,
                         image: products[index].image,
                         price: products[index].price,

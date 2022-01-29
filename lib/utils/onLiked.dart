@@ -18,7 +18,7 @@ class OnLiked extends ChangeNotifier {
         colors: product.colors,
         image: product.image,
         description: product.description,
-        deleted: product.deleted,
+        brand: product.brand,
         liked: true,
       );
       likedProductsListId!.add(product.id.toString());
@@ -38,7 +38,7 @@ class OnLiked extends ChangeNotifier {
         colors: product.colors,
         image: product.image,
         description: product.description,
-        deleted: product.deleted,
+        brand: product.brand,
         liked: false,
       );
       return product;

@@ -22,6 +22,7 @@ class ModalBottomSheetForShoeAndCloth extends StatefulWidget {
   const ModalBottomSheetForShoeAndCloth({
     Key? key,
     this.name,
+    this.brand,
     this.image,
     this.price,
     this.subtype,
@@ -33,6 +34,7 @@ class ModalBottomSheetForShoeAndCloth extends StatefulWidget {
     this.isShoe,
   }) : super(key: key);
   final String? name;
+  final String? brand;
   final String? image;
   final String? price;
   final String? subtype;
@@ -66,6 +68,11 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
     return length;
   }
 
+  bool brand() {
+    if (widget.brand == 'NOT_BRAND') return false;
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -89,8 +96,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 50).copyWith(bottom: 0),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50).copyWith(bottom: 0),
                 child: IconButton(
                   onPressed: () => Navigator.pop(context),
                   icon: const Icon(
@@ -103,12 +109,31 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20).copyWith(bottom: 0),
-            child: Text(
-              widget.name!,
-              style: const TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  widget.name!,
+                  style: const TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Visibility(
+                  visible: brand(),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: Text(
+                      widget.brand!,
+                      style: const TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           Padding(
@@ -158,9 +183,8 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     shape: const CircleBorder(),
                                     color: Colors.black87,
                                     child: InkWell(
-                                      child: black
-                                          ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                          : Container(),
+                                      child:
+                                          black ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                       onTap: () => setState(() {
                                         black = true;
                                         maroon = false;
@@ -190,9 +214,8 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     shape: const CircleBorder(),
                                     color: const Color(0xff800000),
                                     child: InkWell(
-                                      child: maroon
-                                          ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                          : Container(),
+                                      child:
+                                          maroon ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                       onTap: () => setState(() {
                                         black = false;
                                         maroon = true;
@@ -254,9 +277,8 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     shape: const CircleBorder(),
                                     color: Colors.deepOrange,
                                     child: InkWell(
-                                      child: orange
-                                          ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                          : Container(),
+                                      child:
+                                          orange ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                       onTap: () => setState(() {
                                         black = false;
                                         maroon = false;
@@ -286,9 +308,8 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     shape: const CircleBorder(),
                                     color: Colors.pink[200],
                                     child: InkWell(
-                                      child: pink
-                                          ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                          : Container(),
+                                      child:
+                                          pink ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                       onTap: () => setState(() {
                                         black = false;
                                         maroon = false;
@@ -322,9 +343,8 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     shape: const CircleBorder(),
                                     color: Colors.green,
                                     child: InkWell(
-                                      child: green
-                                          ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                          : Container(),
+                                      child:
+                                          green ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                       onTap: () => setState(() {
                                         black = false;
                                         maroon = false;
@@ -354,9 +374,8 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     shape: const CircleBorder(),
                                     color: const Color(0xff000080),
                                     child: InkWell(
-                                      child: navy
-                                          ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                          : Container(),
+                                      child:
+                                          navy ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                       onTap: () => setState(() {
                                         black = false;
                                         maroon = false;
@@ -386,9 +405,8 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     shape: const CircleBorder(),
                                     color: Colors.blue,
                                     child: InkWell(
-                                      child: blue
-                                          ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                          : Container(),
+                                      child:
+                                          blue ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                       onTap: () => setState(() {
                                         black = false;
                                         maroon = false;
@@ -450,9 +468,8 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     shape: const CircleBorder(),
                                     color: Colors.white60,
                                     child: InkWell(
-                                      child: white
-                                          ? const Icon(Icons.check, color: Colors.black, size: 10)
-                                          : Container(),
+                                      child:
+                                          white ? const Icon(Icons.check, color: Colors.black, size: 10) : Container(),
                                       onTap: () => setState(() {
                                         black = false;
                                         maroon = false;
@@ -486,9 +503,8 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     shape: const CircleBorder(),
                                     color: Colors.brown[700],
                                     child: InkWell(
-                                      child: brown
-                                          ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                          : Container(),
+                                      child:
+                                          brown ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                       onTap: () => setState(() {
                                         black = false;
                                         maroon = false;
@@ -518,9 +534,8 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     shape: const CircleBorder(),
                                     color: const Color(0xff997950),
                                     child: InkWell(
-                                      child: cream
-                                          ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                          : Container(),
+                                      child:
+                                          cream ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                       onTap: () => setState(() {
                                         black = false;
                                         maroon = false;
@@ -550,9 +565,8 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     shape: const CircleBorder(),
                                     color: const Color(0xfffce205),
                                     child: InkWell(
-                                      child: yellow
-                                          ? const Icon(Icons.check, color: Colors.black, size: 10)
-                                          : Container(),
+                                      child:
+                                          yellow ? const Icon(Icons.check, color: Colors.black, size: 10) : Container(),
                                       onTap: () => setState(() {
                                         black = false;
                                         maroon = false;
@@ -596,9 +610,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 shape: const CircleBorder(),
                                 color: Colors.black87,
                                 child: InkWell(
-                                  child: black
-                                      ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                      : Container(),
+                                  child: black ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                   onTap: () => setState(() {
                                     black = true;
                                     maroon = false;
@@ -628,9 +640,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 shape: const CircleBorder(),
                                 color: const Color(0xff800000),
                                 child: InkWell(
-                                  child: maroon
-                                      ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                      : Container(),
+                                  child: maroon ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                   onTap: () => setState(() {
                                     black = false;
                                     maroon = true;
@@ -660,9 +670,8 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 shape: const CircleBorder(),
                                 color: const Color(0xffff0800),
                                 child: InkWell(
-                                  child: candyApple
-                                      ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                      : Container(),
+                                  child:
+                                      candyApple ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                   onTap: () => setState(() {
                                     black = false;
                                     maroon = false;
@@ -692,9 +701,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 shape: const CircleBorder(),
                                 color: Colors.deepOrange,
                                 child: InkWell(
-                                  child: orange
-                                      ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                      : Container(),
+                                  child: orange ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                   onTap: () => setState(() {
                                     black = false;
                                     maroon = false;
@@ -724,9 +731,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 shape: const CircleBorder(),
                                 color: Colors.pink[200],
                                 child: InkWell(
-                                  child: pink
-                                      ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                      : Container(),
+                                  child: pink ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                   onTap: () => setState(() {
                                     black = false;
                                     maroon = false;
@@ -756,9 +761,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 shape: const CircleBorder(),
                                 color: Colors.green,
                                 child: InkWell(
-                                  child: green
-                                      ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                      : Container(),
+                                  child: green ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                   onTap: () => setState(() {
                                     black = false;
                                     maroon = false;
@@ -788,9 +791,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 shape: const CircleBorder(),
                                 color: const Color(0xff000080),
                                 child: InkWell(
-                                  child: navy
-                                      ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                      : Container(),
+                                  child: navy ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                   onTap: () => setState(() {
                                     black = false;
                                     maroon = false;
@@ -820,9 +821,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 shape: const CircleBorder(),
                                 color: Colors.blue,
                                 child: InkWell(
-                                  child: blue
-                                      ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                      : Container(),
+                                  child: blue ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                   onTap: () => setState(() {
                                     black = false;
                                     maroon = false;
@@ -852,9 +851,8 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 shape: const CircleBorder(),
                                 color: const Color(0xff89cfef),
                                 child: InkWell(
-                                  child: babyBlue
-                                      ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                      : Container(),
+                                  child:
+                                      babyBlue ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                   onTap: () => setState(() {
                                     black = false;
                                     maroon = false;
@@ -884,9 +882,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 shape: const CircleBorder(),
                                 color: Colors.white60,
                                 child: InkWell(
-                                  child: white
-                                      ? const Icon(Icons.check, color: Colors.black, size: 10)
-                                      : Container(),
+                                  child: white ? const Icon(Icons.check, color: Colors.black, size: 10) : Container(),
                                   onTap: () => setState(() {
                                     black = false;
                                     maroon = false;
@@ -916,9 +912,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 shape: const CircleBorder(),
                                 color: Colors.brown[700],
                                 child: InkWell(
-                                  child: brown
-                                      ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                      : Container(),
+                                  child: brown ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                   onTap: () => setState(() {
                                     black = false;
                                     maroon = false;
@@ -948,9 +942,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 shape: const CircleBorder(),
                                 color: const Color(0xff997950),
                                 child: InkWell(
-                                  child: cream
-                                      ? const Icon(Icons.check, color: Colors.white, size: 10)
-                                      : Container(),
+                                  child: cream ? const Icon(Icons.check, color: Colors.white, size: 10) : Container(),
                                   onTap: () => setState(() {
                                     black = false;
                                     maroon = false;
@@ -980,9 +972,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 shape: const CircleBorder(),
                                 color: const Color(0xfffce205),
                                 child: InkWell(
-                                  child: yellow
-                                      ? const Icon(Icons.check, color: Colors.black, size: 10)
-                                      : Container(),
+                                  child: yellow ? const Icon(Icons.check, color: Colors.black, size: 10) : Container(),
                                   onTap: () => setState(() {
                                     black = false;
                                     maroon = false;
@@ -1125,8 +1115,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
             child: Card(
               clipBehavior: Clip.antiAliasWithSaveLayer,
               margin: EdgeInsets.zero,
-              shape:
-                  const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
               color: blackColor,
               child: InkWell(
                 onTap: widget.onBuy,

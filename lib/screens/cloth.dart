@@ -178,7 +178,7 @@ class _ClothScreenState extends State<ClothScreen> {
                           colors: products[index].colors,
                           image: products[index].image,
                           description: products[index].description,
-                          deleted: products[index].deleted,
+                          brand: products[index].brand,
                           liked: true,
                         );
                       }
@@ -186,6 +186,7 @@ class _ClothScreenState extends State<ClothScreen> {
                   }
                   return ShoeAndClothGrid(
                     name: products[index].productName,
+                    brand: products[index].brand,
                     image: products[index].image,
                     price: products[index].price,
                     liked: products[index].liked,
@@ -200,6 +201,7 @@ class _ClothScreenState extends State<ClothScreen> {
                     modalBuilder: (context) {
                       return ModalBottomSheetForShoeAndCloth(
                         name: products[index].productName,
+                        brand: products[index].brand,
                         subtype: products[index].productSubtype,
                         image: products[index].image,
                         price: products[index].price,

@@ -27,6 +27,7 @@ class MainRowProductsContainer extends StatelessWidget {
     this.onLiked,
     this.image,
     this.productName,
+    this.brand,
     this.productSubtype,
     this.price,
     this.colors,
@@ -38,6 +39,7 @@ class MainRowProductsContainer extends StatelessWidget {
   final void Function()? onDelete;
   final String? image;
   final String? productName;
+  final String? brand;
   final String? productSubtype;
   final String? price;
   final Map<String, dynamic>? colors;
@@ -67,6 +69,11 @@ class MainRowProductsContainer extends StatelessWidget {
     return length;
   }
 
+  bool brandOrNo() {
+    if (brand == 'NOT_BRAND') return false;
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -92,8 +99,7 @@ class MainRowProductsContainer extends StatelessWidget {
               padding: const EdgeInsets.all(15).copyWith(bottom: 0),
               child: IconButton(
                 onPressed: onLiked,
-                icon:
-                    liked! ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border_rounded),
+                icon: liked! ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border_rounded),
                 alignment: Alignment.topRight,
               ),
             ),
@@ -113,12 +119,31 @@ class MainRowProductsContainer extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(20).copyWith(bottom: 0),
-              child: Text(
-                productName!,
-                style: const TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    productName!,
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Visibility(
+                    visible: brandOrNo(),
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 15.0),
+                      child: Text(
+                        brand!,
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             Padding(
@@ -450,8 +475,7 @@ class MainRowProductsContainer extends StatelessWidget {
                                             child: const SizedBox(
                                               height: 30,
                                               width: 30,
-                                              child: Card(
-                                                  shape: CircleBorder(), color: Color(0xff997950)),
+                                              child: Card(shape: CircleBorder(), color: Color(0xff997950)),
                                             ),
                                           ),
                                           Visibility(

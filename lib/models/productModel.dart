@@ -11,7 +11,7 @@ class Product {
   final Map<String, dynamic>? colors;
   final String? image;
   final String? description;
-  final int? deleted;
+  final String? brand;
   final int? homeProduct;
   final bool? liked;
 
@@ -26,7 +26,7 @@ class Product {
     this.colors,
     this.image,
     this.description,
-    this.deleted,
+    this.brand,
     this.liked,
     this.homeProduct,
   });
@@ -37,14 +37,14 @@ class Product {
       productName: parsedJson[1],
       productType: parsedJson[2],
       productSubtype: parsedJson[3],
-      minSize: parsedJson[4],
-      maxSize: parsedJson[5],
-      price: parsedJson[6],
-      colors: jsonDecode(parsedJson[7]),
-      image: parsedJson[8],
-      description: parsedJson[9],
-      deleted: parsedJson[10],
-      homeProduct: parsedJson[11],
+      brand: parsedJson[4],
+      description: parsedJson[5],
+      homeProduct: parsedJson[6],
+      minSize: parsedJson[7],
+      maxSize: parsedJson[8],
+      price: parsedJson[9],
+      colors: jsonDecode(parsedJson[10]),
+      image: parsedJson[11],
       liked: false,
     );
   }
@@ -61,7 +61,7 @@ class Product {
       'colors': colors,
       'image': image,
       'description': description,
-      'deleted': deleted,
+      'deleted': brand,
       'liked': false,
     };
   }
