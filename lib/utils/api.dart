@@ -54,6 +54,7 @@ class Api {
       String colors,
       File image,
       String description,
+      String brand,
       String isHomeProduct) async {
     Uri url = Uri.parse('https://phloxco.ir/test/view/product.php');
     var request = MultipartRequest('POST', url)
@@ -66,6 +67,7 @@ class Api {
       ..fields['max_size'] = maxSize
       ..fields['colors'] = colors
       ..fields['description'] = description
+      ..fields['brand'] = brand
       ..fields['home_product'] = isHomeProduct
       ..fields['phone'] = Shared.getUserPhone()!
       ..fields['password'] = Shared.getUserPassword()!
