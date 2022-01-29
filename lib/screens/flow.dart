@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nbb/const.dart';
+import 'package:nbb/screens/brand.dart';
 import 'package:nbb/screens/cloth.dart';
 import 'package:nbb/screens/favorite.dart';
 import 'package:nbb/screens/home.dart';
@@ -31,8 +32,10 @@ class _FlowScreenState extends State<FlowScreen> {
     } else if (index == 2) {
       return const ClothScreen();
     } else if (index == 3) {
-      return const FavoriteScreen();
+      return const BrandScreen();
     } else if (index == 4) {
+      return const FavoriteScreen();
+    } else if (index == 5) {
       return const ProfileScreen();
     }
   }
@@ -71,8 +74,7 @@ class _FlowScreenState extends State<FlowScreen> {
               child: Card(
                 margin: const EdgeInsets.all(20).copyWith(top: 0),
                 elevation: 5,
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15))),
+                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 child: BottomNavigationBar(
                   type: BottomNavigationBarType.fixed,
@@ -100,7 +102,14 @@ class _FlowScreenState extends State<FlowScreen> {
                         AssetImage('assets/images/dress.png'),
                         size: 30,
                       ),
-                      label: ' =) ',
+                      label: '',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: ImageIcon(
+                        AssetImage('assets/images/brand.png'),
+                        size: 35,
+                      ),
+                      label: ' :) ',
                     ),
                     BottomNavigationBarItem(
                       icon: ImageIcon(AssetImage('assets/images/heart.png')),
