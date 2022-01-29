@@ -4,7 +4,7 @@ import '../../const.dart';
 bool black = false;
 bool maroon = false;
 bool candyApple = false;
-bool red = false;
+bool orange = false;
 bool pink = false;
 bool green = false;
 bool navy = false;
@@ -104,10 +104,10 @@ class _ProductColorsSelectorState extends State<ProductColorsSelector> {
                     child: InkWell(
                       child: Card(
                         shape: const CircleBorder(),
-                        color: Colors.red,
-                        child: red ? const Icon(Icons.check, color: Colors.white) : Container(),
+                        color: Colors.deepOrange,
+                        child: orange ? const Icon(Icons.check, color: Colors.white) : Container(),
                       ),
-                      onTap: () => setState(() => red = !red),
+                      onTap: () => setState(() => orange = !orange),
                     ),
                   ),
                   SizedBox(
@@ -116,7 +116,7 @@ class _ProductColorsSelectorState extends State<ProductColorsSelector> {
                     child: InkWell(
                       child: Card(
                         shape: const CircleBorder(),
-                        color: Colors.pink[600],
+                        color: Colors.pink[200],
                         child: pink ? const Icon(Icons.check, color: Colors.white) : Container(),
                       ),
                       onTap: () => setState(() => pink = !pink),
@@ -235,7 +235,7 @@ class GetColors {
       "black": black,
       "maroon": maroon,
       "candyApple": candyApple,
-      "red": red,
+      "orange": orange,
       "pink": pink,
       "green": green,
       "navy": navy,
