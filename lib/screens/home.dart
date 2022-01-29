@@ -10,6 +10,10 @@ import 'package:nbb/widgets/home_widgets/bottomRowProducts.dart';
 import 'package:nbb/widgets/shoe_cloth_widgets/modalBottomSheet.dart';
 import 'package:provider/provider.dart';
 
+//todo add : buy => edit database to name address number code-posti tozihat(درخواست های اضافی)
+//todo save user info in shared
+//todo implement search
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -28,8 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       for (var product in products) {
         Product newProduct = Product.fromJson(product);
-        if (product[10] != 1 && product[11] == 1) this.products.add(newProduct);
-        if (product[10] != 1) bottomProducts.add(newProduct);
+        if (product[6] == 1) this.products.add(newProduct);
+        bottomProducts.add(newProduct);
       }
     });
   }
@@ -83,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         colors: products[index].colors,
                         image: products[index].image,
                         description: products[index].description,
-                        deleted: products[index].deleted,
+                        brand: products[index].brand,
                         homeProduct: products[index].homeProduct,
                         liked: true,
                       );
@@ -93,22 +97,26 @@ class _HomeScreenState extends State<HomeScreen> {
                 var newHolder = MainRowProductsContainer(
                   productName: products[index].productName,
                   productSubtype: products[index].productSubtype,
+                  brand: products[index].brand,
                   price: products[index].price,
                   image: products[index].image,
                   onLiked: () {
                     Product newProduct = onLikedProvider.onLiked(products[index]);
                     setState(() => products[index] = newProduct);
                   },
-                  onDelete: () async {
-                    Navigator.pop(context);
-                    await Api.delete(products[index]);
-                    setState(() => getProducts());
+                  onDelete: () {
+                    setState(() async {
+                      await Api.delete(products[index]);
+                      getProducts();
+                      Navigator.pop(context);
+                    });
                   },
                   liked: products[index].liked,
                   colors: products[index].colors,
                   modalBuilder: (context) {
                     return ModalBottomSheetForShoeAndCloth(
                       name: products[index].productName,
+                      brand: products[index].brand,
                       subtype: products[index].productSubtype,
                       image: products[index].image,
                       price: products[index].price,
@@ -172,10 +180,23 @@ class _HomeScreenState extends State<HomeScreen> {
               for (int index = 0; index < bottomProducts.length; index++) {
                 var newBottomProduct = BottomRowProductsContainer(
                   image: bottomProducts[index].image,
+                  modalBuilder: (context) {
+                    return ModalBottomSheetForShoeAndCloth(
+                      name: products[index].productName,
+                      brand: products[index].brand,
+                      subtype: products[index].productSubtype,
+                      image: products[index].image,
+                      price: products[index].price,
+                      minSize: products[index].minSize,
+                      maxSize: products[index].maxSize,
+                      description: products[index].description,
+                      isShoe: products[index].productType == 'Shoe',
+                      colors: products[index].colors,
+                      onBuy: () {},
+                    );
+                  },
                 );
-                if (bottomProducts[index].productType == 'Shoe') {
-                  if (bottomProductHolders.length < 10) bottomProductHolders.add(newBottomProduct);
-                }
+                if (bottomProductHolders.length < 10) bottomProductHolders.add(newBottomProduct);
               }
               if (bottomProducts.isEmpty) {
                 bottomProductHolders = [
