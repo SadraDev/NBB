@@ -5,7 +5,7 @@ import '../../const.dart';
 bool black = false;
 bool maroon = false;
 bool candyApple = false;
-bool red = false;
+bool orange = false;
 bool pink = false;
 bool green = false;
 bool navy = false;
@@ -53,7 +53,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
     if (widget.colors!['black'] == true) length++;
     if (widget.colors!['maroon'] == true) length++;
     if (widget.colors!['candyApple'] == true) length++;
-    if (widget.colors!['red'] == true) length++;
+    if (widget.colors!['orange'] == true) length++;
     if (widget.colors!['pink'] == true) length++;
     if (widget.colors!['green'] == true) length++;
     if (widget.colors!['navy'] == true) length++;
@@ -165,7 +165,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                         black = true;
                                         maroon = false;
                                         candyApple = false;
-                                        red = false;
+                                        orange = false;
                                         pink = false;
                                         green = false;
                                         navy = false;
@@ -197,7 +197,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                         black = false;
                                         maroon = true;
                                         candyApple = false;
-                                        red = false;
+                                        orange = false;
                                         pink = false;
                                         green = false;
                                         navy = false;
@@ -229,7 +229,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                         black = false;
                                         maroon = false;
                                         candyApple = true;
-                                        red = false;
+                                        orange = false;
                                         pink = false;
                                         green = false;
                                         navy = false;
@@ -245,23 +245,23 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 ),
                               ),
                               Visibility(
-                                visible: widget.colors!['red'] ?? false,
+                                visible: widget.colors!['orange'] ?? false,
                                 child: SizedBox(
                                   height: 30,
                                   width: 30,
                                   child: Card(
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                     shape: const CircleBorder(),
-                                    color: Colors.red,
+                                    color: Colors.deepOrange,
                                     child: InkWell(
-                                      child: red
+                                      child: orange
                                           ? const Icon(Icons.check, color: Colors.white, size: 10)
                                           : Container(),
                                       onTap: () => setState(() {
                                         black = false;
                                         maroon = false;
                                         candyApple = false;
-                                        red = true;
+                                        orange = true;
                                         pink = false;
                                         green = false;
                                         navy = false;
@@ -284,7 +284,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                   child: Card(
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                     shape: const CircleBorder(),
-                                    color: Colors.pink[600],
+                                    color: Colors.pink[200],
                                     child: InkWell(
                                       child: pink
                                           ? const Icon(Icons.check, color: Colors.white, size: 10)
@@ -293,7 +293,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                         black = false;
                                         maroon = false;
                                         candyApple = false;
-                                        red = false;
+                                        orange = false;
                                         pink = true;
                                         green = false;
                                         navy = false;
@@ -329,7 +329,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                         black = false;
                                         maroon = false;
                                         candyApple = false;
-                                        red = false;
+                                        orange = false;
                                         pink = false;
                                         green = true;
                                         navy = false;
@@ -361,7 +361,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                         black = false;
                                         maroon = false;
                                         candyApple = false;
-                                        red = false;
+                                        orange = false;
                                         pink = false;
                                         green = false;
                                         navy = true;
@@ -393,7 +393,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                         black = false;
                                         maroon = false;
                                         candyApple = false;
-                                        red = false;
+                                        orange = false;
                                         pink = false;
                                         green = false;
                                         navy = false;
@@ -425,7 +425,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                         black = false;
                                         maroon = false;
                                         candyApple = false;
-                                        red = false;
+                                        orange = false;
                                         pink = false;
                                         green = false;
                                         navy = false;
@@ -457,7 +457,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                         black = false;
                                         maroon = false;
                                         candyApple = false;
-                                        red = false;
+                                        orange = false;
                                         pink = false;
                                         green = false;
                                         navy = false;
@@ -493,7 +493,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                         black = false;
                                         maroon = false;
                                         candyApple = false;
-                                        red = false;
+                                        orange = false;
                                         pink = false;
                                         green = false;
                                         navy = false;
@@ -525,7 +525,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                         black = false;
                                         maroon = false;
                                         candyApple = false;
-                                        red = false;
+                                        orange = false;
                                         pink = false;
                                         green = false;
                                         navy = false;
@@ -557,7 +557,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                         black = false;
                                         maroon = false;
                                         candyApple = false;
-                                        red = false;
+                                        orange = false;
                                         pink = false;
                                         green = false;
                                         navy = false;
@@ -603,7 +603,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     black = true;
                                     maroon = false;
                                     candyApple = false;
-                                    red = false;
+                                    orange = false;
                                     pink = false;
                                     green = false;
                                     navy = false;
@@ -635,7 +635,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     black = false;
                                     maroon = true;
                                     candyApple = false;
-                                    red = false;
+                                    orange = false;
                                     pink = false;
                                     green = false;
                                     navy = false;
@@ -667,7 +667,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     black = false;
                                     maroon = false;
                                     candyApple = true;
-                                    red = false;
+                                    orange = false;
                                     pink = false;
                                     green = false;
                                     navy = false;
@@ -683,23 +683,23 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                             ),
                           ),
                           Visibility(
-                            visible: widget.colors!['red'] ?? false,
+                            visible: widget.colors!['orange'] ?? false,
                             child: SizedBox(
                               height: 30,
                               width: 30,
                               child: Card(
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 shape: const CircleBorder(),
-                                color: Colors.red,
+                                color: Colors.deepOrange,
                                 child: InkWell(
-                                  child: red
+                                  child: orange
                                       ? const Icon(Icons.check, color: Colors.white, size: 10)
                                       : Container(),
                                   onTap: () => setState(() {
                                     black = false;
                                     maroon = false;
                                     candyApple = false;
-                                    red = true;
+                                    orange = true;
                                     pink = false;
                                     green = false;
                                     navy = false;
@@ -722,7 +722,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                               child: Card(
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 shape: const CircleBorder(),
-                                color: Colors.pink[600],
+                                color: Colors.pink[200],
                                 child: InkWell(
                                   child: pink
                                       ? const Icon(Icons.check, color: Colors.white, size: 10)
@@ -731,7 +731,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     black = false;
                                     maroon = false;
                                     candyApple = false;
-                                    red = false;
+                                    orange = false;
                                     pink = true;
                                     green = false;
                                     navy = false;
@@ -763,7 +763,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     black = false;
                                     maroon = false;
                                     candyApple = false;
-                                    red = false;
+                                    orange = false;
                                     pink = false;
                                     green = true;
                                     navy = false;
@@ -795,7 +795,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     black = false;
                                     maroon = false;
                                     candyApple = false;
-                                    red = false;
+                                    orange = false;
                                     pink = false;
                                     green = false;
                                     navy = true;
@@ -827,7 +827,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     black = false;
                                     maroon = false;
                                     candyApple = false;
-                                    red = false;
+                                    orange = false;
                                     pink = false;
                                     green = false;
                                     navy = false;
@@ -859,7 +859,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     black = false;
                                     maroon = false;
                                     candyApple = false;
-                                    red = false;
+                                    orange = false;
                                     pink = false;
                                     green = false;
                                     navy = false;
@@ -891,7 +891,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     black = false;
                                     maroon = false;
                                     candyApple = false;
-                                    red = false;
+                                    orange = false;
                                     pink = false;
                                     green = false;
                                     navy = false;
@@ -923,7 +923,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     black = false;
                                     maroon = false;
                                     candyApple = false;
-                                    red = false;
+                                    orange = false;
                                     pink = false;
                                     green = false;
                                     navy = false;
@@ -955,7 +955,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     black = false;
                                     maroon = false;
                                     candyApple = false;
-                                    red = false;
+                                    orange = false;
                                     pink = false;
                                     green = false;
                                     navy = false;
@@ -987,7 +987,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                     black = false;
                                     maroon = false;
                                     candyApple = false;
-                                    red = false;
+                                    orange = false;
                                     pink = false;
                                     green = false;
                                     navy = false;
@@ -1161,7 +1161,7 @@ class GetSizeAndColor {
     if (black) return 'black';
     if (maroon) return 'maroon';
     if (candyApple) return 'candyApple';
-    if (red) return 'red';
+    if (orange) return 'orange';
     if (pink) return 'pink';
     if (green) return 'green';
     if (navy) return 'navy';

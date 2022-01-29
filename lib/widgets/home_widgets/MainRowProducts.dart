@@ -54,7 +54,7 @@ class MainRowProductsContainer extends StatelessWidget {
     if (colors!['black'] == true) length++;
     if (colors!['maroon'] == true) length++;
     if (colors!['candyApple'] == true) length++;
-    if (colors!['red'] == true) length++;
+    if (colors!['orange'] == true) length++;
     if (colors!['pink'] == true) length++;
     if (colors!['green'] == true) length++;
     if (colors!['navy'] == true) length++;
@@ -201,13 +201,13 @@ class MainRowProductsContainer extends StatelessWidget {
                                                 ),
                                               ),
                                               Visibility(
-                                                visible: colors!['red'] ?? false,
+                                                visible: colors!['orange'] ?? false,
                                                 child: const SizedBox(
                                                   height: 30,
                                                   width: 30,
                                                   child: Card(
                                                     shape: CircleBorder(),
-                                                    color: Colors.red,
+                                                    color: Colors.deepOrange,
                                                   ),
                                                 ),
                                               ),
@@ -218,7 +218,7 @@ class MainRowProductsContainer extends StatelessWidget {
                                                   width: 30,
                                                   child: Card(
                                                     shape: const CircleBorder(),
-                                                    color: Colors.pink[600],
+                                                    color: Colors.pink[200],
                                                   ),
                                                 ),
                                               ),
@@ -358,13 +358,13 @@ class MainRowProductsContainer extends StatelessWidget {
                                             ),
                                           ),
                                           Visibility(
-                                            visible: colors!['red'] ?? false,
+                                            visible: colors!['orange'] ?? false,
                                             child: const SizedBox(
                                               height: 30,
                                               width: 30,
                                               child: Card(
                                                 shape: CircleBorder(),
-                                                color: Colors.red,
+                                                color: Colors.deepOrange,
                                               ),
                                             ),
                                           ),
@@ -375,7 +375,7 @@ class MainRowProductsContainer extends StatelessWidget {
                                               width: 30,
                                               child: Card(
                                                 shape: const CircleBorder(),
-                                                color: Colors.pink[600],
+                                                color: Colors.pink[200],
                                               ),
                                             ),
                                           ),
@@ -518,13 +518,13 @@ class MainRowProductsContainer extends StatelessWidget {
                                   ),
                                 ),
                                 Visibility(
-                                  visible: colors!['red'] ?? false,
+                                  visible: colors!['orange'] ?? false,
                                   child: const SizedBox(
                                     height: 30,
                                     width: 30,
                                     child: Card(
                                       shape: CircleBorder(),
-                                      color: Colors.red,
+                                      color: Colors.deepOrange,
                                     ),
                                   ),
                                 ),
@@ -535,7 +535,7 @@ class MainRowProductsContainer extends StatelessWidget {
                                     width: 30,
                                     child: Card(
                                       shape: const CircleBorder(),
-                                      color: Colors.pink[600],
+                                      color: Colors.pink[200],
                                     ),
                                   ),
                                 ),
