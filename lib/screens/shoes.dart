@@ -31,6 +31,10 @@ class _ShoeScreenState extends State<ShoeScreen> {
   bool? subType3 = false;
   bool? subType4 = false;
   bool? subType5 = false;
+  bool? subType6 = false;
+  bool? subType7 = false;
+  bool? subType8 = false;
+  bool? subType9 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +43,7 @@ class _ShoeScreenState extends State<ShoeScreen> {
     return Column(
       children: <Widget>[
         SubTypeSelector(
-          subtype1Name: '10 cm',
+          subtype1Name: 'all',
           subtype1Color: subType1! ? Colors.white : greyColor,
           onTapForSubtype1: () => setState(() {
             subType1 = true;
@@ -47,8 +51,12 @@ class _ShoeScreenState extends State<ShoeScreen> {
             subType3 = false;
             subType4 = false;
             subType5 = false;
+            subType6 = false;
+            subType7 = false;
+            subType8 = false;
+            subType9 = false;
           }),
-          subtype2Name: '12 cm',
+          subtype2Name: '3cm',
           subtype2Color: subType2! ? Colors.white : greyColor,
           onTapForSubtype2: () => setState(() {
             subType1 = false;
@@ -56,8 +64,12 @@ class _ShoeScreenState extends State<ShoeScreen> {
             subType3 = false;
             subType4 = false;
             subType5 = false;
+            subType6 = false;
+            subType7 = false;
+            subType8 = false;
+            subType9 = false;
           }),
-          subtype3Name: 'sport',
+          subtype3Name: '4cm',
           subtype3Color: subType3! ? Colors.white : greyColor,
           onTapForSubtype3: () => setState(() {
             subType1 = false;
@@ -65,8 +77,12 @@ class _ShoeScreenState extends State<ShoeScreen> {
             subType3 = true;
             subType4 = false;
             subType5 = false;
+            subType6 = false;
+            subType7 = false;
+            subType8 = false;
+            subType9 = false;
           }),
-          subtype4Name: 'High-Heels',
+          subtype4Name: '5cm',
           subtype4Color: subType4! ? Colors.white : greyColor,
           onTapForSubtype4: () => setState(() {
             subType1 = false;
@@ -74,8 +90,12 @@ class _ShoeScreenState extends State<ShoeScreen> {
             subType3 = false;
             subType4 = true;
             subType5 = false;
+            subType6 = false;
+            subType7 = false;
+            subType8 = false;
+            subType9 = false;
           }),
-          subtype5Name: 'boots',
+          subtype5Name: '7cm',
           subtype5Color: subType5! ? Colors.white : greyColor,
           onTapForSubtype5: () => setState(() {
             subType1 = false;
@@ -83,6 +103,62 @@ class _ShoeScreenState extends State<ShoeScreen> {
             subType3 = false;
             subType4 = false;
             subType5 = true;
+            subType6 = false;
+            subType7 = false;
+            subType8 = false;
+            subType9 = false;
+          }),
+          subtype6Name: '9cm',
+          subtype6Color: subType6! ? Colors.white : greyColor,
+          onTapForSubtype6: () => setState(() {
+            subType1 = false;
+            subType2 = false;
+            subType3 = false;
+            subType4 = false;
+            subType5 = false;
+            subType6 = true;
+            subType7 = false;
+            subType8 = false;
+            subType9 = false;
+          }),
+          subtype7Name: '10cm',
+          subtype7Color: subType7! ? Colors.white : greyColor,
+          onTapForSubtype7: () => setState(() {
+            subType1 = false;
+            subType2 = false;
+            subType3 = false;
+            subType4 = false;
+            subType5 = false;
+            subType6 = false;
+            subType7 = true;
+            subType8 = false;
+            subType9 = false;
+          }),
+          subtype8Name: '12cm',
+          subtype8Color: subType8! ? Colors.white : greyColor,
+          onTapForSubtype8: () => setState(() {
+            subType1 = false;
+            subType2 = false;
+            subType3 = false;
+            subType4 = false;
+            subType5 = false;
+            subType6 = false;
+            subType7 = false;
+            subType8 = true;
+            subType9 = false;
+          }),
+          subtype9Name: 'babet',
+          subtype9Color: subType9! ? Colors.white : greyColor,
+          onTapForSubtype9: () => setState(() {
+            subType1 = false;
+            subType2 = false;
+            subType3 = false;
+            subType4 = false;
+            subType5 = false;
+            subType6 = false;
+            subType7 = false;
+            subType8 = false;
+            subType9 = true;
           }),
         ),
         ShoeAndClothGridView(
@@ -93,20 +169,31 @@ class _ShoeScreenState extends State<ShoeScreen> {
               List<dynamic> getProducts = snapshot.data!;
               for (var product in getProducts) {
                 Product newProduct = Product.fromJson(product);
-
-                if (subType1! && newProduct.productSubtype == '10 cm') {
+                if (subType1!) {
                   if (product[10] != 1) products.add(newProduct);
                 }
-                if (subType2! && newProduct.productSubtype == '12 cm') {
+                if (subType2! && newProduct.productSubtype == '3cm') {
                   if (product[10] != 1) products.add(newProduct);
                 }
-                if (subType3! && newProduct.productSubtype == 'sport') {
+                if (subType3! && newProduct.productSubtype == '4cm') {
                   if (product[10] != 1) products.add(newProduct);
                 }
-                if (subType4! && newProduct.productSubtype == 'highHeels') {
+                if (subType4! && newProduct.productSubtype == '5cm') {
                   if (product[10] != 1) products.add(newProduct);
                 }
-                if (subType5! && newProduct.productSubtype == 'boots') {
+                if (subType5! && newProduct.productSubtype == '7cm') {
+                  if (product[10] != 1) products.add(newProduct);
+                }
+                if (subType6! && newProduct.productSubtype == '9cm') {
+                  if (product[10] != 1) products.add(newProduct);
+                }
+                if (subType7! && newProduct.productSubtype == '10cm') {
+                  if (product[10] != 1) products.add(newProduct);
+                }
+                if (subType8! && newProduct.productSubtype == '12cm') {
+                  if (product[10] != 1) products.add(newProduct);
+                }
+                if (subType9! && newProduct.productSubtype == 'babet') {
                   if (product[10] != 1) products.add(newProduct);
                 }
               }

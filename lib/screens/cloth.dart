@@ -31,6 +31,8 @@ class _ClothScreenState extends State<ClothScreen> {
   bool? subType3 = false;
   bool? subType4 = false;
   bool? subType5 = false;
+  bool? subType6 = false;
+  bool? subType7 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class _ClothScreenState extends State<ClothScreen> {
     return Column(
       children: <Widget>[
         SubTypeSelector(
-          subtype1Name: 't-shirt',
+          subtype1Name: 'all',
           subtype1Color: subType1! ? Colors.white : greyColor,
           onTapForSubtype1: () => setState(() {
             subType1 = true;
@@ -47,8 +49,10 @@ class _ClothScreenState extends State<ClothScreen> {
             subType3 = false;
             subType4 = false;
             subType5 = false;
+            subType6 = false;
+            subType7 = false;
           }),
-          subtype2Name: 'pants',
+          subtype2Name: 'dress',
           subtype2Color: subType2! ? Colors.white : greyColor,
           onTapForSubtype2: () => setState(() {
             subType1 = false;
@@ -56,6 +60,8 @@ class _ClothScreenState extends State<ClothScreen> {
             subType3 = false;
             subType4 = false;
             subType5 = false;
+            subType6 = false;
+            subType7 = false;
           }),
           subtype3Name: 'sets',
           subtype3Color: subType3! ? Colors.white : greyColor,
@@ -65,6 +71,8 @@ class _ClothScreenState extends State<ClothScreen> {
             subType3 = true;
             subType4 = false;
             subType5 = false;
+            subType6 = false;
+            subType7 = false;
           }),
           subtype4Name: 'coats',
           subtype4Color: subType4! ? Colors.white : greyColor,
@@ -74,6 +82,8 @@ class _ClothScreenState extends State<ClothScreen> {
             subType3 = false;
             subType4 = true;
             subType5 = false;
+            subType6 = false;
+            subType7 = false;
           }),
           subtype5Name: 'skirts',
           subtype5Color: subType5! ? Colors.white : greyColor,
@@ -83,7 +93,37 @@ class _ClothScreenState extends State<ClothScreen> {
             subType3 = false;
             subType4 = false;
             subType5 = true;
+            subType6 = false;
+            subType7 = false;
           }),
+          subtype6Name: 'pants',
+          subtype6Color: subType6! ? Colors.white : greyColor,
+          onTapForSubtype6: () => setState(() {
+            subType1 = false;
+            subType2 = false;
+            subType3 = false;
+            subType4 = false;
+            subType5 = false;
+            subType6 = true;
+            subType7 = false;
+          }),
+          subtype7Name: 't-shirts',
+          subtype7Color: subType7! ? Colors.white : greyColor,
+          onTapForSubtype7: () => setState(() {
+            subType1 = false;
+            subType2 = false;
+            subType3 = false;
+            subType4 = false;
+            subType5 = false;
+            subType6 = false;
+            subType7 = true;
+          }),
+          subtype8Name: '',
+          subtype8Color: Colors.transparent,
+          onTapForSubtype8: () {},
+          subtype9Name: '',
+          subtype9Color: Colors.transparent,
+          onTapForSubtype9: () {},
         ),
         ShoeAndClothGridView(
           future: Api.selectAllProductsByType('cloth'),
@@ -93,10 +133,10 @@ class _ClothScreenState extends State<ClothScreen> {
               List<dynamic> getProducts = snapshot.data!;
               for (var product in getProducts) {
                 Product newProduct = Product.fromJson(product);
-                if (subType1! && newProduct.productSubtype == 't-shirt') {
+                if (subType1!) {
                   if (product[10] != 1) products.add(newProduct);
                 }
-                if (subType2! && newProduct.productSubtype == 'pants') {
+                if (subType2! && newProduct.productSubtype == 'dress') {
                   if (product[10] != 1) products.add(newProduct);
                 }
                 if (subType3! && newProduct.productSubtype == 'sets') {
@@ -106,6 +146,12 @@ class _ClothScreenState extends State<ClothScreen> {
                   if (product[10] != 1) products.add(newProduct);
                 }
                 if (subType5! && newProduct.productSubtype == 'skirts') {
+                  if (product[10] != 1) products.add(newProduct);
+                }
+                if (subType6! && newProduct.productSubtype == 'pants') {
+                  if (product[10] != 1) products.add(newProduct);
+                }
+                if (subType7! && newProduct.productSubtype == 't-shirts') {
                   if (product[10] != 1) products.add(newProduct);
                 }
               }
