@@ -1,4 +1,5 @@
 import 'package:nbb/widgets/admin_widgets/HomeProductsOrNotSelector.dart';
+import 'package:nbb/widgets/admin_widgets/productBrandSelector.dart';
 import 'package:nbb/widgets/admin_widgets/productDescriptionTextField.dart';
 import 'package:nbb/widgets/admin_widgets/productColorsSelector.dart';
 import 'package:nbb/widgets/admin_widgets/productSubTypeSelector.dart';
@@ -81,30 +82,42 @@ class _AdminScreenState extends State<AdminScreen> {
           Visibility(
             visible: !isSwitched,
             child: const ProductSubTypeSelector(
-              subType1: 'all',
-              subType2: '3cm',
-              subType3: '4cm',
-              subType4: '5cm',
-              subType5: '7cm',
-              subType6: '9cm',
-              subType7: '10cm',
-              subType8: '12cm',
-              subType9: 'babet',
+              subType1: '3cm',
+              subType2: '4cm',
+              subType3: '5cm',
+              subType4: '7cm',
+              subType5: '9cm',
+              subType6: '10cm',
+              subType7: '12cm',
+              subType8: 'babet',
             ),
           ),
           Visibility(
             visible: isSwitched,
             child: const ProductSubTypeSelector(
-              subType1: 'all',
-              subType2: 'dress',
-              subType3: 'sets',
-              subType4: 'coats',
-              subType5: 'skirts',
-              subType6: 'pants',
-              subType7: 't-shirts',
+              subType1: 'dress',
+              subType2: 'sets',
+              subType3: 'coats',
+              subType4: 'skirts',
+              subType5: 'pants',
+              subType6: 't-shirts',
+              subType7: '',
               subType8: '',
-              subType9: '',
             ),
+          ),
+          const ProductBrandSelector(
+            brand1: 'zara',
+            brand2: 'mango',
+            brand3: 'bershka',
+            brand4: 'kotton',
+            brand5: 'stradivarius',
+            brand6: 'H&M',
+            brand7: 'nike',
+            brand8: 'adidas',
+            brand9: 'rebook',
+            brand10: 'new balance',
+            brand11: 'LV',
+            brand12: 'GUCCI',
           ),
           ProductPriceTextField(
             onDoneEditing: (value) => price = value!,
@@ -127,10 +140,11 @@ class _AdminScreenState extends State<AdminScreen> {
             onTap: () async {
               String colors = json.encode(GetColors.colors());
               String productSubType = getSubtype();
+              String brand = getBrand();
               if (isHomeProduct == true) homeProduct = '1';
               if (image != null) setState(() => loading = true);
               bool inserted = await Api.insertNewProduct(productName, productType, productSubType,
-                  price, minSize, maxSize, colors, image!, description, homeProduct);
+                  price, minSize, maxSize, colors, image!, description, brand, homeProduct);
               setState(() => loading = false);
               if (inserted) {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -155,14 +169,30 @@ class _AdminScreenState extends State<AdminScreen> {
 
   getSubtype() {
     String productSubType = GetSubtype.subtype();
-    if (productSubType == 'first') return isSwitched ? 'all' : 'all';
-    if (productSubType == 'second') return isSwitched ? 'dress' : '3cm';
-    if (productSubType == 'third') return isSwitched ? 'sets' : '4cm';
-    if (productSubType == 'forth') return isSwitched ? 'coats' : '5cm';
-    if (productSubType == 'fifth') return isSwitched ? 'skirts' : '7cm';
-    if (productSubType == 'sixth') return isSwitched ? 'pants' : '9cm';
-    if (productSubType == 'seventh') return isSwitched ? 't-shirts' : '10cm';
-    if (productSubType == 'eighth') return isSwitched ? 'NUN' : '12cm';
-    if (productSubType == 'ninth') return isSwitched ? 'NUN' : 'babet';
+    if (productSubType == 'first') return isSwitched ? 'dress' : '3cm';
+    if (productSubType == 'second') return isSwitched ? 'sets' : '4cm';
+    if (productSubType == 'third') return isSwitched ? 'coats' : '5cm';
+    if (productSubType == 'forth') return isSwitched ? 'skirts' : '7cm';
+    if (productSubType == 'fifth') return isSwitched ? 'pants' : '9cm';
+    if (productSubType == 'sixth') return isSwitched ? 't-shirts' : '10cm';
+    if (productSubType == 'seventh') return isSwitched ? 'NUN' : '12cm';
+    if (productSubType == 'eighth') return isSwitched ? 'NUN' : 'babet';
+  }
+
+  getBrand() {
+    String productBrand = GetBrand.brand();
+    if (productBrand == 'NOT_BRAND') return 'NOT_BRAND';
+    if (productBrand == 'first') return 'zara';
+    if (productBrand == 'second') return 'mango';
+    if (productBrand == 'third') return 'bershka';
+    if (productBrand == 'forth') return 'kotton';
+    if (productBrand == 'fifth') return 'stradivarius';
+    if (productBrand == 'sixth') return 'H&M';
+    if (productBrand == 'seventh') return 'nike';
+    if (productBrand == 'eighth') return 'adidas';
+    if (productBrand == 'ninth') return 'rebook';
+    if (productBrand == 'tenth') return 'new balance';
+    if (productBrand == 'eleventh') return 'LV';
+    if (productBrand == 'twelfth') return 'GUCCI';
   }
 }
