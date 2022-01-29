@@ -81,21 +81,29 @@ class _AdminScreenState extends State<AdminScreen> {
           Visibility(
             visible: !isSwitched,
             child: const ProductSubTypeSelector(
-              subType1: '10 cm',
-              subType2: '12 cm',
-              subType3: 'boots',
-              subType4: 'sport',
-              subType5: 'highHeels',
+              subType1: 'all',
+              subType2: '3cm',
+              subType3: '4cm',
+              subType4: '5cm',
+              subType5: '7cm',
+              subType6: '9cm',
+              subType7: '10cm',
+              subType8: '12cm',
+              subType9: 'babet',
             ),
           ),
           Visibility(
             visible: isSwitched,
             child: const ProductSubTypeSelector(
-              subType1: 't-shirts',
-              subType2: 'pants',
+              subType1: 'all',
+              subType2: 'dress',
               subType3: 'sets',
               subType4: 'coats',
               subType5: 'skirts',
+              subType6: 'pants',
+              subType7: 't-shirts',
+              subType8: '',
+              subType9: '',
             ),
           ),
           ProductPriceTextField(
@@ -108,7 +116,7 @@ class _AdminScreenState extends State<AdminScreen> {
           const ProductColorsSelector(),
           HomeProductsOrNotSelector(
             isHomeProduct: isHomeProduct,
-            homeProductSwitcher: (value) => setState(() => isHomeProduct = !isHomeProduct),
+            homeProductSwitcher: (_) => setState(() => isHomeProduct = !isHomeProduct),
             sameHomeProductSwitcher: () => setState(() => isHomeProduct = !isHomeProduct),
           ),
           ProductDescriptionTextField(
@@ -147,10 +155,14 @@ class _AdminScreenState extends State<AdminScreen> {
 
   getSubtype() {
     String productSubType = GetSubtype.subtype();
-    if (productSubType == 'first') return isSwitched ? 't-shirt' : '10 cm';
-    if (productSubType == 'second') return isSwitched ? 'pants' : '12 cm';
-    if (productSubType == 'third') return isSwitched ? 'sets' : 'boots';
-    if (productSubType == 'forth') return isSwitched ? 'coats' : 'sport';
-    if (productSubType == 'fifth') return isSwitched ? 'skirts' : 'highHeels';
+    if (productSubType == 'first') return isSwitched ? 'all' : 'all';
+    if (productSubType == 'second') return isSwitched ? 'dress' : '3cm';
+    if (productSubType == 'third') return isSwitched ? 'sets' : '4cm';
+    if (productSubType == 'forth') return isSwitched ? 'coats' : '5cm';
+    if (productSubType == 'fifth') return isSwitched ? 'skirts' : '7cm';
+    if (productSubType == 'sixth') return isSwitched ? 'pants' : '9cm';
+    if (productSubType == 'seventh') return isSwitched ? 't-shirts' : '10cm';
+    if (productSubType == 'eighth') return isSwitched ? 'NUN' : '12cm';
+    if (productSubType == 'ninth') return isSwitched ? 'NUN' : 'babet';
   }
 }
