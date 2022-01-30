@@ -4,9 +4,12 @@ import 'package:nbb/models/productModel.dart';
 import 'package:nbb/utils/api.dart';
 import 'package:nbb/utils/onLiked.dart';
 import 'package:nbb/utils/shared.dart';
+import 'package:nbb/widgets/buyer.dart';
+import 'package:nbb/widgets/favorite_widgets/favoriteBuyAll.dart';
 import 'package:nbb/widgets/favorite_widgets/favoriteProductHolderBubble.dart';
 import 'package:nbb/widgets/shoe_cloth_widgets/modalBottomSheet.dart';
 import 'package:provider/provider.dart';
+import '../const.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({Key? key}) : super(key: key);
@@ -18,8 +21,10 @@ class FavoriteScreen extends StatefulWidget {
 class _FavoriteScreenState extends State<FavoriteScreen> {
   List<Product> products = [];
   List<String> likedProducts = [];
+  bool? loading;
 
   Future<void> getProducts() async {
+    loading = true;
     List<dynamic> products = await Api.selectAllProducts();
     setState(() {
       for (var product in products) {
@@ -27,6 +32,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         if (product[10] != 1) this.products.add(newProduct);
       }
     });
+    loading = false;
   }
 
   @override
@@ -36,6 +42,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     likedProducts = Shared.getLikedProducts() ?? [];
   }
 
+  String receiverName = '';
+  String receiverPhone = '';
+  String receiverAddress = '';
+  String receiverPostalCode = '';
+  String userDescription = '';
+
   @override
   Widget build(BuildContext context) {
     OnLiked onLikedProvider = Provider.of<OnLiked>(context, listen: false);
@@ -43,18 +55,19 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return Builder(
       builder: (context) {
         List<Widget> favorites = [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 70, horizontal: 35).copyWith(bottom: 20),
-            child: const Text(
-              'Favorites',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          )
+          Row(
+            children: [
+              FavoriteHeader('Shopping Cart', buyAll: () {}),
+              FavoriteHeader('buy all', buyAll: () {}),
+            ],
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.width,
+            child: const Center(child: CircularProgressIndicator(color: blackColor)),
+          ),
         ];
+        if (!loading!) favorites.removeAt(1);
         for (var favorite in products) {
           if (onLikedProvider.likedProductsListId!.isNotEmpty) {
             onLikedProvider.likedProductsListId!.forEach((element) {
@@ -70,7 +83,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   colors: favorite.colors,
                   image: favorite.image,
                   description: favorite.description,
-                  deleted: favorite.deleted,
+                  brand: favorite.brand,
                   liked: true,
                 );
               }
@@ -100,7 +113,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           setState(() => favorite = likedFav);
                           Navigator.pop(context);
                         },
-                        icon: const Icon(Icons.delete),
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
                       ),
                     ],
                   ),
@@ -117,6 +133,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   builder: (context) {
                     return ModalBottomSheetForShoeAndCloth(
                       name: favorite.productName,
+                      brand: favorite.brand,
                       subtype: favorite.productSubtype,
                       image: favorite.image,
                       price: favorite.price,
@@ -125,7 +142,49 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       description: favorite.description,
                       isShoe: favorite.productType == 'Shoe',
                       colors: favorite.colors,
-                      onBuy: () {},
+                      onLike: () {
+                        setState(() {
+                          if (favorite.liked == false) {
+                            onLikedProvider.onLiked(favorite);
+                            showDialog(
+                              context: context,
+                              builder: (context) => const AlertDialog(
+                                content: Text('added to cart.', textAlign: TextAlign.center),
+                              ),
+                            );
+                          }
+                          if (favorite.liked == true) {
+                            onLikedProvider.onLiked(favorite);
+                            showDialog(
+                              context: context,
+                              builder: (context) => const AlertDialog(
+                                content: Text('removed from cart.', textAlign: TextAlign.center),
+                              ),
+                            );
+                          }
+                        });
+                      },
+                      onBuy: () {
+                        int? size = GetSizeAndColor.getSize(favorite.productType == 'Shoe', favorite.minSize!);
+                        String? color = GetSizeAndColor.getColor();
+                        showDialog(
+                          context: context,
+                          builder: (context) => Buyer(
+                            onDoneEditingReceiverName: (value) => receiverName = value,
+                            onDoneEditingReceiverPhone: (value) => receiverPhone = value,
+                            onDoneEditingReceiverAddress: (value) => receiverAddress = value,
+                            onDoneEditingReceiverPostalCode: (value) => receiverPostalCode = value,
+                            onDoneEditingComment: (value) => userDescription = value,
+                            product: favorite,
+                            color: color,
+                            size: size,
+                            onBuy: () async {
+                              await Api.buy(receiverName, receiverPhone, receiverAddress, receiverPostalCode,
+                                  userDescription, favorite, '$size', color!);
+                            },
+                          ),
+                        );
+                      },
                     );
                   },
                 );

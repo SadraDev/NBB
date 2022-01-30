@@ -5,6 +5,7 @@ import 'package:nbb/models/productModel.dart';
 import 'package:nbb/utils/api.dart';
 import 'package:nbb/utils/onLiked.dart';
 import 'package:nbb/utils/shared.dart';
+import 'package:nbb/widgets/buyer.dart';
 import 'package:nbb/widgets/home_widgets/MainRowProducts.dart';
 import 'package:nbb/widgets/home_widgets/bottomRowProducts.dart';
 import 'package:nbb/widgets/shoe_cloth_widgets/modalBottomSheet.dart';
@@ -44,6 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
     getProducts();
     likedProducts = Shared.getLikedProducts() ?? [];
   }
+
+  String receiverName = '';
+  String receiverPhone = '';
+  String receiverAddress = '';
+  String receiverPostalCode = '';
+  String userDescription = '';
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +132,67 @@ class _HomeScreenState extends State<HomeScreen> {
                       description: products[index].description,
                       isShoe: products[index].productType == 'Shoe',
                       colors: products[index].colors,
-                      onBuy: () {},
+                      onLike: () {
+                        if (products[index].liked == false) {
+                          onLikedProvider.onLiked(products[index]);
+                          showDialog(
+                            context: context,
+                            builder: (context) => const AlertDialog(
+                              content: Text('added to cart.', textAlign: TextAlign.center),
+                            ),
+                          );
+                        }
+                        if (products[index].liked == true) {
+                          onLikedProvider.onLiked(products[index]);
+                          showDialog(
+                            context: context,
+                            builder: (context) => const AlertDialog(
+                              content: Text('removed from cart.', textAlign: TextAlign.center),
+                            ),
+                          );
+                        }
+                        getProducts();
+                      },
+                      onBuy: () {
+                        int? size =
+                            GetSizeAndColor.getSize(products[index].productType == 'Shoe', products[index].minSize!);
+                        String? color = GetSizeAndColor.getColor();
+                        showDialog(
+                          context: context,
+                          builder: (context) => Buyer(
+                            onDoneEditingReceiverName: (value) => receiverName = value,
+                            onDoneEditingReceiverPhone: (value) => receiverPhone = value,
+                            onDoneEditingReceiverAddress: (value) => receiverAddress = value,
+                            onDoneEditingReceiverPostalCode: (value) => receiverPostalCode = value,
+                            onDoneEditingComment: (value) => userDescription = value,
+                            product: products[index],
+                            color: color,
+                            size: size,
+                            onBuy: () {
+                              int? size = GetSizeAndColor.getSize(
+                                  products[index].productType == 'Shoe', products[index].minSize!);
+                              String? color = GetSizeAndColor.getColor();
+                              showDialog(
+                                context: context,
+                                builder: (context) => Buyer(
+                                  onDoneEditingReceiverName: (value) => receiverName = value,
+                                  onDoneEditingReceiverPhone: (value) => receiverPhone = value,
+                                  onDoneEditingReceiverAddress: (value) => receiverAddress = value,
+                                  onDoneEditingReceiverPostalCode: (value) => receiverPostalCode = value,
+                                  onDoneEditingComment: (value) => userDescription = value,
+                                  product: products[index],
+                                  color: color,
+                                  size: size,
+                                  onBuy: () async {
+                                    await Api.buy(receiverName, receiverPhone, receiverAddress, receiverPostalCode,
+                                        userDescription, products[index], '$size', color!);
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
                     );
                   },
                 );
@@ -192,7 +259,67 @@ class _HomeScreenState extends State<HomeScreen> {
                       description: products[index].description,
                       isShoe: products[index].productType == 'Shoe',
                       colors: products[index].colors,
-                      onBuy: () {},
+                      onLike: () {
+                        if (products[index].liked == false) {
+                          onLikedProvider.onLiked(products[index]);
+                          showDialog(
+                            context: context,
+                            builder: (context) => const AlertDialog(
+                              content: Text('added to cart.', textAlign: TextAlign.center),
+                            ),
+                          );
+                        }
+                        if (products[index].liked == true) {
+                          onLikedProvider.onLiked(products[index]);
+                          showDialog(
+                            context: context,
+                            builder: (context) => const AlertDialog(
+                              content: Text('removed from cart.', textAlign: TextAlign.center),
+                            ),
+                          );
+                        }
+                        getProducts();
+                      },
+                      onBuy: () {
+                        int? size =
+                            GetSizeAndColor.getSize(products[index].productType == 'Shoe', products[index].minSize!);
+                        String? color = GetSizeAndColor.getColor();
+                        showDialog(
+                          context: context,
+                          builder: (context) => Buyer(
+                            onDoneEditingReceiverName: (value) => receiverName = value,
+                            onDoneEditingReceiverPhone: (value) => receiverPhone = value,
+                            onDoneEditingReceiverAddress: (value) => receiverAddress = value,
+                            onDoneEditingReceiverPostalCode: (value) => receiverPostalCode = value,
+                            onDoneEditingComment: (value) => userDescription = value,
+                            product: products[index],
+                            color: color,
+                            size: size,
+                            onBuy: () {
+                              int? size = GetSizeAndColor.getSize(
+                                  products[index].productType == 'Shoe', products[index].minSize!);
+                              String? color = GetSizeAndColor.getColor();
+                              showDialog(
+                                context: context,
+                                builder: (context) => Buyer(
+                                  onDoneEditingReceiverName: (value) => receiverName = value,
+                                  onDoneEditingReceiverPhone: (value) => receiverPhone = value,
+                                  onDoneEditingReceiverAddress: (value) => receiverAddress = value,
+                                  onDoneEditingReceiverPostalCode: (value) => receiverPostalCode = value,
+                                  onDoneEditingComment: (value) => userDescription = value,
+                                  product: products[index],
+                                  color: color,
+                                  size: size,
+                                  onBuy: () async {
+                                    await Api.buy(receiverName, receiverPhone, receiverAddress, receiverPostalCode,
+                                        userDescription, products[index], '$size', color!);
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
                     );
                   },
                 );
