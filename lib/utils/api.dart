@@ -24,8 +24,7 @@ class Api {
     }
   }
 
-  static Future<String> register(
-      String username, String password, String email, String phone) async {
+  static Future<String> register(String username, String password, String email, String phone) async {
     Uri url = Uri.parse('https://phloxco.ir/test/view/register.php');
     Response response = await post(
       url,
@@ -87,11 +86,7 @@ class Api {
     Uri url = Uri.parse('https://phloxco.ir/test/view/product.php');
     Response response = await post(
       url,
-      body: {
-        'apiType': 'select_all',
-        'phone': Shared.getUserPhone()!,
-        'password': Shared.getUserPassword()!
-      },
+      body: {'apiType': 'select_all', 'phone': Shared.getUserPhone()!, 'password': Shared.getUserPassword()!},
     );
 
     if (response.statusCode == 200) {
@@ -126,11 +121,7 @@ class Api {
     Uri url = Uri.parse('https://phloxco.ir/test/view/product.php');
     Response response = await post(
       url,
-      body: {
-        'apiType': 'get_bought',
-        'phone': Shared.getUserPhone()!,
-        'password': Shared.getUserPassword()!
-      },
+      body: {'apiType': 'get_bought', 'phone': Shared.getUserPhone()!, 'password': Shared.getUserPassword()!},
     );
 
     if (response.statusCode == 200) {
@@ -166,6 +157,43 @@ class Api {
         'product_subtype': product.productSubtype,
         'phone': Shared.getUserPhone()!,
         'password': Shared.getUserPassword()!
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      if (data['result'] == true) return true;
+      return false;
+    } else {
+      return false;
+    }
+  }
+
+  static Future<bool> buy(String receiverName, String receiverPhone, String receiverAddress, String receiverPostalCode,
+      String userDescription, Product product, String productSize, String productColor) async {
+    Uri url = Uri.parse('https://phloxco.ir/test/view/product.php');
+    Response response = await post(
+      url,
+      body: {
+        'apiType': 'buy',
+        'user_name': Shared.getUserName(),
+        'user_phone': Shared.getUserPhone(),
+        'receiver_name': receiverName,
+        'receiver_phone': receiverPhone,
+        'receiver_address': receiverAddress,
+        'receiver_postal_code': receiverPostalCode,
+        'user_description': userDescription,
+        'product_id': '${product.id}',
+        'product_name': product.productName,
+        'product_brand': product.brand,
+        'product_type': product.productType,
+        'product_subtype': product.productSubtype,
+        'product_size': productSize,
+        'product_color': productColor,
+        'product_price': product.price,
+        'product_image': product.image,
+        'phone': Shared.getUserPhone(),
+        'password': Shared.getUserPassword(),
       },
     );
 
