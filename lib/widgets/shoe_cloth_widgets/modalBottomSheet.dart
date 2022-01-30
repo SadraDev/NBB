@@ -28,6 +28,7 @@ class ModalBottomSheetForShoeAndCloth extends StatefulWidget {
     this.subtype,
     this.description,
     this.onBuy,
+    this.onLike,
     this.colors,
     this.minSize,
     this.maxSize,
@@ -40,6 +41,7 @@ class ModalBottomSheetForShoeAndCloth extends StatefulWidget {
   final String? subtype;
   final String? description;
   final void Function()? onBuy;
+  final void Function()? onLike;
   final Map<String, dynamic>? colors;
   final bool? isShoe;
   final int? minSize;
@@ -1112,26 +1114,54 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20).copyWith(top: 30),
-            child: Card(
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              margin: EdgeInsets.zero,
-              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
-              color: blackColor,
-              child: InkWell(
-                onTap: widget.onBuy,
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  child: Text(
-                    'Buy Now',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.white,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Card(
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    margin: EdgeInsets.zero,
+                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+                    color: blackColor,
+                    child: InkWell(
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        child: Text(
+                          'Buy Now',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      onTap: widget.onBuy,
                     ),
                   ),
                 ),
-              ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Card(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      margin: EdgeInsets.zero,
+                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+                      color: Colors.grey[800],
+                      child: InkWell(
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 17),
+                          child: Icon(
+                            Icons.add_shopping_cart_rounded,
+                            color: whiteColor,
+                          ),
+                        ),
+                        onTap: widget.onLike,
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
         ],
@@ -1142,6 +1172,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
 
 class GetSizeAndColor {
   static int? getSize(bool isShoe, int minSize) {
+    if (selectedSize == -1) return -1;
     if (isShoe) return selectedSize + minSize;
     if (!isShoe) return selectedSize * 2 + minSize;
   }
@@ -1160,5 +1191,6 @@ class GetSizeAndColor {
     if (brown) return 'brown';
     if (cream) return 'cream';
     if (yellow) return 'yellow';
+    return 'NO_COLOR_SELECTED';
   }
 }

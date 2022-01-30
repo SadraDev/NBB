@@ -99,7 +99,7 @@ class MainRowProductsContainer extends StatelessWidget {
               padding: const EdgeInsets.all(15).copyWith(bottom: 0),
               child: IconButton(
                 onPressed: onLiked,
-                icon: liked! ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border_rounded),
+                icon: liked! ? const Icon(Icons.bookmark) : const Icon(Icons.bookmark_outline),
                 alignment: Alignment.topRight,
               ),
             ),

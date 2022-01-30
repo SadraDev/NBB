@@ -90,7 +90,7 @@ class ShoeAndClothGrid extends StatelessWidget {
               child: IconButton(
                 alignment: Alignment.topRight,
                 onPressed: onLiked,
-                icon: liked! ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border_rounded),
+                icon: liked! ? const Icon(Icons.bookmark) : const Icon(Icons.bookmark_outline),
               ),
             ),
             Container(
