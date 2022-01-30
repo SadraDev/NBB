@@ -40,7 +40,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       List<Widget> children = [
-        const ProfileDynamicHeader(),
+        const ProfileDynamicHeader(), //todo implement admin info instead of log out and add buy details for admin on tap profile
         ProfileScreenCenterBubble(count: boughtProducts.length.toString()),
         ProfileScreenUsernameEditor(
           username: usernameChecker(),
@@ -62,11 +62,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ];
       for (var product in boughtProducts) {
         var newProduct = ProfileScreenBoughtProductBubble(
-          productName: product[2],
-          purchaseDate: product[9],
-          price: product[8],
-          image: product[7],
-          color: product[6],
+          productName: product[8],
+          purchaseDate: product[16],
+          price: product[14],
+          image: product[15],
+          color: product[13],
         );
         children.add(newProduct);
       }
