@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:nbb/const.dart';
 import 'package:nbb/models/productModel.dart';
@@ -86,115 +84,115 @@ class Buyer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 8),
               child: TextField(
                 cursorColor: blackColor,
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       borderSide: BorderSide(color: blackColor, width: 1)),
-                  enabledBorder: OutlineInputBorder(
+                  enabledBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       borderSide: BorderSide(color: greyColor, width: 1)),
                   hintText: 'نام و نام خانوادگی تحویل گیرنده',
-                  hintStyle: TextStyle(color: Colors.grey),
+                  hintStyle: const TextStyle(color: Colors.grey),
                   labelText: 'Name',
                   labelStyle: TextStyle(color: Colors.grey[700]),
-                  floatingLabelStyle: TextStyle(color: blackColor),
+                  floatingLabelStyle: const TextStyle(color: blackColor),
                 ),
                 onChanged: onDoneEditingReceiverName,
                 onSubmitted: onDoneEditingReceiverName,
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 8),
               child: TextField(
                 keyboardType: TextInputType.number,
                 cursorColor: blackColor,
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       borderSide: BorderSide(color: blackColor, width: 1)),
-                  enabledBorder: OutlineInputBorder(
+                  enabledBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       borderSide: BorderSide(color: greyColor, width: 1)),
                   hintText: 'شماره‌ی همراه تحویل گیرنده',
-                  hintStyle: TextStyle(color: Colors.grey),
+                  hintStyle: const TextStyle(color: Colors.grey),
                   labelText: 'phone number',
                   labelStyle: TextStyle(color: Colors.grey[700]),
-                  floatingLabelStyle: TextStyle(color: blackColor),
+                  floatingLabelStyle: const TextStyle(color: blackColor),
                 ),
                 onChanged: onDoneEditingReceiverPhone,
                 onSubmitted: onDoneEditingReceiverPhone,
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 8),
               child: TextField(
                 maxLines: 3,
                 cursorColor: blackColor,
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       borderSide: BorderSide(color: blackColor, width: 1)),
-                  enabledBorder: OutlineInputBorder(
+                  enabledBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       borderSide: BorderSide(color: greyColor, width: 1)),
                   hintText: 'آدرس محل تحویل گیرنده',
-                  hintStyle: TextStyle(color: Colors.grey),
+                  hintStyle: const TextStyle(color: Colors.grey),
                   labelText: 'address',
                   labelStyle: TextStyle(color: Colors.grey[700]),
-                  floatingLabelStyle: TextStyle(color: blackColor),
+                  floatingLabelStyle: const TextStyle(color: blackColor),
                 ),
                 onChanged: onDoneEditingReceiverAddress,
                 onSubmitted: onDoneEditingReceiverAddress,
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 8),
               child: TextField(
                 keyboardType: TextInputType.number,
                 cursorColor: blackColor,
                 maxLength: 10,
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       borderSide: BorderSide(color: blackColor, width: 1)),
-                  enabledBorder: OutlineInputBorder(
+                  enabledBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       borderSide: BorderSide(color: greyColor, width: 1)),
                   hintText: 'کدپستی محل تحویل گیرنده',
-                  hintStyle: TextStyle(color: Colors.grey),
+                  hintStyle: const TextStyle(color: Colors.grey),
                   labelText: 'postal code',
                   labelStyle: TextStyle(color: Colors.grey[700]),
-                  floatingLabelStyle: TextStyle(color: blackColor),
+                  floatingLabelStyle: const TextStyle(color: blackColor),
                 ),
                 onChanged: onDoneEditingReceiverPostalCode,
                 onSubmitted: onDoneEditingReceiverPostalCode,
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 8),
               child: TextField(
                 maxLines: 3,
                 cursorColor: blackColor,
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       borderSide: BorderSide(color: blackColor, width: 1)),
-                  enabledBorder: OutlineInputBorder(
+                  enabledBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       borderSide: BorderSide(color: greyColor, width: 1)),
                   hintText: 'اگر توضیحات یا درخواست ویژه‌ای دارید اینجا بنویسید',
-                  hintStyle: TextStyle(color: Colors.grey),
+                  hintStyle: const TextStyle(color: Colors.grey),
                   labelText: 'let us know',
                   labelStyle: TextStyle(color: Colors.grey[700]),
-                  floatingLabelStyle: TextStyle(color: blackColor),
+                  floatingLabelStyle: const TextStyle(color: blackColor),
                 ),
                 onChanged: onDoneEditingComment,
                 onSubmitted: onDoneEditingComment,
@@ -205,8 +203,8 @@ class Buyer extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Text(
                       'اطلاعات محصول',
                       textAlign: TextAlign.end,
@@ -216,14 +214,14 @@ class Buyer extends StatelessWidget {
                   Directionality(
                     textDirection: TextDirection.rtl,
                     child: ListTile(
-                      leading: Text('نام محصول :'),
+                      leading: const Text('نام محصول :'),
                       title: Text('${product!.productName}'),
                     ),
                   ),
                   Directionality(
                     textDirection: TextDirection.rtl,
                     child: ListTile(
-                      leading: Text('رنگ انتخابی :'),
+                      leading: const Text('رنگ انتخابی :'),
                       title: Row(
                         children: [
                           Text(getColorName()),
@@ -235,7 +233,7 @@ class Buyer extends StatelessWidget {
                                 height: 30,
                                 width: 30,
                                 child: Card(
-                                  shape: CircleBorder(),
+                                  shape: const CircleBorder(),
                                   color: getColor(),
                                 ),
                               ),
@@ -248,7 +246,7 @@ class Buyer extends StatelessWidget {
                   Directionality(
                     textDirection: TextDirection.rtl,
                     child: ListTile(
-                      leading: Text('سایز انتخابی :'),
+                      leading: const Text('سایز انتخابی :'),
                       title: Text('$size'),
                     ),
                   ),
@@ -257,7 +255,7 @@ class Buyer extends StatelessWidget {
                     child: Directionality(
                       textDirection: TextDirection.rtl,
                       child: ListTile(
-                        leading: Text('برند :'),
+                        leading: const Text('برند :'),
                         title: Text('${product!.brand}'),
                       ),
                     ),
@@ -265,21 +263,21 @@ class Buyer extends StatelessWidget {
                   Directionality(
                     textDirection: TextDirection.rtl,
                     child: ListTile(
-                      leading: Text('تایپ محصول :'),
+                      leading: const Text('تایپ محصول :'),
                       title: Text(getType()),
                     ),
                   ),
                   Directionality(
                     textDirection: TextDirection.rtl,
                     child: ListTile(
-                      leading: Text('کتگوری محصول :'),
+                      leading: const Text('کتگوری محصول :'),
                       title: Text('${product!.productSubtype}'),
                     ),
                   ),
                   Directionality(
                     textDirection: TextDirection.rtl,
                     child: ListTile(
-                      leading: Text('قیمت محصول :'),
+                      leading: const Text('قیمت محصول :'),
                       title: Text(getPrice()),
                     ),
                   ),
