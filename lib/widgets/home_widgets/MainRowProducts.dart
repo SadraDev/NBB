@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:nbb/const.dart';
+import 'package:nbb/models/productModel.dart';
 import 'package:nbb/utils/shared.dart';
 
 class MainRowProducts extends StatelessWidget {
@@ -25,11 +26,7 @@ class MainRowProductsContainer extends StatelessWidget {
     Key? key,
     required this.modalBuilder,
     this.onLiked,
-    this.image,
-    this.productName,
-    this.brand,
-    this.productSubtype,
-    this.price,
+    this.product,
     this.colors,
     this.liked,
     this.onDelete,
@@ -37,13 +34,9 @@ class MainRowProductsContainer extends StatelessWidget {
   final void Function()? onLiked;
   final Widget Function(BuildContext) modalBuilder;
   final void Function()? onDelete;
-  final String? image;
-  final String? productName;
-  final String? brand;
-  final String? productSubtype;
-  final String? price;
   final Map<String, dynamic>? colors;
   final bool? liked;
+  final Product? product;
 
   bool? adminChecker() {
     if (Shared.getUserPhone() == adminNumber) return true;
@@ -70,7 +63,7 @@ class MainRowProductsContainer extends StatelessWidget {
   }
 
   bool brandOrNo() {
-    if (brand == 'NOT_BRAND') return false;
+    if (product!.brand == 'NOT_BRAND') return false;
     return true;
   }
 
@@ -111,7 +104,7 @@ class MainRowProductsContainer extends StatelessWidget {
                 image: DecorationImage(
                   fit: BoxFit.fill,
                   image: NetworkImage(
-                    '$imageURL/$image',
+                    '$imageURL/${product!.image}',
                   ),
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -125,7 +118,7 @@ class MainRowProductsContainer extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.33,
                     child: Text(
-                      productName!,
+                      product!.productName!,
                       softWrap: true,
                       style: const TextStyle(
                         fontSize: 28,
@@ -138,7 +131,7 @@ class MainRowProductsContainer extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(right: 15.0),
                       child: Text(
-                        brand!,
+                        product!.brand!,
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -153,7 +146,7 @@ class MainRowProductsContainer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20, top: 5),
               child: Text(
-                productSubtype!,
+                product!.productSubtype!,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -169,7 +162,7 @@ class MainRowProductsContainer extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 15),
                     child: Text(
-                      "$price T",
+                      "${product!.price} T",
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,

@@ -1,19 +1,19 @@
 import 'dart:convert';
 
 class Product {
-  final int? id;
-  final String? productName;
-  final String? productType;
-  final String? productSubtype;
-  final int? minSize;
-  final int? maxSize;
-  final String? price;
-  final Map<String, dynamic>? colors;
-  final String? image;
-  final String? description;
-  final String? brand;
-  final int? homeProduct;
-  final bool? liked;
+  int? id;
+  String? productName;
+  String? productType;
+  String? productSubtype;
+  int? minSize;
+  int? maxSize;
+  String? price;
+  Map<String, dynamic>? colors;
+  String? image;
+  String? description;
+  String? brand;
+  int? homeProduct;
+  bool? liked;
 
   Product({
     this.id,

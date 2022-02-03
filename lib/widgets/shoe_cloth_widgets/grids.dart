@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:nbb/models/productModel.dart';
 import 'package:nbb/utils/shared.dart';
 import '../../const.dart';
 
@@ -24,20 +25,12 @@ class ShoeAndClothGridView extends StatelessWidget {
 class ShoeAndClothGrid extends StatelessWidget {
   const ShoeAndClothGrid({
     Key? key,
-    this.name,
-    this.brand,
-    this.price,
-    this.image,
+    this.product,
     this.onLiked,
     required this.modalBuilder,
-    this.liked,
     this.onDelete,
   }) : super(key: key);
-  final String? name;
-  final String? brand;
-  final String? price;
-  final String? image;
-  final bool? liked;
+  final Product? product;
   final void Function()? onLiked;
   final void Function()? onDelete;
   final Widget Function(BuildContext) modalBuilder;
@@ -49,7 +42,7 @@ class ShoeAndClothGrid extends StatelessWidget {
   }
 
   bool brandOrNo() {
-    if (brand == 'NOT_BRAND') return false;
+    if (product!.brand == 'NOT_BRAND') return false;
     return true;
   }
 
@@ -90,7 +83,7 @@ class ShoeAndClothGrid extends StatelessWidget {
               child: IconButton(
                 alignment: Alignment.topRight,
                 onPressed: onLiked,
-                icon: liked! ? const Icon(Icons.bookmark) : const Icon(Icons.bookmark_outline),
+                icon: product!.liked! ? const Icon(Icons.bookmark) : const Icon(Icons.bookmark_outline),
               ),
             ),
             Container(
@@ -100,7 +93,7 @@ class ShoeAndClothGrid extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.fill,
-                  image: NetworkImage('$imageURL/$image'),
+                  image: NetworkImage('$imageURL/${product!.image}'),
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
               ),
@@ -108,7 +101,7 @@ class ShoeAndClothGrid extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(20).copyWith(bottom: 0),
               child: Text(
-                name!,
+                product!.productName!,
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -120,7 +113,7 @@ class ShoeAndClothGrid extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: Text(
-                  brand!,
+                  product!.brand!,
                   style: const TextStyle(
                     fontSize: 16,
                     color: Colors.grey,
@@ -131,7 +124,7 @@ class ShoeAndClothGrid extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Text(
-                "$price T",
+                "${product!.price} T",
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

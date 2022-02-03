@@ -82,30 +82,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (onLikedProvider.likedProductsListId!.isNotEmpty) {
                   onLikedProvider.likedProductsListId!.forEach((element) {
                     if (products[index].id.toString() == element) {
-                      products[index] = Product(
-                        id: products[index].id,
-                        productName: products[index].productName,
-                        productType: products[index].productType,
-                        productSubtype: products[index].productSubtype,
-                        minSize: products[index].minSize,
-                        maxSize: products[index].maxSize,
-                        price: products[index].price,
-                        colors: products[index].colors,
-                        image: products[index].image,
-                        description: products[index].description,
-                        brand: products[index].brand,
-                        homeProduct: products[index].homeProduct,
-                        liked: true,
-                      );
+                      products[index].liked = true;
                     }
                   });
                 }
                 var newHolder = MainRowProductsContainer(
-                  productName: products[index].productName,
-                  productSubtype: products[index].productSubtype,
-                  brand: products[index].brand,
-                  price: products[index].price,
-                  image: products[index].image,
+                  product: products[index],
                   onLiked: () {
                     Product newProduct = onLikedProvider.onLiked(products[index]);
                     setState(() => products[index] = newProduct);
@@ -121,16 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   colors: products[index].colors,
                   modalBuilder: (context) {
                     return ModalBottomSheetForShoeAndCloth(
-                      name: products[index].productName,
-                      brand: products[index].brand,
-                      subtype: products[index].productSubtype,
-                      image: products[index].image,
-                      price: products[index].price,
-                      minSize: products[index].minSize,
-                      maxSize: products[index].maxSize,
-                      description: products[index].description,
-                      isShoe: products[index].productType == 'Shoe',
-                      colors: products[index].colors,
+                      product: products[index],
                       onLike: () {
                         if (products[index].liked == false) {
                           onLikedProvider.onLiked(products[index]);
@@ -205,19 +178,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                GestureDetector(
-                  child: Row(
-                    children: const <Widget>[
-                      Text(
-                        'show all',
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
+                Row(
+                  children: const <Widget>[
+                    Text(
+                      'see all',
+                      style: TextStyle(
+                        fontSize: 16,
                       ),
-                      Icon(EvaIcons.arrowIosForwardOutline),
-                    ],
-                  ),
-                  onTap: () {},
+                    ),
+                    Icon(EvaIcons.arrowIosForwardOutline),
+                  ],
                 ),
               ],
             ),
@@ -230,16 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   image: bottomProducts[index].image,
                   modalBuilder: (context) {
                     return ModalBottomSheetForShoeAndCloth(
-                      name: products[index].productName,
-                      brand: products[index].brand,
-                      subtype: products[index].productSubtype,
-                      image: products[index].image,
-                      price: products[index].price,
-                      minSize: products[index].minSize,
-                      maxSize: products[index].maxSize,
-                      description: products[index].description,
-                      isShoe: products[index].productType == 'Shoe',
-                      colors: products[index].colors,
+                      product: products[index],
                       onLike: () {
                         if (products[index].liked == false) {
                           onLikedProvider.onLiked(products[index]);

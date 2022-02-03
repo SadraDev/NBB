@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:nbb/models/productModel.dart';
 import 'package:nbb/utils/shared.dart';
 import '../../const.dart';
 
@@ -24,20 +25,12 @@ class BrandGridView extends StatelessWidget {
 class BrandGrid extends StatelessWidget {
   const BrandGrid({
     Key? key,
-    this.name,
-    this.price,
-    this.image,
+    this.product,
     this.onLiked,
-    this.liked,
     this.onDelete,
-    this.subType,
     required this.modalBuilder,
   }) : super(key: key);
-  final String? name;
-  final String? subType;
-  final String? price;
-  final String? image;
-  final bool? liked;
+  final Product? product;
   final void Function()? onLiked;
   final void Function()? onDelete;
   final Widget Function(BuildContext) modalBuilder;
@@ -85,7 +78,7 @@ class BrandGrid extends StatelessWidget {
               child: IconButton(
                 alignment: Alignment.topRight,
                 onPressed: onLiked,
-                icon: liked! ? const Icon(Icons.bookmark) : const Icon(Icons.bookmark_outline),
+                icon: product!.liked! ? const Icon(Icons.bookmark) : const Icon(Icons.bookmark_outline),
               ),
             ),
             Container(
@@ -95,7 +88,7 @@ class BrandGrid extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.fill,
-                  image: NetworkImage('$imageURL/$image'),
+                  image: NetworkImage('$imageURL/${product!.image}'),
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
               ),
@@ -103,7 +96,7 @@ class BrandGrid extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(20).copyWith(bottom: 0),
               child: Text(
-                name!,
+                product!.productName!,
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -113,7 +106,7 @@ class BrandGrid extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Text(
-                subType!,
+                product!.productSubtype!,
                 style: const TextStyle(
                   fontSize: 16,
                   color: Colors.grey,
@@ -123,7 +116,7 @@ class BrandGrid extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Text(
-                "$price T",
+                "${product!.price} T",
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

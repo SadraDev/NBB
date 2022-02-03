@@ -72,29 +72,13 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           if (onLikedProvider.likedProductsListId!.isNotEmpty) {
             onLikedProvider.likedProductsListId!.forEach((element) {
               if (favorite.id.toString() == element) {
-                favorite = Product(
-                  id: favorite.id,
-                  productName: favorite.productName,
-                  productType: favorite.productType,
-                  productSubtype: favorite.productSubtype,
-                  minSize: favorite.minSize,
-                  maxSize: favorite.maxSize,
-                  price: favorite.price,
-                  colors: favorite.colors,
-                  image: favorite.image,
-                  description: favorite.description,
-                  brand: favorite.brand,
-                  liked: true,
-                );
+                favorite.liked = true;
               }
             });
           }
           if (favorite.liked == true) {
             var newFavorite = FavoriteProductHolderBubble(
-              productName: favorite.productName,
-              productPrice: favorite.price,
-              image: favorite.image,
-              liked: favorite.liked,
+              product: favorite,
               onLiked: () {
                 showDialog(
                   context: context,
@@ -132,16 +116,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   context: context,
                   builder: (context) {
                     return ModalBottomSheetForShoeAndCloth(
-                      name: favorite.productName,
-                      brand: favorite.brand,
-                      subtype: favorite.productSubtype,
-                      image: favorite.image,
-                      price: favorite.price,
-                      minSize: favorite.minSize,
-                      maxSize: favorite.maxSize,
-                      description: favorite.description,
-                      isShoe: favorite.productType == 'Shoe',
-                      colors: favorite.colors,
+                      product: favorite,
                       onLike: () {
                         setState(() {
                           if (favorite.liked == false) {

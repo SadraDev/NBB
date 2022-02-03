@@ -1,5 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:nbb/models/productModel.dart';
 import '../../const.dart';
 
 bool black = false;
@@ -21,31 +22,13 @@ int selectedSize = -1;
 class ModalBottomSheetForShoeAndCloth extends StatefulWidget {
   const ModalBottomSheetForShoeAndCloth({
     Key? key,
-    this.name,
-    this.brand,
-    this.image,
-    this.price,
-    this.subtype,
-    this.description,
+    this.product,
     this.onBuy,
     this.onLike,
-    this.colors,
-    this.minSize,
-    this.maxSize,
-    this.isShoe,
   }) : super(key: key);
-  final String? name;
-  final String? brand;
-  final String? image;
-  final String? price;
-  final String? subtype;
-  final String? description;
+  final Product? product;
   final void Function()? onBuy;
   final void Function()? onLike;
-  final Map<String, dynamic>? colors;
-  final bool? isShoe;
-  final int? minSize;
-  final int? maxSize;
 
   @override
   State<ModalBottomSheetForShoeAndCloth> createState() => _ModalBottomSheetForShoeAndClothState();
@@ -54,24 +37,24 @@ class ModalBottomSheetForShoeAndCloth extends StatefulWidget {
 class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForShoeAndCloth> {
   getColorsLength() {
     int length = 0;
-    if (widget.colors!['black'] == true) length++;
-    if (widget.colors!['maroon'] == true) length++;
-    if (widget.colors!['candyApple'] == true) length++;
-    if (widget.colors!['orange'] == true) length++;
-    if (widget.colors!['pink'] == true) length++;
-    if (widget.colors!['green'] == true) length++;
-    if (widget.colors!['navy'] == true) length++;
-    if (widget.colors!['blue'] == true) length++;
-    if (widget.colors!['babyBlue'] == true) length++;
-    if (widget.colors!['white'] == true) length++;
-    if (widget.colors!['brown'] == true) length++;
-    if (widget.colors!['cream'] == true) length++;
-    if (widget.colors!['yellow'] == true) length++;
+    if (widget.product!.colors!['black'] == true) length++;
+    if (widget.product!.colors!['maroon'] == true) length++;
+    if (widget.product!.colors!['candyApple'] == true) length++;
+    if (widget.product!.colors!['orange'] == true) length++;
+    if (widget.product!.colors!['pink'] == true) length++;
+    if (widget.product!.colors!['green'] == true) length++;
+    if (widget.product!.colors!['navy'] == true) length++;
+    if (widget.product!.colors!['blue'] == true) length++;
+    if (widget.product!.colors!['babyBlue'] == true) length++;
+    if (widget.product!.colors!['white'] == true) length++;
+    if (widget.product!.colors!['brown'] == true) length++;
+    if (widget.product!.colors!['cream'] == true) length++;
+    if (widget.product!.colors!['yellow'] == true) length++;
     return length;
   }
 
   bool brand() {
-    if (widget.brand == 'NOT_BRAND') return false;
+    if (widget.product!.brand == 'NOT_BRAND') return false;
     return true;
   }
 
@@ -93,7 +76,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                     top: Radius.circular(25),
                   ),
                   image: DecorationImage(
-                    image: NetworkImage('$imageURL/${widget.image}'),
+                    image: NetworkImage('$imageURL/${widget.product!.image}'),
                   ),
                 ),
               ),
@@ -117,7 +100,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.53,
                   child: Text(
-                    widget.name!,
+                    widget.product!.productName!,
                     style: const TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
@@ -129,7 +112,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                   child: Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: Text(
-                      widget.brand!,
+                      widget.product!.brand!,
                       style: const TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
@@ -144,7 +127,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
           Padding(
             padding: const EdgeInsets.only(left: 30),
             child: Text(
-              widget.subtype!,
+              widget.product!.productSubtype!,
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -158,7 +141,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  "${widget.price!} T",
+                  "${widget.product!.price!} T",
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -179,7 +162,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                           Row(
                             children: [
                               Visibility(
-                                visible: widget.colors!['black'] ?? false,
+                                visible: widget.product!.colors!['black'] ?? false,
                                 child: SizedBox(
                                   height: 30,
                                   width: 30,
@@ -210,7 +193,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 ),
                               ),
                               Visibility(
-                                visible: widget.colors!['maroon'] ?? false,
+                                visible: widget.product!.colors!['maroon'] ?? false,
                                 child: SizedBox(
                                   height: 30,
                                   width: 30,
@@ -241,7 +224,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 ),
                               ),
                               Visibility(
-                                visible: widget.colors!['candyApple'] ?? false,
+                                visible: widget.product!.colors!['candyApple'] ?? false,
                                 child: SizedBox(
                                   height: 30,
                                   width: 30,
@@ -273,7 +256,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 ),
                               ),
                               Visibility(
-                                visible: widget.colors!['orange'] ?? false,
+                                visible: widget.product!.colors!['orange'] ?? false,
                                 child: SizedBox(
                                   height: 30,
                                   width: 30,
@@ -304,7 +287,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 ),
                               ),
                               Visibility(
-                                visible: widget.colors!['pink'] ?? false,
+                                visible: widget.product!.colors!['pink'] ?? false,
                                 child: SizedBox(
                                   height: 30,
                                   width: 30,
@@ -339,7 +322,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                           Row(
                             children: [
                               Visibility(
-                                visible: widget.colors!['green'] ?? false,
+                                visible: widget.product!.colors!['green'] ?? false,
                                 child: SizedBox(
                                   height: 30,
                                   width: 30,
@@ -370,7 +353,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 ),
                               ),
                               Visibility(
-                                visible: widget.colors!['navy'] ?? false,
+                                visible: widget.product!.colors!['navy'] ?? false,
                                 child: SizedBox(
                                   height: 30,
                                   width: 30,
@@ -401,7 +384,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 ),
                               ),
                               Visibility(
-                                visible: widget.colors!['blue'] ?? false,
+                                visible: widget.product!.colors!['blue'] ?? false,
                                 child: SizedBox(
                                   height: 30,
                                   width: 30,
@@ -432,7 +415,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 ),
                               ),
                               Visibility(
-                                visible: widget.colors!['babyBlue'] ?? false,
+                                visible: widget.product!.colors!['babyBlue'] ?? false,
                                 child: SizedBox(
                                   height: 30,
                                   width: 30,
@@ -464,7 +447,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 ),
                               ),
                               Visibility(
-                                visible: widget.colors!['white'] ?? false,
+                                visible: widget.product!.colors!['white'] ?? false,
                                 child: SizedBox(
                                   height: 30,
                                   width: 30,
@@ -499,7 +482,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                           Row(
                             children: [
                               Visibility(
-                                visible: widget.colors!['brown'] ?? false,
+                                visible: widget.product!.colors!['brown'] ?? false,
                                 child: SizedBox(
                                   height: 30,
                                   width: 30,
@@ -530,7 +513,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 ),
                               ),
                               Visibility(
-                                visible: widget.colors!['cream'] ?? false,
+                                visible: widget.product!.colors!['cream'] ?? false,
                                 child: SizedBox(
                                   height: 30,
                                   width: 30,
@@ -561,7 +544,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                                 ),
                               ),
                               Visibility(
-                                visible: widget.colors!['yellow'] ?? false,
+                                visible: widget.product!.colors!['yellow'] ?? false,
                                 child: SizedBox(
                                   height: 30,
                                   width: 30,
@@ -606,7 +589,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                             ),
                           ),
                           Visibility(
-                            visible: widget.colors!['black'] ?? false,
+                            visible: widget.product!.colors!['black'] ?? false,
                             child: SizedBox(
                               height: 30,
                               width: 30,
@@ -636,7 +619,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                             ),
                           ),
                           Visibility(
-                            visible: widget.colors!['maroon'] ?? false,
+                            visible: widget.product!.colors!['maroon'] ?? false,
                             child: SizedBox(
                               height: 30,
                               width: 30,
@@ -666,7 +649,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                             ),
                           ),
                           Visibility(
-                            visible: widget.colors!['candyApple'] ?? false,
+                            visible: widget.product!.colors!['candyApple'] ?? false,
                             child: SizedBox(
                               height: 30,
                               width: 30,
@@ -697,7 +680,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                             ),
                           ),
                           Visibility(
-                            visible: widget.colors!['orange'] ?? false,
+                            visible: widget.product!.colors!['orange'] ?? false,
                             child: SizedBox(
                               height: 30,
                               width: 30,
@@ -727,7 +710,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                             ),
                           ),
                           Visibility(
-                            visible: widget.colors!['pink'] ?? false,
+                            visible: widget.product!.colors!['pink'] ?? false,
                             child: SizedBox(
                               height: 30,
                               width: 30,
@@ -757,7 +740,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                             ),
                           ),
                           Visibility(
-                            visible: widget.colors!['green'] ?? false,
+                            visible: widget.product!.colors!['green'] ?? false,
                             child: SizedBox(
                               height: 30,
                               width: 30,
@@ -787,7 +770,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                             ),
                           ),
                           Visibility(
-                            visible: widget.colors!['navy'] ?? false,
+                            visible: widget.product!.colors!['navy'] ?? false,
                             child: SizedBox(
                               height: 30,
                               width: 30,
@@ -817,7 +800,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                             ),
                           ),
                           Visibility(
-                            visible: widget.colors!['blue'] ?? false,
+                            visible: widget.product!.colors!['blue'] ?? false,
                             child: SizedBox(
                               height: 30,
                               width: 30,
@@ -847,7 +830,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                             ),
                           ),
                           Visibility(
-                            visible: widget.colors!['babyBlue'] ?? false,
+                            visible: widget.product!.colors!['babyBlue'] ?? false,
                             child: SizedBox(
                               height: 30,
                               width: 30,
@@ -878,7 +861,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                             ),
                           ),
                           Visibility(
-                            visible: widget.colors!['white'] ?? false,
+                            visible: widget.product!.colors!['white'] ?? false,
                             child: SizedBox(
                               height: 30,
                               width: 30,
@@ -908,7 +891,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                             ),
                           ),
                           Visibility(
-                            visible: widget.colors!['brown'] ?? false,
+                            visible: widget.product!.colors!['brown'] ?? false,
                             child: SizedBox(
                               height: 30,
                               width: 30,
@@ -938,7 +921,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                             ),
                           ),
                           Visibility(
-                            visible: widget.colors!['cream'] ?? false,
+                            visible: widget.product!.colors!['cream'] ?? false,
                             child: SizedBox(
                               height: 30,
                               width: 30,
@@ -968,7 +951,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                             ),
                           ),
                           Visibility(
-                            visible: widget.colors!['yellow'] ?? false,
+                            visible: widget.product!.colors!['yellow'] ?? false,
                             child: SizedBox(
                               height: 30,
                               width: 30,
@@ -1013,8 +996,8 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
             padding: const EdgeInsets.symmetric(horizontal: 25).copyWith(bottom: 10),
             child: Builder(builder: (context) {
               List<SizedBox> sizes = [];
-              if (widget.isShoe!) {
-                var length = widget.maxSize! - widget.minSize! + 1;
+              if (widget.product!.productType == 'Shoe') {
+                var length = widget.product!.maxSize! - widget.product!.minSize! + 1;
                 for (int i = 0; i < length; i++) {
                   var newSize = SizedBox(
                     height: 55,
@@ -1024,7 +1007,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                       color: Colors.white,
                       shape: const CircleBorder(side: BorderSide(color: blackColor, width: 1)),
                       child: InkWell(
-                        child: Center(child: Text('${widget.minSize! + i}')),
+                        child: Center(child: Text('${widget.product!.minSize! + i}')),
                         onTap: () {
                           setState(() {
                             selectedSize = i;
@@ -1045,7 +1028,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                         child: InkWell(
                           child: Center(
                             child: Text(
-                              '${widget.minSize! + i}',
+                              '${widget.product!.minSize! + i}',
                               style: const TextStyle(color: Colors.white),
                             ),
                           ),
@@ -1056,7 +1039,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                   }
                 }
               } else {
-                var length = (widget.maxSize! - widget.minSize! + 1) / 2;
+                var length = (widget.product!.maxSize! - widget.product!.minSize! + 1) / 2;
                 for (int i = 0; i < length; i++) {
                   var newSize = SizedBox(
                     height: 55,
@@ -1066,7 +1049,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                       color: Colors.white,
                       shape: const CircleBorder(side: BorderSide(color: blackColor, width: 1)),
                       child: InkWell(
-                        child: Center(child: Text('${widget.minSize! + 2 * i}')),
+                        child: Center(child: Text('${widget.product!.minSize! + 2 * i}')),
                         onTap: () {
                           setState(() {
                             selectedSize = i;
@@ -1087,7 +1070,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
                         child: InkWell(
                           child: Center(
                             child: Text(
-                              '${widget.minSize! + 2 * i}',
+                              '${widget.product!.minSize! + 2 * i}',
                               style: const TextStyle(color: Colors.white),
                             ),
                           ),
@@ -1107,7 +1090,7 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              widget.description!,
+              widget.product!.description!,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,

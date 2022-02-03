@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:nbb/models/productModel.dart';
 import '../../const.dart';
 
 class FavoriteProductHolderBubble extends StatelessWidget {
   const FavoriteProductHolderBubble({
     Key? key,
-    this.productName,
-    this.productPrice,
-    this.image,
-    this.liked,
+    this.product,
     this.onLiked,
     this.onBuy,
   }) : super(key: key);
-  final String? productName;
-  final String? productPrice;
-  final String? image;
-  final bool? liked;
+  final Product? product;
   final void Function()? onLiked;
   final void Function()? onBuy;
 
@@ -45,7 +40,7 @@ class FavoriteProductHolderBubble extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(12)),
                 image: DecorationImage(
                   fit: BoxFit.fill,
-                  image: NetworkImage('$imageURL/$image'),
+                  image: NetworkImage('$imageURL/${product!.image}'),
                 ),
               ),
             ),
@@ -57,7 +52,7 @@ class FavoriteProductHolderBubble extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      productName!,
+                      product!.productName!,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -69,7 +64,7 @@ class FavoriteProductHolderBubble extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "$productPrice T",
+                          "${product!.price} T",
                           style: const TextStyle(
                             fontSize: 14,
                             color: greyColor,
@@ -77,15 +72,14 @@ class FavoriteProductHolderBubble extends StatelessWidget {
                         ),
                         IconButton(
                           onPressed: onLiked!,
-                          icon: liked!
+                          icon: product!.liked!
                               ? const Icon(Icons.delete, color: blackColor)
                               : const Icon(Icons.favorite_outline_rounded),
                         ),
                         Card(
                           margin: EdgeInsets.zero,
                           color: blackColor,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8))),
+                          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
                           child: InkWell(
                             child: const Padding(
                               padding: EdgeInsets.symmetric(vertical: 6, horizontal: 24),

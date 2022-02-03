@@ -216,29 +216,12 @@ class _ShoeScreenState extends State<ShoeScreen> {
                   if (onLikedProvider.likedProductsListId!.isNotEmpty) {
                     onLikedProvider.likedProductsListId!.forEach((element) {
                       if (products[index].id.toString() == element) {
-                        products[index] = Product(
-                          id: products[index].id,
-                          productName: products[index].productName,
-                          productType: products[index].productType,
-                          productSubtype: products[index].productSubtype,
-                          minSize: products[index].minSize,
-                          maxSize: products[index].maxSize,
-                          price: products[index].price,
-                          colors: products[index].colors,
-                          image: products[index].image,
-                          description: products[index].description,
-                          brand: products[index].brand,
-                          liked: true,
-                        );
+                        products[index].liked = true;
                       }
                     });
                   }
                   return ShoeAndClothGrid(
-                    name: products[index].productName,
-                    brand: products[index].brand,
-                    image: products[index].image,
-                    price: products[index].price,
-                    liked: products[index].liked,
+                    product: products[index],
                     onLiked: () {
                       Product newProduct = onLikedProvider.onLiked(products[index]);
                       setState(() => products[index] = newProduct);
@@ -251,16 +234,7 @@ class _ShoeScreenState extends State<ShoeScreen> {
                     },
                     modalBuilder: (context) {
                       return ModalBottomSheetForShoeAndCloth(
-                        name: products[index].productName,
-                        brand: products[index].brand,
-                        subtype: products[index].productSubtype,
-                        image: products[index].image,
-                        price: products[index].price,
-                        minSize: products[index].minSize,
-                        maxSize: products[index].maxSize,
-                        description: products[index].description,
-                        isShoe: products[index].productType == 'Shoe',
-                        colors: products[index].colors,
+                        product: products[index],
                         onLike: () {
                           setState(() {
                             if (products[index].liked == false) {
