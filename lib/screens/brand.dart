@@ -361,27 +361,9 @@ class _BrandScreenState extends State<BrandScreen> {
                               product: products[index],
                               color: color,
                               size: size,
-                              onBuy: () {
-                                int? size = GetSizeAndColor.getSize(
-                                    products[index].productType == 'Shoe', products[index].minSize!);
-                                String? color = GetSizeAndColor.getColor();
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => Buyer(
-                                    onDoneEditingReceiverName: (value) => receiverName = value,
-                                    onDoneEditingReceiverPhone: (value) => receiverPhone = value,
-                                    onDoneEditingReceiverAddress: (value) => receiverAddress = value,
-                                    onDoneEditingReceiverPostalCode: (value) => receiverPostalCode = value,
-                                    onDoneEditingComment: (value) => userDescription = value,
-                                    product: products[index],
-                                    color: color,
-                                    size: size,
-                                    onBuy: () async {
-                                      await Api.buy(receiverName, receiverPhone, receiverAddress, receiverPostalCode,
-                                          userDescription, products[index], '$size', color!);
-                                    },
-                                  ),
-                                );
+                              onBuy: () async {
+                                await Api.buy(receiverName, receiverPhone, receiverAddress, receiverPostalCode,
+                                    userDescription, products[index], '$size', color!);
                               },
                             ),
                           );
