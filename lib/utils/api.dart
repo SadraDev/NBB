@@ -132,6 +132,57 @@ class Api {
     }
   }
 
+  static Future<List<dynamic>> getSells() async {
+    Uri url = Uri.parse('https://phloxco.ir/test/view/product.php');
+    Response response = await post(
+      url,
+      body: {'apiType': 'get_all_bought', 'phone': Shared.getUserPhone()!, 'password': Shared.getUserPassword()!},
+    );
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return data;
+    } else {
+      return [];
+    }
+  }
+
+  static Future<List<dynamic>> getSellsCheckMarks() async {
+    Uri url = Uri.parse('https://phloxco.ir/test/view/product.php');
+    Response response = await post(
+      url,
+      body: {
+        'apiType': 'get_all_bought_check_marks',
+        'phone': Shared.getUserPhone()!,
+        'password': Shared.getUserPassword()!
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return data;
+    } else {
+      return [];
+    }
+  }
+
+  static Future<void> updateSellsCheckMarks(int? check1, int? check2, int? check3, int? sellId, int? archived) async {
+    Uri url = Uri.parse('https://phloxco.ir/test/view/product.php');
+    await post(
+      url,
+      body: {
+        'apiType': 'update_bought_check_marks',
+        'phone': Shared.getUserPhone(),
+        'password': Shared.getUserPassword(),
+        'check_1': '$check1',
+        'check_2': '$check2',
+        'check_3': '$check3',
+        'sell_id': '$sellId',
+        'archived': '$archived'
+      },
+    );
+  }
+
   static Future<bool> updateUserName() async {
     Uri url = Uri.parse('https://phloxco.ir/test/view/updateusername.php');
     Response response = await post(
