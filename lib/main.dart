@@ -1,9 +1,11 @@
+import 'package:nbb/screens/archives.dart';
 import 'package:nbb/screens/register.dart';
 import 'package:nbb/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nbb/screens/admin.dart';
 import 'package:nbb/screens/flow.dart';
+import 'package:nbb/screens/sells.dart';
 import 'package:nbb/screens/splash.dart';
 import 'package:nbb/utils/onLiked.dart';
 import 'package:nbb/utils/shared.dart';
@@ -32,6 +34,8 @@ class MyApp extends StatelessWidget {
           FlowScreen.id: (context) => const FlowScreen(),
           AdminScreen.id: (context) => const AdminScreen(),
           SplashScreen.id: (context) => const SplashScreen(),
+          SellsScreen.id: (context) => const SellsScreen(),
+          ArchivesScreen.id: (context) => const ArchivesScreen(),
         },
       ),
     );
