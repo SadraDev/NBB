@@ -92,8 +92,7 @@ class _ProductColorsSelectorState extends State<ProductColorsSelector> {
                       child: Card(
                         shape: const CircleBorder(),
                         color: const Color(0xffff0800),
-                        child:
-                            candyApple ? const Icon(Icons.check, color: Colors.white) : Container(),
+                        child: candyApple ? const Icon(Icons.check, color: Colors.white) : Container(),
                       ),
                       onTap: () => setState(() => candyApple = !candyApple),
                     ),
@@ -165,8 +164,7 @@ class _ProductColorsSelectorState extends State<ProductColorsSelector> {
                       child: Card(
                         shape: const CircleBorder(),
                         color: const Color(0xff89cfef),
-                        child:
-                            babyBlue ? const Icon(Icons.check, color: Colors.white) : Container(),
+                        child: babyBlue ? const Icon(Icons.check, color: Colors.white) : Container(),
                       ),
                       onTap: () => setState(() => babyBlue = !babyBlue),
                     ),
