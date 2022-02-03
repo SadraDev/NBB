@@ -48,21 +48,4 @@ class Product {
       liked: false,
     );
   }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'productName': productName,
-      'productType': productType,
-      'productSubtype': productSubtype,
-      'minSize': minSize,
-      'maxSize': maxSize,
-      'price': price,
-      'colors': colors,
-      'image': image,
-      'description': description,
-      'deleted': brand,
-      'liked': false,
-    };
-  }
 }
