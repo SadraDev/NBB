@@ -11,8 +11,6 @@ import 'package:nbb/widgets/home_widgets/bottomRowProducts.dart';
 import 'package:nbb/widgets/shoe_cloth_widgets/modalBottomSheet.dart';
 import 'package:provider/provider.dart';
 
-//todo add : buy => edit database to name address number code-posti tozihat(درخواست های اضافی)
-//todo save user info in shared
 //todo implement search
 
 class HomeScreen extends StatefulWidget {
@@ -29,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> getProducts() async {
     this.products = [];
+    bottomProducts = [];
     List<dynamic> products = await Api.selectAllProducts();
     setState(() {
       for (var product in products) {
@@ -168,27 +167,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             product: products[index],
                             color: color,
                             size: size,
-                            onBuy: () {
-                              int? size = GetSizeAndColor.getSize(
-                                  products[index].productType == 'Shoe', products[index].minSize!);
-                              String? color = GetSizeAndColor.getColor();
-                              showDialog(
-                                context: context,
-                                builder: (context) => Buyer(
-                                  onDoneEditingReceiverName: (value) => receiverName = value,
-                                  onDoneEditingReceiverPhone: (value) => receiverPhone = value,
-                                  onDoneEditingReceiverAddress: (value) => receiverAddress = value,
-                                  onDoneEditingReceiverPostalCode: (value) => receiverPostalCode = value,
-                                  onDoneEditingComment: (value) => userDescription = value,
-                                  product: products[index],
-                                  color: color,
-                                  size: size,
-                                  onBuy: () async {
-                                    await Api.buy(receiverName, receiverPhone, receiverAddress, receiverPostalCode,
-                                        userDescription, products[index], '$size', color!);
-                                  },
-                                ),
-                              );
+                            onBuy: () async {
+                              await Api.buy(receiverName, receiverPhone, receiverAddress, receiverPostalCode,
+                                  userDescription, products[index], '$size', color!);
                             },
                           ),
                         );
@@ -295,27 +276,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             product: products[index],
                             color: color,
                             size: size,
-                            onBuy: () {
-                              int? size = GetSizeAndColor.getSize(
-                                  products[index].productType == 'Shoe', products[index].minSize!);
-                              String? color = GetSizeAndColor.getColor();
-                              showDialog(
-                                context: context,
-                                builder: (context) => Buyer(
-                                  onDoneEditingReceiverName: (value) => receiverName = value,
-                                  onDoneEditingReceiverPhone: (value) => receiverPhone = value,
-                                  onDoneEditingReceiverAddress: (value) => receiverAddress = value,
-                                  onDoneEditingReceiverPostalCode: (value) => receiverPostalCode = value,
-                                  onDoneEditingComment: (value) => userDescription = value,
-                                  product: products[index],
-                                  color: color,
-                                  size: size,
-                                  onBuy: () async {
-                                    await Api.buy(receiverName, receiverPhone, receiverAddress, receiverPostalCode,
-                                        userDescription, products[index], '$size', color!);
-                                  },
-                                ),
-                              );
+                            onBuy: () async {
+                              await Api.buy(receiverName, receiverPhone, receiverAddress, receiverPostalCode,
+                                  userDescription, products[index], '$size', color!);
                             },
                           ),
                         );
