@@ -22,8 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     String? loggedIn = await Api.login(phone!, password!);
 
     if (loggedIn == 'true') {
-      Future.delayed(
-          const Duration(seconds: 1), () => Navigator.popAndPushNamed(context, FlowScreen.id));
+      Future.delayed(const Duration(milliseconds: 1), () => Navigator.popAndPushNamed(context, FlowScreen.id));
     }
     if (loggedIn == 'NETWORK_ERROR') {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -39,8 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
       );
     }
     if (loggedIn == 'phone required') {
-      Future.delayed(
-          const Duration(seconds: 1), () => Navigator.popAndPushNamed(context, LoginScreen.id));
+      Future.delayed(const Duration(seconds: 1), () => Navigator.popAndPushNamed(context, LoginScreen.id));
     }
   }
 
@@ -61,8 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Column(
               children: [
                 Card(
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25))),
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
                   child: Image.asset('assets/images/logo.jpeg', height: 120, width: 120),
                 ),
                 const Padding(
