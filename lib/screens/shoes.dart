@@ -245,8 +245,7 @@ class _ShoeScreenState extends State<ShoeScreen> {
                                   content: Text('added to cart.', textAlign: TextAlign.center),
                                 ),
                               );
-                            }
-                            if (products[index].liked == true) {
+                            } else if (products[index].liked == true) {
                               onLikedProvider.onLiked(products[index]);
                               showDialog(
                                 context: context,

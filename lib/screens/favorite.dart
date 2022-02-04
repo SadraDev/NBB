@@ -127,8 +127,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                 content: Text('added to cart.', textAlign: TextAlign.center),
                               ),
                             );
-                          }
-                          if (favorite.liked == true) {
+                          } else if (favorite.liked == true) {
                             onLikedProvider.onLiked(favorite);
                             showDialog(
                               context: context,
