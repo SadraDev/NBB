@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:nbb/const.dart';
@@ -38,29 +39,59 @@ class BottomRowProductsContainer extends StatelessWidget {
           context: context,
           builder: modalBuilder,
         );
-      },
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.215,
-        height: MediaQuery.of(context).size.width * 0.215,
-        margin: const EdgeInsets.fromLTRB(15, 20, 15, 30),
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          color: Colors.white,
-          boxShadow: const <BoxShadow>[
-            BoxShadow(
-              color: Colors.grey,
-              blurRadius: 20,
-              offset: Offset(0, 10),
+      }, //TODO
+      child: CachedNetworkImage(
+        imageUrl: '$imageURL/$image',
+        imageBuilder: (context, imageProvider) => Container(
+          margin: const EdgeInsets.fromLTRB(15, 20, 15, 30),
+          width: MediaQuery.of(context).size.width * 0.215,
+          height: MediaQuery.of(context).size.width * 0.215,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: imageProvider,
             ),
-          ],
-          image: DecorationImage(
-            fit: BoxFit.fill,
-            image: NetworkImage(
-              '$imageURL/$image',
-            ),
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            boxShadow: const <BoxShadow>[
+              BoxShadow(
+                color: Colors.grey,
+                blurRadius: 20,
+                offset: Offset(0, 10),
+              ),
+            ],
+          ),
+        ),
+        placeholder: (_, __) => const Center(
+          child: SizedBox(
+            width: 30,
+            height: 30,
+            child: CircularProgressIndicator(color: blackColor),
           ),
         ),
       ),
     );
   }
 }
+
+//Container(
+//         margin: const EdgeInsets.fromLTRB(15, 20, 15, 30),
+//         decoration: const BoxDecoration(
+//           borderRadius: BorderRadius.all(Radius.circular(8.0)),
+//           boxShadow: <BoxShadow>[
+//             BoxShadow(
+//               color: Colors.grey,
+//               blurRadius: 20,
+//               offset: Offset(0, 10),
+//             ),
+//           ],
+//         ),
+//         child: ClipRRect(
+//           borderRadius: BorderRadius.circular(8.0),
+//           child: Image.network(
+//             '$imageURL/$image',
+//             width: MediaQuery.of(context).size.width * 0.215,
+//             height: MediaQuery.of(context).size.width * 0.215,
+//             fit: BoxFit.fill,
+//           ),
+//         ),
+//       ),

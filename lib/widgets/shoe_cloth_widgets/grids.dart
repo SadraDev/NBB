@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:nbb/models/productModel.dart';
@@ -86,18 +87,40 @@ class ShoeAndClothGrid extends StatelessWidget {
                 icon: product!.liked! ? const Icon(Icons.bookmark) : const Icon(Icons.bookmark_outline),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              height: 120,
-              width: 120,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage('$imageURL/${product!.image}'),
+            CachedNetworkImage(
+              imageUrl: '$imageURL/${product!.image}',
+              imageBuilder: (context, imageProvider) => Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                height: 120,
+                width: 120,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: imageProvider,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
                 ),
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
+              ),
+              placeholder: (_, __) => const Center(
+                child: SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: CircularProgressIndicator(color: blackColor),
+                ),
               ),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 20),
+            //   child: ClipRRect(
+            //     borderRadius: BorderRadius.circular(8.0),
+            //     child: Image.network(
+            //       '$imageURL/${product!.image}',
+            //       width: 120,
+            //       height: 120,
+            //       fit: BoxFit.fill,
+            //     ),
+            //   ),
+            // ),
             Padding(
               padding: const EdgeInsets.all(20).copyWith(bottom: 0),
               child: Text(

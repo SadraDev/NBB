@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:nbb/models/productModel.dart';
@@ -68,18 +69,40 @@ class _ModalBottomSheetForShoeAndClothState extends State<ModalBottomSheetForSho
           Stack(
             alignment: Alignment.topLeft,
             children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(25),
+              CachedNetworkImage(
+                imageUrl: '$imageURL/${widget.product!.image}',
+                imageBuilder: (context, imageProvider) => Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: imageProvider,
+                    ),
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(25),
+                    ),
                   ),
-                  image: DecorationImage(
-                    image: NetworkImage('$imageURL/${widget.product!.image}'),
+                ),
+                placeholder: (_, __) => const Center(
+                  child: SizedBox(
+                    width: 30,
+                    height: 30,
+                    child: CircularProgressIndicator(color: blackColor),
                   ),
                 ),
               ),
+              // ClipRRect(
+              //   borderRadius: const BorderRadius.vertical(
+              //     top: Radius.circular(25),
+              //   ),
+              //   child: Image.network(
+              //     '$imageURL/${widget.product!.image}',
+              //     width: MediaQuery.of(context).size.width,
+              //     height: MediaQuery.of(context).size.width,
+              //     fit: BoxFit.fill,
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50).copyWith(bottom: 0),
                 child: IconButton(

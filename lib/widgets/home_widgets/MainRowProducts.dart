@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:nbb/const.dart';
@@ -95,19 +96,39 @@ class MainRowProductsContainer extends StatelessWidget {
                 icon: liked! ? const Icon(Icons.bookmark) : const Icon(Icons.bookmark_outline),
                 alignment: Alignment.topRight,
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              height: 200,
-              width: 200,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(
-                    '$imageURL/${product!.image}',
+            ), //TODO
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 20),
+            //   child: ClipRRect(
+            //     borderRadius: BorderRadius.circular(8.0),
+            //     child: Image.network(
+            //       '$imageURL/${product!.image}',
+            //       height: 200.0,
+            //       width: 200.0,
+            //       fit: BoxFit.fill,
+            //     ),
+            //   ),
+            // ),
+            CachedNetworkImage(
+              imageUrl: '$imageURL/${product!.image}',
+              imageBuilder: (context, imageProvider) => Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                height: 200,
+                width: 200,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: imageProvider,
                   ),
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
                 ),
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
+              ),
+              placeholder: (_, __) => const Center(
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: CircularProgressIndicator(color: blackColor),
+                ),
               ),
             ),
             Padding(

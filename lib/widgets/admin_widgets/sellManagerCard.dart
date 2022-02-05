@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nbb/models/sellsModel.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -110,17 +111,36 @@ class SellsManagerCard extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: NetworkImage('$imageURL/${sell.productImage}'),
+                        CachedNetworkImage(
+                          imageUrl: '$imageURL/${sell.productImage}',
+                          imageBuilder: (context, imageProvider) => Container(
+                            height: 100,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: imageProvider,
+                              ),
+                              borderRadius: const BorderRadius.all(Radius.circular(8)),
                             ),
-                            borderRadius: const BorderRadius.all(Radius.circular(8)),
+                          ),
+                          placeholder: (_, __) => const Center(
+                            child: SizedBox(
+                              width: 30,
+                              height: 30,
+                              child: CircularProgressIndicator(color: blackColor),
+                            ),
                           ),
                         ),
+                        // ClipRRect(
+                        //   borderRadius: BorderRadius.circular(8.0),
+                        //   child: Image.network(
+                        //     '$imageURL/${sell.productImage}',
+                        //     width: 100,
+                        //     height: 100,
+                        //     fit: BoxFit.fill,
+                        //   ),
+                        // ),
                       ],
                     ),
                     Padding(
@@ -322,19 +342,36 @@ class SellsManagerCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Container(
-                  height: 100,
-                  width: 100,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(
-                        '$imageURL/${sell.productImage}',
+                CachedNetworkImage(
+                  imageUrl: '$imageURL/${sell.productImage}',
+                  imageBuilder: (context, imageProvider) => Container(
+                    height: 100,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: imageProvider,
                       ),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
                     ),
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  ),
+                  placeholder: (_, __) => const Center(
+                    child: SizedBox(
+                      width: 30,
+                      height: 30,
+                      child: CircularProgressIndicator(color: blackColor),
+                    ),
                   ),
                 ),
+                // ClipRRect(
+                //   borderRadius: BorderRadius.circular(8.0),
+                //   child: Image.network(
+                //     '$imageURL/${sell.productImage}',
+                //     width: 100,
+                //     height: 100,
+                //     fit: BoxFit.fill,
+                //   ),
+                // ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[

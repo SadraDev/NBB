@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nbb/models/productModel.dart';
 import '../../const.dart';
@@ -33,17 +34,47 @@ class FavoriteProductHolderBubble extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Row(
           children: <Widget>[
-            Container(
-              height: 70,
-              width: 70,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(12)),
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage('$imageURL/${product!.image}'),
+            // Container(
+            //   height: 70,
+            //   width: 70,
+            //   decoration: BoxDecoration(
+            //     borderRadius: const BorderRadius.all(Radius.circular(12)),
+            //     image: DecorationImage(
+            //       fit: BoxFit.fill,
+            //       image: NetworkImage('$imageURL/${product!.image}'),
+            //     ),
+            //   ),
+            // ),
+            CachedNetworkImage(
+              imageUrl: '$imageURL/${product!.image}',
+              imageBuilder: (context, imageProvider) => Container(
+                height: 70,
+                width: 70,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: imageProvider,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                ),
+              ),
+              placeholder: (_, __) => const Center(
+                child: SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: CircularProgressIndicator(color: blackColor),
                 ),
               ),
             ),
+            // ClipRRect(
+            //   borderRadius: BorderRadius.circular(12.0),
+            //   child: Image.network(
+            //     '$imageURL/${product!.image}',
+            //     width: 70,
+            //     height: 70,
+            //     fit: BoxFit.fill,
+            //   ),
+            // ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
