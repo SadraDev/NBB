@@ -22,19 +22,14 @@ class _LoginScreenState extends State<LoginScreen> {
   bool obscure = true;
   String? _phone = '';
   String? _password = '';
+  bool loading = false;
 
   String? validator(String? value) {
-    if (value!.length == 11 &&
-        RegExp(r'^[0-9]+$').hasMatch(value) &&
-        value.substring(0, 2) == '09') {
+    if (value!.length == 11 && RegExp(r'^[0-9]+$').hasMatch(value) && value.substring(0, 2) == '09') {
       _phone = '+98' + value.substring(1);
-    } else if (value.length == 13 &&
-        RegExp(r'^[+]{1}[0-9]{12}$').hasMatch(value) &&
-        value.substring(0, 4) == '+989') {
+    } else if (value.length == 13 && RegExp(r'^[+]{1}[0-9]{12}$').hasMatch(value) && value.substring(0, 4) == '+989') {
       _phone = value;
-    } else if (value.length == 10 &&
-        RegExp(r'^[0-9]+$').hasMatch(value) &&
-        value.substring(0, 1) == '9') {
+    } else if (value.length == 10 && RegExp(r'^[0-9]+$').hasMatch(value) && value.substring(0, 1) == '9') {
       _phone = '+98' + value;
     } else {
       return 'please enter a valid phone number';
@@ -95,7 +90,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         onDoneEditing: (value) => _password = value,
                         onSubmitted: (value) async {
                           if (formKey.currentState!.validate()) {
+                            setState(() => loading = true);
                             String loggedIN = await Api.login(_phone!, _password!);
+                            setState(() => loading = false);
                             if (loggedIN == 'true') {
                               Shared.setUserPhone(_phone!);
                               Shared.setUserPassword(_password!);
@@ -113,9 +110,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         onTapForgotPassword: () {}, //todo implement forgot password
                       ),
                       LoginButton(
+                        loading: loading,
                         onTap: () async {
                           if (formKey.currentState!.validate()) {
+                            setState(() => loading = true);
                             String loggedIN = await Api.login(_phone!, _password!);
+                            setState(() => loading = false);
                             if (loggedIN == 'true') {
                               Shared.setUserPhone(_phone!);
                               Shared.setUserPassword(_password!);

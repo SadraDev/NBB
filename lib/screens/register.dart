@@ -10,6 +10,8 @@ import 'package:nbb/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:nbb/utils/api.dart';
 
+//todo check auth via number
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
   static const String id = 'register_screen';
@@ -25,19 +27,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String? _email = 'EMAIL_NOT_GIVEN';
   String? _phone = '';
   String? _password = '';
+  bool loading = false;
 
   String? phoneValidator(String? value) {
-    if (value!.length == 11 &&
-        RegExp(r'^[0-9]+$').hasMatch(value) &&
-        value.substring(0, 2) == '09') {
+    if (value!.length == 11 && RegExp(r'^[0-9]+$').hasMatch(value) && value.substring(0, 2) == '09') {
       _phone = '+98' + value.substring(1);
-    } else if (value.length == 13 &&
-        RegExp(r'^[+]{1}[0-9]{12}$').hasMatch(value) &&
-        value.substring(0, 4) == '+989') {
+    } else if (value.length == 13 && RegExp(r'^[+]{1}[0-9]{12}$').hasMatch(value) && value.substring(0, 4) == '+989') {
       _phone = value;
-    } else if (value.length == 10 &&
-        RegExp(r'^[0-9]+$').hasMatch(value) &&
-        value.substring(0, 1) == '9') {
+    } else if (value.length == 10 && RegExp(r'^[0-9]+$').hasMatch(value) && value.substring(0, 1) == '9') {
       _phone = '+98' + value;
     } else {
       return 'please enter a valid phone number';
@@ -105,8 +102,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           if (formKey.currentState!.validate()) {
                             if (_username == '') _username = 'USERNAME_NOT_GIVEN';
                             if (_email == '') _email = 'EMAIL_NOT_GIVEN';
-                            String isRegistered =
-                                await Api.register(_username!, _password!, _email!, _phone!);
+                            setState(() => loading = true);
+                            String isRegistered = await Api.register(_username!, _password!, _email!, _phone!);
+                            setState(() => loading = false);
                             if (isRegistered == 'true') {
                               Shared.setUserName(_username!);
                               Shared.setUserPassword(_password!);
@@ -126,12 +124,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         },
                       ),
                       RegisterButton(
+                        loading: loading,
                         onTap: () async {
                           if (formKey.currentState!.validate()) {
                             if (_username == '') _username = 'USERNAME_NOT_GIVEN';
                             if (_email == '') _email = 'EMAIL_NOT_GIVEN';
-                            String isRegistered =
-                                await Api.register(_username!, _password!, _email!, _phone!);
+                            setState(() => loading = true);
+                            String isRegistered = await Api.register(_username!, _password!, _email!, _phone!);
+                            setState(() => loading = false);
                             if (isRegistered == 'true') {
                               Shared.setUserName(_username!);
                               Shared.setUserPassword(_password!);

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({Key? key, this.onTap}) : super(key: key);
+  const LoginButton({Key? key, this.onTap, this.loading}) : super(key: key);
   final void Function()? onTap;
+  final bool? loading;
 
   @override
   Widget build(BuildContext context) {
@@ -11,14 +12,16 @@ class LoginButton extends StatelessWidget {
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30))),
       child: InkWell(
         child: Ink(
-          child: const Text(
-            'LOGIN',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
-          ),
+          child: !loading!
+              ? const Text(
+                  'LOGIN',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                )
+              : const CircularProgressIndicator(color: Colors.white),
           padding: const EdgeInsets.symmetric(horizontal: 55, vertical: 20),
           decoration: const BoxDecoration(
             gradient: LinearGradient(
