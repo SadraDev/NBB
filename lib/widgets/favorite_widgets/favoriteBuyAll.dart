@@ -8,7 +8,7 @@ class FavoriteHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 70, horizontal: 35).copyWith(bottom: 20),
+      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 35).copyWith(bottom: 20),
       child: GestureDetector(
         child: Text(
           text,

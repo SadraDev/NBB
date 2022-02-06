@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
         physics: const BouncingScrollPhysics(),
         children: <Widget>[
           const Padding(
-            padding: EdgeInsets.fromLTRB(35, 70, 35, 0),
+            padding: EdgeInsets.fromLTRB(35, 30, 35, 0),
             child: Text(
               'NBB',
               style: TextStyle(
@@ -167,8 +167,8 @@ class _HomeScreenState extends State<HomeScreen> {
               if (products.isEmpty) {
                 productHolders = [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    height: MediaQuery.of(context).size.width * 0.85,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.width,
                     child: const Center(child: CircularProgressIndicator(color: blackColor)),
                   )
                 ];

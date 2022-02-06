@@ -58,12 +58,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return Builder(
       builder: (context) {
         List<Widget> favorites = [
-          Row(
-            children: [
-              FavoriteHeader('Shopping Cart', buyAll: () {}),
-              FavoriteHeader('buy all', buyAll: () {}),
-            ],
-          ),
+          FavoriteHeader('Shopping Cart', buyAll: () {}),
           SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.width,

@@ -83,7 +83,7 @@ class BrandSelector extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       physics: const BouncingScrollPhysics(),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 50).copyWith(bottom: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20).copyWith(bottom: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

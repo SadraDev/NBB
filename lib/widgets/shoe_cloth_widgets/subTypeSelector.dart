@@ -65,7 +65,7 @@ class SubTypeSelector extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       physics: const BouncingScrollPhysics(),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 50).copyWith(bottom: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20).copyWith(bottom: 20),
         child: Row(
           children: <Widget>[
             Padding(
