@@ -44,6 +44,8 @@ class _ShoeScreenState extends State<ShoeScreen> {
   String receiverPostalCode = '';
   String userDescription = '';
 
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     OnLiked onLikedProvider = Provider.of<OnLiked>(context, listen: false);
@@ -272,17 +274,20 @@ class _ShoeScreenState extends State<ShoeScreen> {
                               product: products[index],
                               color: color,
                               size: size,
+                              formKey: formKey,
                               onBuy: () async {
-                                int sellId = await Api.buy(receiverName, receiverPhone, receiverAddress,
-                                    receiverPostalCode, userDescription, products[index], '$size', color!);
+                                if (formKey.currentState!.validate()) {
+                                  int sellId = await Api.buy(receiverName, receiverPhone, receiverAddress,
+                                      receiverPostalCode, userDescription, products[index], '$size', color!);
 
-                                String? price = '${products[index].price}0000';
-                                String? url = 'https://phloxco.ir/test/view/buy.php?price=$price&sellId=$sellId';
+                                  String? price = '${products[index].price}0000';
+                                  String? url = 'https://phloxco.ir/test/view/buy.php?price=$price&sellId=$sellId';
 
-                                if (await canLaunch(url)) {
-                                  await launch(url);
-                                } else {
-                                  throw 'Could not launch $url';
+                                  if (await canLaunch(url) && sellId != -1) {
+                                    await launch(url);
+                                  } else {
+                                    throw 'Could not launch $url';
+                                  }
                                 }
                               },
                             ),

@@ -49,6 +49,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   String receiverPostalCode = '';
   String userDescription = '';
 
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     OnLiked onLikedProvider = Provider.of<OnLiked>(context, listen: false);
@@ -153,17 +155,20 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             product: favorite,
                             color: color,
                             size: size,
+                            formKey: formKey,
                             onBuy: () async {
-                              int sellId = await Api.buy(receiverName, receiverPhone, receiverAddress,
-                                  receiverPostalCode, userDescription, favorite, '$size', color!);
+                              if (formKey.currentState!.validate()) {
+                                int sellId = await Api.buy(receiverName, receiverPhone, receiverAddress,
+                                    receiverPostalCode, userDescription, favorite, '$size', color!);
 
-                              String? price = '${favorite.price}0000';
-                              String? url = 'https://phloxco.ir/test/view/buy.php?price=$price&sellId=$sellId';
+                                String? price = '${favorite.price}0000';
+                                String? url = 'https://phloxco.ir/test/view/buy.php?price=$price&sellId=$sellId';
 
-                              if (await canLaunch(url)) {
-                                await launch(url);
-                              } else {
-                                throw 'Could not launch $url';
+                                if (await canLaunch(url) && sellId != -1) {
+                                  await launch(url);
+                                } else {
+                                  throw 'Could not launch $url';
+                                }
                               }
                             },
                           ),
