@@ -9,6 +9,7 @@ import 'package:nbb/widgets/favorite_widgets/favoriteBuyAll.dart';
 import 'package:nbb/widgets/favorite_widgets/favoriteProductHolderBubble.dart';
 import 'package:nbb/widgets/shoe_cloth_widgets/modalBottomSheet.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../const.dart';
 
 class FavoriteScreen extends StatefulWidget {
@@ -153,8 +154,17 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             color: color,
                             size: size,
                             onBuy: () async {
-                              await Api.buy(receiverName, receiverPhone, receiverAddress, receiverPostalCode,
-                                  userDescription, favorite, '$size', color!);
+                              int sellId = await Api.buy(receiverName, receiverPhone, receiverAddress,
+                                  receiverPostalCode, userDescription, favorite, '$size', color!);
+
+                              String? price = '${favorite.price}0000';
+                              String? url = 'https://phloxco.ir/test/view/buy.php?price=$price&sellId=$sellId';
+
+                              if (await canLaunch(url)) {
+                                await launch(url);
+                              } else {
+                                throw 'Could not launch $url';
+                              }
                             },
                           ),
                         );

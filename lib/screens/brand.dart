@@ -10,6 +10,7 @@ import 'package:nbb/widgets/brand_widgets/grids.dart';
 import 'package:nbb/widgets/buyer.dart';
 import 'package:nbb/widgets/shoe_cloth_widgets/modalBottomSheet.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BrandScreen extends StatefulWidget {
   const BrandScreen({Key? key}) : super(key: key);
@@ -335,8 +336,17 @@ class _BrandScreenState extends State<BrandScreen> {
                               color: color,
                               size: size,
                               onBuy: () async {
-                                await Api.buy(receiverName, receiverPhone, receiverAddress, receiverPostalCode,
-                                    userDescription, products[index], '$size', color!);
+                                int sellId = await Api.buy(receiverName, receiverPhone, receiverAddress,
+                                    receiverPostalCode, userDescription, products[index], '$size', color!);
+
+                                String? price = '${products[index].price}0000';
+                                String? url = 'https://phloxco.ir/test/view/buy.php?price=$price&sellId=$sellId';
+
+                                if (await canLaunch(url)) {
+                                  await launch(url);
+                                } else {
+                                  throw 'Could not launch $url';
+                                }
                               },
                             ),
                           );
