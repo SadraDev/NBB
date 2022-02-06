@@ -220,14 +220,14 @@ class Api {
     }
   }
 
-  static Future<bool> buy(String receiverName, String receiverPhone, String receiverAddress, String receiverPostalCode,
+  static Future<int> buy(String receiverName, String receiverPhone, String receiverAddress, String receiverPostalCode,
       String userDescription, Product product, String productSize, String productColor) async {
     Uri url = Uri.parse('https://phloxco.ir/test/view/product.php');
     Response response = await post(
       url,
       body: {
         'apiType': 'buy',
-        'user_name': Shared.getUserName(),
+        'user_name': Shared.getUserName() ?? 'NAME_NOT_GIVEN',
         'user_phone': Shared.getUserPhone(),
         'receiver_name': receiverName,
         'receiver_phone': receiverPhone,
@@ -250,10 +250,10 @@ class Api {
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      if (data['result'] == true) return true;
-      return false;
+      if (data['result'] == true) return data['sellId'];
+      return -1;
     } else {
-      return false;
+      return -1;
     }
   }
 }
