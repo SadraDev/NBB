@@ -96,7 +96,7 @@ class MainRowProductsContainer extends StatelessWidget {
                 icon: liked! ? const Icon(Icons.bookmark) : const Icon(Icons.bookmark_outline),
                 alignment: Alignment.topRight,
               ),
-            ), //TODO
+            ),
             // Padding(
             //   padding: const EdgeInsets.symmetric(horizontal: 20),
             //   child: ClipRRect(

@@ -12,8 +12,6 @@ import 'package:nbb/widgets/shoe_cloth_widgets/modalBottomSheet.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-//todo implement search
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 

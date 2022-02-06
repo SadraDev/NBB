@@ -39,7 +39,7 @@ class BottomRowProductsContainer extends StatelessWidget {
           context: context,
           builder: modalBuilder,
         );
-      }, //TODO
+      },
       child: CachedNetworkImage(
         imageUrl: '$imageURL/$image',
         imageBuilder: (context, imageProvider) => Container(
