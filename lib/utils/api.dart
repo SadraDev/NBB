@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart';
+import 'package:nbb/const.dart';
 import 'package:nbb/models/productModel.dart';
 import 'package:nbb/utils/shared.dart';
 
 class Api {
   static Future<String> login(String emailOrPhone, String password) async {
-    Uri url = Uri.parse('https://phloxco.ir/test/view/login.php');
+    Uri url = Uri.parse(loginURL);
     try {
       Response response = await post(url, body: {'phone': emailOrPhone, 'password': password});
       if (response.statusCode == 200) {
@@ -25,7 +26,7 @@ class Api {
   }
 
   static Future<String> register(String username, String password, String email, String phone) async {
-    Uri url = Uri.parse('https://phloxco.ir/test/view/register.php');
+    Uri url = Uri.parse(registerURL);
     Response response = await post(
       url,
       body: {'username': username, 'password': password, 'email': email, 'phone': phone},
@@ -55,7 +56,7 @@ class Api {
       String description,
       String brand,
       String isHomeProduct) async {
-    Uri url = Uri.parse('https://phloxco.ir/test/view/product.php');
+    Uri url = Uri.parse(productURL);
     var request = MultipartRequest('POST', url)
       ..fields['apiType'] = 'insert'
       ..fields['product_name'] = productName
@@ -83,7 +84,7 @@ class Api {
   }
 
   static Future<List<dynamic>> selectAllProducts() async {
-    Uri url = Uri.parse('https://phloxco.ir/test/view/product.php');
+    Uri url = Uri.parse(productURL);
     Response response = await post(
       url,
       body: {'apiType': 'select_all', 'phone': Shared.getUserPhone()!, 'password': Shared.getUserPassword()!},
@@ -98,7 +99,7 @@ class Api {
   }
 
   static Future<List<dynamic>> selectAllProductsByType(String type) async {
-    Uri url = Uri.parse('https://phloxco.ir/test/view/product.php');
+    Uri url = Uri.parse(productURL);
     Response response = await post(
       url,
       body: {
@@ -118,7 +119,7 @@ class Api {
   }
 
   static Future<List<dynamic>> getBoughtProducts() async {
-    Uri url = Uri.parse('https://phloxco.ir/test/view/product.php');
+    Uri url = Uri.parse(productURL);
     Response response = await post(
       url,
       body: {'apiType': 'get_bought', 'phone': Shared.getUserPhone()!, 'password': Shared.getUserPassword()!},
@@ -133,7 +134,7 @@ class Api {
   }
 
   static Future<List<dynamic>> getSells() async {
-    Uri url = Uri.parse('https://phloxco.ir/test/view/product.php');
+    Uri url = Uri.parse(productURL);
     Response response = await post(
       url,
       body: {'apiType': 'get_all_bought', 'phone': Shared.getUserPhone()!, 'password': Shared.getUserPassword()!},
@@ -148,7 +149,7 @@ class Api {
   }
 
   static Future<List<dynamic>> getSellsCheckMarks() async {
-    Uri url = Uri.parse('https://phloxco.ir/test/view/product.php');
+    Uri url = Uri.parse(productURL);
     Response response = await post(
       url,
       body: {
@@ -167,7 +168,7 @@ class Api {
   }
 
   static Future<void> updateSellsCheckMarks(int? check1, int? check2, int? check3, int? sellId, int? archived) async {
-    Uri url = Uri.parse('https://phloxco.ir/test/view/product.php');
+    Uri url = Uri.parse(productURL);
     await post(
       url,
       body: {
@@ -184,7 +185,7 @@ class Api {
   }
 
   static Future<bool> updateUserName() async {
-    Uri url = Uri.parse('https://phloxco.ir/test/view/updateusername.php');
+    Uri url = Uri.parse(updateUsernameURL);
     Response response = await post(
       url,
       body: {'phone': Shared.getUserPhone()!, 'username': Shared.getUserName()!},
@@ -198,7 +199,7 @@ class Api {
   }
 
   static Future<bool> delete(Product product) async {
-    Uri url = Uri.parse('https://phloxco.ir/test/view/product.php');
+    Uri url = Uri.parse(productURL);
     Response response = await post(
       url,
       body: {
@@ -222,7 +223,7 @@ class Api {
 
   static Future<int> buy(String receiverName, String receiverPhone, String receiverAddress, String receiverPostalCode,
       String userDescription, Product product, String productSize, String productColor) async {
-    Uri url = Uri.parse('https://phloxco.ir/test/view/product.php');
+    Uri url = Uri.parse(productURL);
     Response response = await post(
       url,
       body: {
