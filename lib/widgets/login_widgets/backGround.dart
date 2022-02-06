@@ -14,7 +14,7 @@ class BackGround extends StatelessWidget {
                 bottomLeft: Radius.circular(40),
                 bottomRight: Radius.circular(40),
               ),
-              color: Color(0xff111015),
+              color: Colors.black,
             ),
           ),
           flex: 1,

@@ -56,7 +56,7 @@ class _FlowScreenState extends State<FlowScreen> {
                       bottomLeft: Radius.circular(40),
                       bottomRight: Radius.circular(40),
                     ),
-                    color: Color(0xff111015),
+                    color: Colors.black,
                   ),
                 ),
                 flex: 2,
@@ -79,7 +79,7 @@ class _FlowScreenState extends State<FlowScreen> {
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 child: BottomNavigationBar(
                   type: BottomNavigationBarType.fixed,
-                  backgroundColor: blackColor,
+                  backgroundColor: Colors.black,
                   selectedIconTheme: const IconThemeData(color: whiteColor),
                   unselectedIconTheme: const IconThemeData(color: greyColor),
                   showSelectedLabels: false,
