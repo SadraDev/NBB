@@ -1,5 +1,8 @@
 <?php
 
+header('access-control-allow-origin: *');
+header('Access-Control-Allow-Headers: *');
+
 require_once '../controller/DBConnection.php';
 require_once '../controller/UserConnection.php';
 
@@ -21,6 +24,9 @@ if ($uc->checkAuth()) {
         if ($uc->checkAdminAuth()) {
             if (@$_POST['apiType'] == 'insert') $pc->insertProduct();
             if (@$_POST['apiType'] == 'delete') $pc->deleteProduct();
+            if (@$_POST['apiType'] == 'get_all_bought') $pc->getAllBoughtProducts();
+            if (@$_POST['apiType'] == 'get_all_bought_check_marks') $pc->getAllBoughtProductsCheckMarks();
+            if (@$_POST['apiType'] == 'update_bought_check_marks') $pc->updateBoughtProductsCheckMarks();
         }
     }
 }
